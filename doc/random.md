@@ -43,7 +43,7 @@ Default initialized *Random* is seeded with some hardware-generated random value
 * Name origin: *typed* next.
 #### std::pair&lt;int, int> nextp(int n, [RandomPairTraits])
 #### std::pair&lt;int, int> nextp(int l, int r, [RandomPairTraits])
-* Returns: random pair of integers, where both of them are in range [0, *n*) or [*l*, *r*] respectively. 
+* Returns: random pair of integers, where both of them are in range [0, *n*) or [*l*, *r*] respectively.
 * RandomPairTraits denotes if the pair should be ordered (first element is less than or equal to second one) and if its two elements should be distinct. Several global constants are defined:
     * *opair*: ordered pair (first &lt;= second)
     * *dpair*: distinct pair (first != second)

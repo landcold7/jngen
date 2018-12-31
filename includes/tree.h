@@ -75,6 +75,6 @@ using jngen::Tree;
 
 #ifndef JNGEN_DECLARE_ONLY
 #define JNGEN_INCLUDE_TREE_INL_H
-#include "impl/tree_inl.h"
+#include "../impl/tree_inl.h"
 #undef JNGEN_INCLUDE_TREE_INL_H
 #endif // JNGEN_DECLARE_ONLY

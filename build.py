@@ -8,24 +8,24 @@ HEADER_REGEX = re.compile('#include "(.*)"')
 # This list may contain not all headers directly, but each jngen header
 # must be among the dependencies of some file from here.
 LIBRARY_HEADERS = [
-    "array.h",
-    "random.h",
-    "common.h",
-    "tree.h",
-    "graph.h",
-    "geometry.h",
-    "math_jngen.h",
-    "rnda.h",
-    "rnds.h",
-    "testcases.h",
-    "options.h",
-    "printers.h",
-    "repr.h",
-    "query_builder.h",
+    "includes/array.h",
+    "includes/random.h",
+    "includes/common.h",
+    "includes/tree.h",
+    "includes/graph.h",
+    "includes/geometry.h",
+    "includes/math_jngen.h",
+    "includes/rnda.h",
+    "includes/rnds.h",
+    "includes/testcases.h",
+    "includes/options.h",
+    "includes/printers.h",
+    "includes/repr.h",
+    "includes/query_builder.h",
     "drawer/drawer.h",
     "suites/suites.h",
+    "drawer/graphviz.h",
 ]
-
 
 def posix_path_to_native(posix_path):
     return os.path.join(*posix_path.split('/'))
@@ -39,7 +39,6 @@ def extract_header(line):
 
 def extract_direct_deps(posix_filename):
     dir = os.path.dirname(posix_filename) # check explicitly on win
-
     res = set()
     with open(posix_path_to_native(posix_filename)) as fin:
         for line in fin.readlines():
@@ -58,7 +57,6 @@ def extract_deps(posix_filename):
     if posix_filename in deps:
         return deps[posix_filename]
     deps[posix_filename] = set((posix_filename,))
-
     for dep in extract_direct_deps(posix_filename):
         deps[posix_filename].update(extract_deps(dep))
     return deps[posix_filename]
@@ -72,7 +70,7 @@ def write_file(filename, stream):
             if include_or_not:
                 if include_or_not.groups()[0].endswith("_inl.h"):
                     t = include_or_not.groups()[0]
-                    write_file(dir + '/' + t if dir else t, stream)
+                    write_file(dir + '/' + t, stream)
             elif '#pragma once' not in line:
                 stream.write(line)
 
@@ -80,10 +78,10 @@ def write_file(filename, stream):
 headers = set()
 for h in LIBRARY_HEADERS:
     headers.update(extract_deps(h))
-headers = ['header.h'] + sorted(headers)
-deps['footer.h'] = set(headers + ['footer.h'])
-headers += ['footer.h']
-deps['header.h'] = set(('header.h',))
+headers = ['includes/header.h'] + sorted(headers)
+deps['includes/footer.h'] = set(headers + ['includes/footer.h'])
+headers += ['includes/footer.h']
+deps['includes/header.h'] = set(('includes/header.h',))
 
 headers_in_order = []
 while headers:
@@ -96,7 +94,7 @@ while headers:
             headers.remove(h)
             break
 
-with open("jngen.h", "w") as fout:
+with open("includes/jngen.h", "w") as fout:
     for filename in headers_in_order:
         write_file(filename, fout)
 

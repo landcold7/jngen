@@ -53,6 +53,10 @@ Weight GenericGraph::edgeWeight(size_t index) const {
     return edgeWeights_[index];
 }
 
+WeightArray GenericGraph::edgesWeight() const {
+    return edgeWeights_;
+}
+
 Array GenericGraph::edges(int v) const {
 
     ensure(v < n(), "Graph::edges(v)");

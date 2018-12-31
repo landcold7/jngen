@@ -20,7 +20,7 @@ Among its features there are:
 * wrapper for *std::vector* which makes sorting, printing and generating random sequences easier;
 * printers for all standard types (no more trailing spaces and pain with 1-indexing!);
 * various random and not-so graphs and trees generators, manipulation with graphs and trees;
-* generating random geometrical primitives (including large convex polygons) and built-in drawing geometry in SVG; 
+* generating random geometrical primitives (including large convex polygons) and built-in drawing geometry in SVG;
 * random primes, partitions, anti-hash and anti-hashset tests;
 * and more.
 

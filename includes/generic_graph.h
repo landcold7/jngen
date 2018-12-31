@@ -9,6 +9,7 @@
 #include <iostream>
 #include <iterator>
 #include <set>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -18,8 +19,11 @@ class GenericGraph {
 public:
     virtual ~GenericGraph() {}
 
+    GenericGraph() {}
+
     virtual int n() const { return adjList_.size(); }
     virtual int m() const { return numEdges_; }
+    virtual std::string name() const {return name_; }
 
     bool directed() const { return directed_; }
 
@@ -49,6 +53,9 @@ public:
     // v: label
     virtual Weight vertexWeight(int v) const;
     virtual Weight edgeWeight(size_t index) const;
+
+    // Returns all edges weights.
+    virtual WeightArray edgesWeight() const;
 
     // TODO: should it really be public?
     virtual void doPrintEdges(
@@ -101,6 +108,9 @@ protected:
 
     WeightArray vertexWeights_;
     WeightArray edgeWeights_;
+
+    // Give a name for a graph.
+    std::string name_;
 };
 
 template<>
@@ -120,6 +130,6 @@ JNGEN_DEFINE_STD_HASH(jngen::GenericGraph);
 
 #ifndef JNGEN_DECLARE_ONLY
 #define JNGEN_INCLUDE_GENERIC_GRAPH_INL_H
-#include "impl/generic_graph_inl.h"
+#include "../impl/generic_graph_inl.h"
 #undef JNGEN_INCLUDE_GENERIC_GRAPH_INL_H
 #endif // JNGEN_DECLARE_ONLY

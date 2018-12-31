@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base_suite.h"
-#include "../tree.h"
+#include "../includes/tree.h"
 
 #include <cstdlib>
 

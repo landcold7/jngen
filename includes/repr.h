@@ -21,6 +21,7 @@ struct OutputModifier {
     bool printWeights = true;
 
     char sep = ' ';
+
 };
 
 JNGEN_EXTERN OutputModifier defaultMod;

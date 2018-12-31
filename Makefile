@@ -1,11 +1,17 @@
 all: libjngen.so
 
-libjngen.so: lib.cpp
+build: includes/*.h impl/*.h drawer/*.h
+	@echo "Building libjngen.so.."
+	@-rm includes/jngen.h
+	@python build.py
+
+libjngen.so: build lib.cpp
 	g++ -O2 -std=c++11 -Wall -c lib.cpp -fPIC -o libjngen.so
 
-install: jngen.h libjngen.so
-	cp jngen.h /usr/local/include/
+install:
+	cp includes/jngen.h /usr/local/include/
 	cp libjngen.so /usr/local/lib/
+	rm libjngen.so
 
 clean:
 	rm libjngen.so

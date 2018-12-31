@@ -51,6 +51,6 @@ using jngen::rnds;
 
 #ifndef JNGEN_DECLARE_ONLY
 #define JNGEN_INCLUDE_RNDS_INL_H
-#include "impl/rnds_inl.h"
+#include "../impl/rnds_inl.h"
 #undef JNGEN_INCLUDE_RNDS_INL_H
 #endif // JNGEN_DECLARE_ONLY

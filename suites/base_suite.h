@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../array.h"
-#include "../chaining_traits.h"
-#include "../common.h"
-#include "../hash.h"
+#include "../includes/array.h"
+#include "../includes/chaining_traits.h"
+#include "../includes/common.h"
+#include "../includes/hash.h"
 
 #include <algorithm>
 #include <functional>

@@ -301,6 +301,6 @@ using jngen::registerGen;
 
 #ifndef JNGEN_DECLARE_ONLY
 #define JNGEN_INCLUDE_RANDOM_INL_H
-#include "impl/random_inl.h"
+#include "../impl/random_inl.h"
 #undef JNGEN_INCLUDE_RANDOM_INL_H
 #endif // JNGEN_DECLARE_ONLY

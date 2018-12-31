@@ -354,6 +354,6 @@ JNGEN_EXTERN template class std::allocator<Pointf>;
 
 #ifndef JNGEN_DECLARE_ONLY
 #define JNGEN_INCLUDE_GEOMETRY_INL_H
-#include "impl/geometry_inl.h"
+#include "../impl/geometry_inl.h"
 #undef JNGEN_INCLUDE_GEOMETRY_INL_H
 #endif // JNGEN_DECLARE_ONLY

@@ -6,6 +6,8 @@
 #include "hash.h"
 #include "tree.h"
 
+#include "../drawer/graphviz.h"
+
 #include <memory>
 #include <set>
 #include <utility>
@@ -28,7 +30,11 @@ public:
         extend(n);
     }
 
-    Graph(const GenericGraph& gg) : GenericGraph(gg) {}
+    Graph(const GenericGraph& gg)
+        : GenericGraph(gg) {}
+
+    // Graph(const GenericGraph& gg, std::string name)
+    //     : GenericGraph(gg, name) {}
 
     void setN(int n);
 
@@ -36,6 +42,9 @@ public:
     Graph shuffled() const;
     Graph& shuffleAllBut(const Array& except);
     Graph shuffledAllBut(const Array& except) const;
+
+    // TODO(landocld7): make this function works.
+    Graph& draw();
 
     static BuilderProxy random(int n, int m);
     static BuilderProxy complete(int n);
@@ -46,6 +55,12 @@ public:
     static BuilderProxy randomBipartite(int n1, int n2, int m);
     static BuilderProxy completeBipartite(int n1, int n2);
 };
+
+inline Graph& Graph::draw() {
+    // Graphviz gv(std::make_shared<GenericGraph>(this), this->name_);
+    // gv.draw_graph();
+    return *this;
+}
 
 inline void Graph::setN(int n) {
     ensure(n >= this->n(), "Cannot lessen number of vertices in the graph");
@@ -95,6 +110,6 @@ JNGEN_DEFINE_STD_HASH(jngen::Graph);
 
 #ifndef JNGEN_DECLARE_ONLY
 #define JNGEN_INCLUDE_GRAPH_INL_H
-#include "impl/graph_inl.h"
+#include "../impl/graph_inl.h"
 #undef JNGEN_INCLUDE_GRAPH_INL_H
 #endif // JNGEN_DECLARE_ONLY

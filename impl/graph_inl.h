@@ -1,11 +1,11 @@
 #ifndef JNGEN_INCLUDE_GRAPH_INL_H
 #error File "graph_inl.h" must not be included directly.
-#include "../graph.h" // for completion emgine
+#include "../includes/graph.h" // for completion emgine
 #endif
 
-#include "../array.h"
-#include "../common.h"
-#include "../printers.h"
+#include "../includes/array.h"
+#include "../includes/common.h"
+#include "../includes/printers.h"
 
 namespace jngen {
 

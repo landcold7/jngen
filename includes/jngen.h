@@ -39,282 +39,6 @@
 #pragma GCC diagnostic ignored "-Wunused-lambda-capture"
 #endif
 
-#define JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, name) \
-int _ ## name = 0; \
-Class& name(int val = 1) { _ ## name = val; return *this; }
-
-#define JNGEN_CHAINING_TRAITS_INNER_0(Class)
-#define JNGEN_CHAINING_TRAITS_INNER_1(Class, arg)       JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)
-#define JNGEN_CHAINING_TRAITS_INNER_2(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_1(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_3(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_2(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_4(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_3(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_5(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_4(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_6(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_5(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_7(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_6(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_8(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_7(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_9(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_8(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_10(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_9(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_11(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_10(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_12(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_11(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_13(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_12(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_14(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_13(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_15(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_14(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_16(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_15(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_17(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_16(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_18(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_17(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_19(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_18(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_20(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_19(Class, __VA_ARGS__)
-
-#define JNGEN_GET_CHAINING_TRAITS_INNER_IMPL(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, x, ...) x
-
-#define JNGEN_GET_CHAINING_TRAITS_INNER(...) JNGEN_GET_CHAINING_TRAITS_INNER_IMPL(\
-        __VA_ARGS__,\
-        JNGEN_CHAINING_TRAITS_INNER_20,\
-        JNGEN_CHAINING_TRAITS_INNER_19,\
-        JNGEN_CHAINING_TRAITS_INNER_18,\
-        JNGEN_CHAINING_TRAITS_INNER_17,\
-        JNGEN_CHAINING_TRAITS_INNER_16,\
-        JNGEN_CHAINING_TRAITS_INNER_15,\
-        JNGEN_CHAINING_TRAITS_INNER_14,\
-        JNGEN_CHAINING_TRAITS_INNER_13,\
-        JNGEN_CHAINING_TRAITS_INNER_12,\
-        JNGEN_CHAINING_TRAITS_INNER_11,\
-        JNGEN_CHAINING_TRAITS_INNER_10,\
-        JNGEN_CHAINING_TRAITS_INNER_9,\
-        JNGEN_CHAINING_TRAITS_INNER_8,\
-        JNGEN_CHAINING_TRAITS_INNER_7,\
-        JNGEN_CHAINING_TRAITS_INNER_6,\
-        JNGEN_CHAINING_TRAITS_INNER_5,\
-        JNGEN_CHAINING_TRAITS_INNER_4,\
-        JNGEN_CHAINING_TRAITS_INNER_3,\
-        JNGEN_CHAINING_TRAITS_INNER_2,\
-        JNGEN_CHAINING_TRAITS_INNER_1,\
-        JNGEN_CHAINING_TRAITS_INNER_0)
-
-#define JNGEN_CHAINING_TRAITS(Class, ...) \
-    struct Class { JNGEN_GET_CHAINING_TRAITS_INNER(__VA_ARGS__)(Class, __VA_ARGS__) };
-
-namespace jngen {
-
-struct Config {
-    bool generateLargeObjects = false;
-    bool largeOptionIndices = false;
-    bool normalizeEdges = true;
-};
-
-#ifdef JNGEN_DECLARE_ONLY
-extern
-#endif
-Config config;
-
-} // namespace jngen
-
-using jngen::config;
-
-
-#include <chrono>
-#include <cstdlib>
-#include <iostream>
-#include <map>
-#include <stdexcept>
-#include <string>
-#include <type_traits>
-#include <vector>
-
-#ifdef JNGEN_DECLARE_ONLY
-#define JNGEN_EXTERN extern
-#else
-#define JNGEN_EXTERN
-#endif
-
-namespace jngen {
-
-class Exception : public std::runtime_error {
-public:
-    explicit Exception(const std::string& s) :
-        std::runtime_error("Assertion `" + s + "' failed.")
-    {  }
-
-    Exception(const std::string& assertMsg, const std::string& expl) :
-        std::runtime_error(expl + " (assertion `" + assertMsg + "' failed).")
-    {  }
-};
-
-class InternalException : public Exception {
-public:
-    explicit InternalException(const std::string& s) : Exception(s) {}
-
-    InternalException(const std::string& assertMsg, const std::string& expl) :
-        Exception(assertMsg, expl)
-    {  }
-};
-
-} // namespace jngen
-
-#define JNGEN_ENSURE1(exType, cond)\
-do\
-    if (!(cond)) {\
-        throw exType(#cond);\
-    }\
-while (false)
-
-#define JNGEN_ENSURE2(exType, cond, msg)\
-do\
-    if (!(cond)) {\
-        throw exType(#cond, msg);\
-    }\
-while (false)
-
-#define JNGEN_GET_MACRO(_1, _2, NAME, ...) NAME
-
-#define ensure(...) JNGEN_GET_MACRO(__VA_ARGS__, JNGEN_ENSURE2, JNGEN_ENSURE1)\
-    (jngen::Exception, __VA_ARGS__)
-#define ENSURE(...) JNGEN_GET_MACRO(__VA_ARGS__, JNGEN_ENSURE2, JNGEN_ENSURE1)\
-    (jngen::InternalException, __VA_ARGS__)
-
-namespace jngen {
-
-template<typename ... Args>
-std::string format(const std::string& fmt, Args... args) {
-    constexpr static char BUF_SIZE = 64;
-    static char BUFFER[BUF_SIZE];
-
-    int bufSize = BUF_SIZE;
-    char *buf = BUFFER;
-
-    while (true) {
-        int ret = std::snprintf(buf, bufSize, fmt.c_str(), args...);
-        if (ret < bufSize) {
-            break;
-        }
-
-        if (bufSize != BUF_SIZE) {
-            delete[] buf;
-        }
-
-        bufSize *= 2;
-        buf = new char[bufSize];
-    }
-
-    std::string result(buf);
-
-    if (bufSize != BUF_SIZE) {
-        delete[] buf;
-    }
-
-    return result;
-}
-
-class ContextTimer {
-public:
-    ContextTimer(const std::string& name) : name_(name) {
-        start_ = std::chrono::steady_clock::now();
-    }
-
-    ContextTimer() : ContextTimer("") {}
-
-    ContextTimer(const ContextTimer&) = delete;
-    ContextTimer& operator=(const ContextTimer&) = delete;
-    ContextTimer(ContextTimer&&) = delete;
-    ContextTimer& operator=(ContextTimer&&) = delete;
-
-    ~ContextTimer() {
-        auto dif = std::chrono::steady_clock::now() - start_;
-        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dif);
-        if (!name_.empty()) {
-            std::cerr << "[" << name_ << "] ";
-        }
-        std::cerr << ms.count() << " ms\n";
-    }
-
-private:
-    std::string name_;
-    std::chrono::steady_clock::time_point start_;
-};
-
-template<typename F>
-auto distribution(int n, F&& f) -> std::map<decltype(f()), int> {
-    std::map<decltype(f()), int> dist;
-    for (int i = 0; i < n; ++i) {
-        ++dist[f()];
-    }
-    return dist;
-}
-
-inline void checkLargeParameter(int n) {
-    if (!config.generateLargeObjects) {
-        constexpr static int BOUND = 5e6;
-        ensure(
-            n <= BOUND,
-            "If you want to generate an object of size > 5'000'000, please set "
-            "'config.generateLargeObjects = true'.");
-    }
-}
-
-// Some type traits helpers. Based on ideas from TCPPPL v4.
-template<bool B, typename T = void>
-using enable_if_t = typename std::enable_if<B, T>::type;
-
-template<typename T>
-using decay_t = typename std::decay<T>::type;
-
-namespace util {
-
-inline long long gcd(long long a, long long b) {
-    if (a < 0) {
-        a = -a;
-    }
-    if (b < 0) {
-        b = -b;
-    }
-
-    while (a && b) {
-        if (a > b) {
-            a %= b;
-        } else {
-            b %= a;
-        }
-    }
-    return a + b;
-}
-
-inline std::vector<std::string> split(std::string s, char delimiter) {
-    auto strip = [](std::string s) {
-        size_t l = 0;
-        while (l < s.size() && s[l] == ' ') {
-            ++l;
-        }
-        s = s.substr(l);
-        while (!s.empty() && s.back() == ' ') {
-            s.pop_back();
-        }
-        return s;
-    };
-
-    std::vector<std::string> result;
-    s += delimiter;
-    std::string cur;
-
-    for (char c: s) {
-        if (c == delimiter) {
-            result.push_back(strip(cur));
-            cur.clear();
-        } else {
-            cur += c;
-        }
-    }
-
-    return result;
-}
-
-} // namespace util
-
-} // namespace jngen
-
-using jngen::format;
-using jngen::ContextTimer;
-using jngen::distribution;
-
 #include <string>
 #include <utility>
 #include <vector>
@@ -1036,6 +760,282 @@ void Drawer::dumpSvg(const std::string& filename) {
 
 using jngen::drawing::Drawer;
 using jngen::drawing::Color;
+
+#define JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, name) \
+int _ ## name = 0; \
+Class& name(int val = 1) { _ ## name = val; return *this; }
+
+#define JNGEN_CHAINING_TRAITS_INNER_0(Class)
+#define JNGEN_CHAINING_TRAITS_INNER_1(Class, arg)       JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)
+#define JNGEN_CHAINING_TRAITS_INNER_2(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_1(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_3(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_2(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_4(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_3(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_5(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_4(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_6(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_5(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_7(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_6(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_8(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_7(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_9(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_8(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_10(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_9(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_11(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_10(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_12(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_11(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_13(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_12(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_14(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_13(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_15(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_14(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_16(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_15(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_17(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_16(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_18(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_17(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_19(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_18(Class, __VA_ARGS__)
+#define JNGEN_CHAINING_TRAITS_INNER_20(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_19(Class, __VA_ARGS__)
+
+#define JNGEN_GET_CHAINING_TRAITS_INNER_IMPL(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, x, ...) x
+
+#define JNGEN_GET_CHAINING_TRAITS_INNER(...) JNGEN_GET_CHAINING_TRAITS_INNER_IMPL(\
+        __VA_ARGS__,\
+        JNGEN_CHAINING_TRAITS_INNER_20,\
+        JNGEN_CHAINING_TRAITS_INNER_19,\
+        JNGEN_CHAINING_TRAITS_INNER_18,\
+        JNGEN_CHAINING_TRAITS_INNER_17,\
+        JNGEN_CHAINING_TRAITS_INNER_16,\
+        JNGEN_CHAINING_TRAITS_INNER_15,\
+        JNGEN_CHAINING_TRAITS_INNER_14,\
+        JNGEN_CHAINING_TRAITS_INNER_13,\
+        JNGEN_CHAINING_TRAITS_INNER_12,\
+        JNGEN_CHAINING_TRAITS_INNER_11,\
+        JNGEN_CHAINING_TRAITS_INNER_10,\
+        JNGEN_CHAINING_TRAITS_INNER_9,\
+        JNGEN_CHAINING_TRAITS_INNER_8,\
+        JNGEN_CHAINING_TRAITS_INNER_7,\
+        JNGEN_CHAINING_TRAITS_INNER_6,\
+        JNGEN_CHAINING_TRAITS_INNER_5,\
+        JNGEN_CHAINING_TRAITS_INNER_4,\
+        JNGEN_CHAINING_TRAITS_INNER_3,\
+        JNGEN_CHAINING_TRAITS_INNER_2,\
+        JNGEN_CHAINING_TRAITS_INNER_1,\
+        JNGEN_CHAINING_TRAITS_INNER_0)
+
+#define JNGEN_CHAINING_TRAITS(Class, ...) \
+    struct Class { JNGEN_GET_CHAINING_TRAITS_INNER(__VA_ARGS__)(Class, __VA_ARGS__) };
+
+namespace jngen {
+
+struct Config {
+    bool generateLargeObjects = false;
+    bool largeOptionIndices = false;
+    bool normalizeEdges = true;
+};
+
+#ifdef JNGEN_DECLARE_ONLY
+extern
+#endif
+Config config;
+
+} // namespace jngen
+
+using jngen::config;
+
+
+#include <chrono>
+#include <cstdlib>
+#include <iostream>
+#include <map>
+#include <stdexcept>
+#include <string>
+#include <type_traits>
+#include <vector>
+
+#ifdef JNGEN_DECLARE_ONLY
+#define JNGEN_EXTERN extern
+#else
+#define JNGEN_EXTERN
+#endif
+
+namespace jngen {
+
+class Exception : public std::runtime_error {
+public:
+    explicit Exception(const std::string& s) :
+        std::runtime_error("Assertion `" + s + "' failed.")
+    {  }
+
+    Exception(const std::string& assertMsg, const std::string& expl) :
+        std::runtime_error(expl + " (assertion `" + assertMsg + "' failed).")
+    {  }
+};
+
+class InternalException : public Exception {
+public:
+    explicit InternalException(const std::string& s) : Exception(s) {}
+
+    InternalException(const std::string& assertMsg, const std::string& expl) :
+        Exception(assertMsg, expl)
+    {  }
+};
+
+} // namespace jngen
+
+#define JNGEN_ENSURE1(exType, cond)\
+do\
+    if (!(cond)) {\
+        throw exType(#cond);\
+    }\
+while (false)
+
+#define JNGEN_ENSURE2(exType, cond, msg)\
+do\
+    if (!(cond)) {\
+        throw exType(#cond, msg);\
+    }\
+while (false)
+
+#define JNGEN_GET_MACRO(_1, _2, NAME, ...) NAME
+
+#define ensure(...) JNGEN_GET_MACRO(__VA_ARGS__, JNGEN_ENSURE2, JNGEN_ENSURE1)\
+    (jngen::Exception, __VA_ARGS__)
+#define ENSURE(...) JNGEN_GET_MACRO(__VA_ARGS__, JNGEN_ENSURE2, JNGEN_ENSURE1)\
+    (jngen::InternalException, __VA_ARGS__)
+
+namespace jngen {
+
+template<typename ... Args>
+std::string format(const std::string& fmt, Args... args) {
+    constexpr static char BUF_SIZE = 64;
+    static char BUFFER[BUF_SIZE];
+
+    int bufSize = BUF_SIZE;
+    char *buf = BUFFER;
+
+    while (true) {
+        int ret = std::snprintf(buf, bufSize, fmt.c_str(), args...);
+        if (ret < bufSize) {
+            break;
+        }
+
+        if (bufSize != BUF_SIZE) {
+            delete[] buf;
+        }
+
+        bufSize *= 2;
+        buf = new char[bufSize];
+    }
+
+    std::string result(buf);
+
+    if (bufSize != BUF_SIZE) {
+        delete[] buf;
+    }
+
+    return result;
+}
+
+class ContextTimer {
+public:
+    ContextTimer(const std::string& name) : name_(name) {
+        start_ = std::chrono::steady_clock::now();
+    }
+
+    ContextTimer() : ContextTimer("") {}
+
+    ContextTimer(const ContextTimer&) = delete;
+    ContextTimer& operator=(const ContextTimer&) = delete;
+    ContextTimer(ContextTimer&&) = delete;
+    ContextTimer& operator=(ContextTimer&&) = delete;
+
+    ~ContextTimer() {
+        auto dif = std::chrono::steady_clock::now() - start_;
+        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dif);
+        if (!name_.empty()) {
+            std::cerr << "[" << name_ << "] ";
+        }
+        std::cerr << ms.count() << " ms\n";
+    }
+
+private:
+    std::string name_;
+    std::chrono::steady_clock::time_point start_;
+};
+
+template<typename F>
+auto distribution(int n, F&& f) -> std::map<decltype(f()), int> {
+    std::map<decltype(f()), int> dist;
+    for (int i = 0; i < n; ++i) {
+        ++dist[f()];
+    }
+    return dist;
+}
+
+inline void checkLargeParameter(int n) {
+    if (!config.generateLargeObjects) {
+        constexpr static int BOUND = 5e6;
+        ensure(
+            n <= BOUND,
+            "If you want to generate an object of size > 5'000'000, please set "
+            "'config.generateLargeObjects = true'.");
+    }
+}
+
+// Some type traits helpers. Based on ideas from TCPPPL v4.
+template<bool B, typename T = void>
+using enable_if_t = typename std::enable_if<B, T>::type;
+
+template<typename T>
+using decay_t = typename std::decay<T>::type;
+
+namespace util {
+
+inline long long gcd(long long a, long long b) {
+    if (a < 0) {
+        a = -a;
+    }
+    if (b < 0) {
+        b = -b;
+    }
+
+    while (a && b) {
+        if (a > b) {
+            a %= b;
+        } else {
+            b %= a;
+        }
+    }
+    return a + b;
+}
+
+inline std::vector<std::string> split(std::string s, char delimiter) {
+    auto strip = [](std::string s) {
+        size_t l = 0;
+        while (l < s.size() && s[l] == ' ') {
+            ++l;
+        }
+        s = s.substr(l);
+        while (!s.empty() && s.back() == ' ') {
+            s.pop_back();
+        }
+        return s;
+    };
+
+    std::vector<std::string> result;
+    s += delimiter;
+    std::string cur;
+
+    for (char c: s) {
+        if (c == delimiter) {
+            result.push_back(strip(cur));
+            cur.clear();
+        } else {
+            cur += c;
+        }
+    }
+
+    return result;
+}
+
+} // namespace util
+
+} // namespace jngen
+
+using jngen::format;
+using jngen::ContextTimer;
+using jngen::distribution;
 
 #include <algorithm>
 #include <vector>
@@ -2655,6 +2655,7 @@ struct OutputModifier {
     bool printWeights = true;
 
     char sep = ' ';
+
 };
 
 JNGEN_EXTERN OutputModifier defaultMod;
@@ -5007,102 +5008,6 @@ StringPair StringRandom::antiHash(
 
 
 #include <algorithm>
-#include <functional>
-#include <iostream>
-#include <iterator>
-#include <string>
-#include <unordered_set>
-#include <vector>
-
-namespace jngen {
-namespace suites {
-
-#define JNGEN_ADD_PRODUCER(...)\
-    {\
-        std::string name = #__VA_ARGS__;\
-        if (name.empty()) {\
-            name = format("noname%d", (int)names_.size());\
-        }\
-        if (std::find(names_.begin(), names_.end(), name) != names_.end()) {\
-            ENSURE(false, format("Duplicated test name: '%s'", name.c_str()));\
-        }\
-        names_.emplace_back(name);\
-    }\
-    *std::back_inserter(producers_) = [this] (JNGEN_PRODUCER_ARGS) -> value_type
-
-template<typename T, typename Traits, typename ... Args>
-class BaseTestSuite {
-public:
-    explicit BaseTestSuite(const std::string& name) : name_(name) {  }
-
-    BaseTestSuite(const BaseTestSuite&) = delete;
-    BaseTestSuite& operator=(const BaseTestSuite&) = delete;
-
-    size_t size() const {
-        return producers_.size();
-    }
-
-    TArray<std::string> names() const {
-        return names_;
-    }
-
-    T gen(size_t id, Args... args) const {
-        ensure(
-            id < producers_.size(),
-            format("Cannot generate test #%d in suite '%s', there are only "
-                "%d", (int)id, name_.c_str(), (int)producers_.size()));
-        return producers_[id](args...);
-    }
-
-    T gen(const std::string& name, Args... args) const {
-        size_t pos = std::find(names_.begin(), names_.end(), name)
-            - names_.begin();
-        ensure(
-            pos < names_.size(),
-            format("There is no test '%s' in suite '%s'",
-                name.c_str(), name_.c_str()));
-        return gen(pos, args...);
-    }
-
-    TArray<T> genMany(size_t count, Args... args) const {
-        ensure(
-            count <= producers_.size(),
-            format("Cannot generate %d tests in suite '%s', there are only "
-                "%d", (int)count, name_.c_str(), (int)producers_.size()));
-
-        TArray<T> result;
-        result.reserve(count);
-        for (size_t id = 0; id < count; ++id) {
-            try {
-                result.push_back(gen(id, args...));
-            } catch (...) {
-                std::cerr << "Cannot generate test #" << id << " of suite "
-                    << name_ << "\n";
-            }
-        }
-
-        return result;
-    }
-
-    Traits& conf() { return conf_; }
-
-protected:
-    using Producer = std::function<T(Args...)>;
-    using value_type = T;
-
-    std::vector<Producer> producers_;
-    std::vector<std::string> names_;
-
-    Traits conf_;
-
-private:
-    std::string name_;
-};
-
-}} // namespace jngen::suites
-
-
-#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 
@@ -5652,6 +5557,7 @@ using jngen::WeightArray;
 #include <iostream>
 #include <iterator>
 #include <set>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -5661,8 +5567,11 @@ class GenericGraph {
 public:
     virtual ~GenericGraph() {}
 
+    GenericGraph() {}
+
     virtual int n() const { return adjList_.size(); }
     virtual int m() const { return numEdges_; }
+    virtual std::string name() const {return name_; }
 
     bool directed() const { return directed_; }
 
@@ -5692,6 +5601,9 @@ public:
     // v: label
     virtual Weight vertexWeight(int v) const;
     virtual Weight edgeWeight(size_t index) const;
+
+    // Returns all edges weights.
+    virtual WeightArray edgesWeight() const;
 
     // TODO: should it really be public?
     virtual void doPrintEdges(
@@ -5744,6 +5656,9 @@ protected:
 
     WeightArray vertexWeights_;
     WeightArray edgeWeights_;
+
+    // Give a name for a graph.
+    std::string name_;
 };
 
 template<>
@@ -5815,6 +5730,10 @@ Weight GenericGraph::edgeWeight(size_t index) const {
         return Weight{};
     }
     return edgeWeights_[index];
+}
+
+WeightArray GenericGraph::edgesWeight() const {
+    return edgeWeights_;
 }
 
 Array GenericGraph::edges(int v) const {
@@ -6133,6 +6052,97 @@ void GenericGraph::initWithEdges(int n, const Arrayp& edges) {
 } // namespace jngen
 #undef JNGEN_INCLUDE_GENERIC_GRAPH_INL_H
 #endif // JNGEN_DECLARE_ONLY
+#include <vector>
+#include <string>
+#include <graphviz/gvc.h>
+#include <graphviz/cgraph.h>
+
+
+namespace jngen {
+// A general class for drawing a graph.
+class Graphviz {
+public:
+    Graphviz() {}
+    explicit Graphviz(std::shared_ptr<GenericGraph>g, std::string name)
+        : g_(g), name_(name) {}
+
+    // Set up a graphviz context.
+    void create_context();
+
+    // Create a graphviz graph.
+    void create_graph();
+
+    // Draw a graph.
+    void draw_graph();
+
+private:
+   GVC_t *gvc_;
+   std::shared_ptr<GenericGraph> g_;
+   Agraph_t *gv_;
+   std::vector<Agnode_t*> gvc_nodes_;
+   std::vector<Agedge_t*> gvc_edges_;
+   // Layout engine: default `dot`
+   // int layout_engine_{0};
+   // // Save type for output: default `pdf`
+   // int save_type_{0};
+   // string save name
+   std::string name_;
+};
+
+#ifndef JNGEN_DECLARE_ONLY
+
+void Graphviz::draw_graph() {
+    this->create_context();
+
+    this->create_graph();
+
+    // Set layout engine.
+    gvLayout (gvc_, gv_, "dot");
+    name_ += ".pdf";
+    gvRenderFilename (gvc_, gv_, "pdf", name_.c_str());
+
+    gvFreeLayout(gvc_, gv_);
+    agclose (gv_);
+    gvFreeContext(gvc_);
+}
+
+void Graphviz::create_graph() {
+
+    gv_ = agopen(const_cast<char*>("g"), Agundirected, 0);
+    for (int i = 0; i < g_->n(); ++i) {
+        // Node's name starting from zero.
+        // TODO (landcold7): make it configable.
+        Agnode_t *n = agnode(gv_, (char*)std::to_string(i).c_str(), 1);
+        gvc_nodes_.push_back(n);
+    }
+
+    Arrayp edges = g_->edges();
+    auto edges_weight = g_->edgesWeight();
+    for (int i = 0; i < g_->m(); ++i) {
+        int u = edges[i].first;
+        int v = edges[i].second;
+        Agedge_t *e = agedge(gv_, gvc_nodes_[u], gvc_nodes_[v], 0, 1);
+        gvc_edges_.push_back(e);
+        // If this edge has a weight on it.
+        if (edges_weight.size()) {
+            int w = edges_weight[i];
+            agsafeset(e, const_cast<char*>("label"),
+                      (char*)std::to_string(w).c_str(),
+                      const_cast<char*>(""));
+        }
+    }
+}
+
+void Graphviz::create_context() {
+    gvc_ = gvContext();
+}
+
+#endif
+
+} // namespace jngen
+
+using jngen::Graphviz;
+
 
 
 #include <algorithm>
@@ -6491,6 +6501,7 @@ void Tree::doPrintParents(std::ostream& out, const OutputModifier& mod) const {
 #endif // JNGEN_DECLARE_ONLY
 
 
+
 #include <memory>
 #include <set>
 #include <utility>
@@ -6513,7 +6524,11 @@ public:
         extend(n);
     }
 
-    Graph(const GenericGraph& gg) : GenericGraph(gg) {}
+    Graph(const GenericGraph& gg)
+        : GenericGraph(gg) {}
+
+    // Graph(const GenericGraph& gg, std::string name)
+    //     : GenericGraph(gg, name) {}
 
     void setN(int n);
 
@@ -6521,6 +6536,8 @@ public:
     Graph shuffled() const;
     Graph& shuffleAllBut(const Array& except);
     Graph shuffledAllBut(const Array& except) const;
+
+    Graph& draw();
 
     static BuilderProxy random(int n, int m);
     static BuilderProxy complete(int n);
@@ -6531,6 +6548,12 @@ public:
     static BuilderProxy randomBipartite(int n1, int n2, int m);
     static BuilderProxy completeBipartite(int n1, int n2);
 };
+
+inline Graph& Graph::draw() {
+    // Graphviz gv(std::make_shared<GenericGraph>(this), this->name_);
+    // gv.draw_graph();
+    return *this;
+}
 
 inline void Graph::setN(int n) {
     ensure(n >= this->n(), "Cannot lessen number of vertices in the graph");
@@ -6994,6 +7017,102 @@ Graph::BuilderProxy Graph::completeBipartite( int n1, int n2) {
 } // namespace jngen
 #undef JNGEN_INCLUDE_GRAPH_INL_H
 #endif // JNGEN_DECLARE_ONLY
+
+
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <iterator>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
+namespace jngen {
+namespace suites {
+
+#define JNGEN_ADD_PRODUCER(...)\
+    {\
+        std::string name = #__VA_ARGS__;\
+        if (name.empty()) {\
+            name = format("noname%d", (int)names_.size());\
+        }\
+        if (std::find(names_.begin(), names_.end(), name) != names_.end()) {\
+            ENSURE(false, format("Duplicated test name: '%s'", name.c_str()));\
+        }\
+        names_.emplace_back(name);\
+    }\
+    *std::back_inserter(producers_) = [this] (JNGEN_PRODUCER_ARGS) -> value_type
+
+template<typename T, typename Traits, typename ... Args>
+class BaseTestSuite {
+public:
+    explicit BaseTestSuite(const std::string& name) : name_(name) {  }
+
+    BaseTestSuite(const BaseTestSuite&) = delete;
+    BaseTestSuite& operator=(const BaseTestSuite&) = delete;
+
+    size_t size() const {
+        return producers_.size();
+    }
+
+    TArray<std::string> names() const {
+        return names_;
+    }
+
+    T gen(size_t id, Args... args) const {
+        ensure(
+            id < producers_.size(),
+            format("Cannot generate test #%d in suite '%s', there are only "
+                "%d", (int)id, name_.c_str(), (int)producers_.size()));
+        return producers_[id](args...);
+    }
+
+    T gen(const std::string& name, Args... args) const {
+        size_t pos = std::find(names_.begin(), names_.end(), name)
+            - names_.begin();
+        ensure(
+            pos < names_.size(),
+            format("There is no test '%s' in suite '%s'",
+                name.c_str(), name_.c_str()));
+        return gen(pos, args...);
+    }
+
+    TArray<T> genMany(size_t count, Args... args) const {
+        ensure(
+            count <= producers_.size(),
+            format("Cannot generate %d tests in suite '%s', there are only "
+                "%d", (int)count, name_.c_str(), (int)producers_.size()));
+
+        TArray<T> result;
+        result.reserve(count);
+        for (size_t id = 0; id < count; ++id) {
+            try {
+                result.push_back(gen(id, args...));
+            } catch (...) {
+                std::cerr << "Cannot generate test #" << id << " of suite "
+                    << name_ << "\n";
+            }
+        }
+
+        return result;
+    }
+
+    Traits& conf() { return conf_; }
+
+protected:
+    using Producer = std::function<T(Args...)>;
+    using value_type = T;
+
+    std::vector<Producer> producers_;
+    std::vector<std::string> names_;
+
+    Traits conf_;
+
+private:
+    std::string name_;
+};
+
+}} // namespace jngen::suites
 
 
 #include <algorithm>

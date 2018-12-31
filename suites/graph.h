@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base_suite.h"
-#include "../graph.h"
+#include "../includes/graph.h"
 
 #include <algorithm>
 #include <cstdlib>
