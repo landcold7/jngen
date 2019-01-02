@@ -44,8 +44,8 @@ void Graphviz::draw_graph() {
 
     this->create_graph();
 
-    // Set layout engine.
-    gvLayout (gvc_, gv_, "dot");
+    // TODO(landcold7): make this cnfigable.
+    gvLayout (gvc_, gv_, "sfdp");
     name_ += ".pdf";
     gvRenderFilename (gvc_, gv_, "pdf", name_.c_str());
 
@@ -57,6 +57,12 @@ void Graphviz::draw_graph() {
 void Graphviz::create_graph() {
 
     gv_ = agopen(const_cast<char*>("g"), Agundirected, 0);
+
+    // TODO(landcold7): speed up for drawing a large graph.
+    // agsafeset(gv_, const_cast<char*>("overlap"),
+    //           const_cast<char*>("true"),
+    //           const_cast<char*>(""));
+
     for (int i = 0; i < g_->n(); ++i) {
         // Node's name starting from zero.
         // TODO (landcold7): make it configable.
@@ -79,6 +85,8 @@ void Graphviz::create_graph() {
                       const_cast<char*>(""));
         }
     }
+
+
 }
 
 void Graphviz::create_context() {
