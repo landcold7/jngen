@@ -55,7 +55,7 @@ Polygon GeometryRandom::convexPolygon(
     // todo: off-by-one error?
     auto dx = X2 - X1;
     auto dy = Y2 - Y1;
-    ensure(n >= 0);
+    CHECK(n >= 0);
     Polygon res = detail::convexPolygonByEllipse<long long>(
         n * 10, // BUBEN!
         Point(dx / 2, dy / 2),
@@ -64,13 +64,13 @@ Polygon GeometryRandom::convexPolygon(
     );
     res.shift(Point(X1, Y1));
     for (auto& x: res) {
-        ENSURE(x.x >= X1);
-        ENSURE(x.x <= X2);
-        ENSURE(x.y >= Y1);
-        ENSURE(x.y <= Y2);
+        INTER_CHECK(x.x >= X1);
+        INTER_CHECK(x.x <= X2);
+        INTER_CHECK(x.y >= Y1);
+        INTER_CHECK(x.y <= Y2);
     }
 
-    ensure(
+    CHECK(
         static_cast<int>(res.size()) >= n,
         "Cannot generate a convex polygon with so many vertices");
 
@@ -101,7 +101,7 @@ TArray<Point> GeometryRandom::pointsInGeneralPosition(
             B = p2.x - p1.x;
             C = -(p1.x * A + p1.y * B);
 
-            ENSURE(A != 0 || B != 0);
+            INTER_CHECK(A != 0 || B != 0);
 
             long long g = util::gcd(A, util::gcd(B, C));
             A /= g;
@@ -120,7 +120,7 @@ TArray<Point> GeometryRandom::pointsInGeneralPosition(
     };
 
     const long long LIMIT = 2e9;
-    ensure(
+    CHECK(
         std::abs(X2 - X1) <= LIMIT && X1 <= LIMIT && X2 <= LIMIT &&
             std::abs(Y2 - Y1) <= LIMIT && Y1 <= LIMIT && Y2 <= LIMIT,
         "rndg.pointsInGeneralPosition must not be called with coordinates "

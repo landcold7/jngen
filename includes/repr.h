@@ -2,9 +2,6 @@
 
 #include "common.h"
 
-#include <iostream>
-#include <type_traits>
-
 namespace jngen {
 
 template<int N> struct PTag : PTag<N-1> {};
@@ -21,7 +18,7 @@ struct OutputModifier {
     bool printWeights = true;
 
     char sep = ' ';
-
+    bool newline = false;
 };
 
 JNGEN_EXTERN OutputModifier defaultMod;
@@ -47,10 +44,8 @@ protected:
     Repr<T>& operator=(Repr<T>&&) = default;
 
 public:
-    Repr(const T& object) :
-        object_(object),
-        mod_(defaultMod)
-    {  }
+    Repr(const T& object)
+        : object_(object), mod_(defaultMod) {}
 
     Repr<T>& add1(bool value = true) {
         mod_.addition = value;
@@ -88,6 +83,11 @@ public:
 
     Repr<T>& endl(bool value = true) {
         mod_.sep = value ? '\n' : ' ';
+        return *this;
+    }
+
+    Repr<T>& println(bool value = true) {
+        mod_.newline = value;
         return *this;
     }
 
@@ -154,6 +154,11 @@ public:
         return repr;
     }
 
+    Repr<T> println(bool value = true) {
+        Repr<T> repr(static_cast<const T&>(*this));
+        repr.println(value);
+        return repr;
+    }
 protected:
     ReprProxy() {
         static_assert(
@@ -171,9 +176,7 @@ class DefaultModSetter : public Repr<int> {
     friend DefaultModSetter setMod();
 
 private:
-    DefaultModSetter(int val) :
-        Repr<int>(val)
-    {  }
+    DefaultModSetter(int val) : Repr<int>(val) {}
 
 public:
     ~DefaultModSetter() {

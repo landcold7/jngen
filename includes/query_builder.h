@@ -51,7 +51,7 @@ QueryBuilder::QueryBuilder(int l, int r) :
     lenRange_(1, r - l + 1),
     ordered_(true)
 {
-    ensure(l <= r);
+    CHECK(l <= r);
 }
 
 QueryBuilder& QueryBuilder::minLen(int value) {
@@ -65,12 +65,12 @@ QueryBuilder& QueryBuilder::maxLen(int value) {
 }
 
 QueryBuilder& QueryBuilder::range(int n) {
-    ensure(n > 0);
+    CHECK(n > 0);
     return this->range(0, n - 1);
 }
 
 QueryBuilder& QueryBuilder::range(int l, int r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     range_ = {l, r+1};
     lenRange_.second = std::min(lenRange_.second, r - l + 1);
     lenRange_.first = std::min(lenRange_.first, lenRange_.second);
@@ -107,14 +107,14 @@ std::pair<int, int> QueryBuilder::next() {
         }
     }
     case QueryType::Large: {
-        ENSURE(false, "not implemented");
+        INTER_CHECK(false, "not implemented");
         break;
     }
     case QueryType::Small: {
-        ENSURE(false, "not implemented");
+        INTER_CHECK(false, "not implemented");
         break;
     }
-    default: ENSURE(false, "Nonexistent option");
+    default: INTER_CHECK(false, "Nonexistent option");
     }
 }
 

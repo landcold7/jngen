@@ -270,7 +270,7 @@ class GeometryRandom {
 public:
     GeometryRandom() {
         static bool created = false;
-        ensure(!created, "jngen::GeometryRandom should be created only once");
+        CHECK(!created, "jngen::GeometryRandom should be created only once");
         created = true;
     }
 

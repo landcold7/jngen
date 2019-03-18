@@ -33,7 +33,7 @@ struct Index {
 
     Index(size_t index) : index(index) {
         if (!config.largeOptionIndices) {
-            ensure(
+            CHECK(
                 index < 32,
                 "Looks like you called getOpt('c'). Consider using "
                 "getOpt(\"c\") or set 'config.largeOptionIndices = true' "
@@ -42,7 +42,7 @@ struct Index {
     }
 
     Index(const std::string& name) : name(name) {
-        ensure(!name.empty(), "Variable name cannot be empty");
+        CHECK(!name.empty(), "Variable name cannot be empty");
     }
 
     bool isNamed() const {
@@ -97,10 +97,10 @@ struct VariableMap {
             return;
         }
         if (index.isNamed()) {
-            ensure(false, format(
+            CHECK(false, format(
                     "There is no variable with name '%s'", index.name.c_str()));
         } else {
-            ensure(false, format(
+            CHECK(false, format(
                     "There is no variable with index %d", index.index));
         }
     }
@@ -145,7 +145,7 @@ public:
         if (ss >> t) {
             return t;
         } else {
-            ensure(
+            CHECK(
                 false,
                 format(
                     "Cannot parse option. Raw value: '%s'",
@@ -184,7 +184,7 @@ public:
         if (ss >> t) {
             return t;
         } else {
-            ensure(
+            CHECK(
                 false,
                 format(
                     "Cannot parse option. Raw value: '%s'",
@@ -204,7 +204,7 @@ inline VariableMap parseArguments(const std::vector<std::string>& args) {
             const std::string& name,
             const std::string& value)
     {
-        ensure(
+        CHECK(
             !result.count(value),
             "Named arguments must have distinct names");
         result.named[name] = value;
@@ -271,7 +271,7 @@ JNGEN_EXTERN VariableMap vmap;
 namespace detail {
 
 inline PendingVariable<void> getOpt(const Index& index) {
-    ensure(
+    CHECK(
         vmap.initialized,
         "parseArgs(args, argv) must be called before getOpt(...)");
     vmap.assertExistence(index);
@@ -280,7 +280,7 @@ inline PendingVariable<void> getOpt(const Index& index) {
 
 template<typename T, typename U = detail::StringIfCharPtrElseT<T>>
 PendingVariable<U> getOpt(const Index& index, const T& defaultValue) {
-    ensure(
+    CHECK(
         vmap.initialized,
         "parseArgs(args, argv) must be called before getOpt(...)");
     if (vmap.count(index)) {
@@ -340,13 +340,13 @@ int getPositionalImpl(size_t index, T& var, Args&... args) {
 
 template<typename ... Args>
 int doGetNamed(const std::string& names, Args&... args) {
-    ensure(
+    CHECK(
         vmap.initialized,
         "parseArgs(args, argv) must be called before getNamed(...)");
 
     auto namesSplit = util::split(names, ',');
 
-    ENSURE(
+    INTER_CHECK(
         namesSplit.size() == sizeof...(args),
         "Number of names is not equal to number of variables");
 
@@ -355,7 +355,7 @@ int doGetNamed(const std::string& names, Args&... args) {
 
 template<typename ... Args>
 int getPositional(Args&... args) {
-    ensure(
+    CHECK(
         vmap.initialized,
         "parseArgs(args, argv) must be called before getPositional(...)");
 

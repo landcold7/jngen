@@ -10,7 +10,7 @@ void Tree::addEdge(int u, int v, const Weight& w) {
     v = vertexByLabel(v);
 
     int ret = dsu_.unite(u, v);
-    ensure(ret, "A cycle appeared in the tree");
+    CHECK(ret, "A cycle appeared in the tree");
 
     addEdgeUnsafe(u, v);
 
@@ -26,7 +26,7 @@ bool Tree::canAddEdge(int u, int v) {
 }
 
 Array Tree::parents(int root) const {
-    ensure(isConnected(), "Tree::parents(int): Tree is not connected");
+    CHECK(isConnected(), "Tree::parents(int): Tree is not connected");
     root = vertexByLabel(root);
 
     Array parents(n());
@@ -74,8 +74,8 @@ Tree Tree::shuffledAllBut(const Array& except) const {
 }
 
 Tree Tree::link(int vInThis, const Tree& other, int vInOther) {
-    ensure(vInThis < n(), "Cannot link a nonexistent vertex");
-    ensure(vInOther < other.n(), "Cannot link to a nonexistent vertex");
+    CHECK(vInThis < n(), "Cannot link a nonexistent vertex");
+    CHECK(vInOther < other.n(), "Cannot link to a nonexistent vertex");
 
     Tree t(*this);
 
@@ -89,8 +89,8 @@ Tree Tree::link(int vInThis, const Tree& other, int vInOther) {
 }
 
 Tree Tree::glue(int vInThis, const Tree& other, int vInOther) {
-    ensure(vInThis < n(), "Cannot glue a nonexistent vertex");
-    ensure(vInOther < other.n(), "Cannot glue to a nonexistent vertex");
+    CHECK(vInThis < n(), "Cannot glue a nonexistent vertex");
+    CHECK(vInOther < other.n(), "Cannot glue to a nonexistent vertex");
 
     auto newLabel = [vInThis, vInOther, &other, this] (int v) {
         if (v < vInOther) {
@@ -108,7 +108,7 @@ Tree Tree::glue(int vInThis, const Tree& other, int vInOther) {
         t.addEdge(newLabel(e.first), newLabel(e.second));
     }
 
-    ensure(t.n() == n() + other.n() - 1);
+    CHECK(t.n() == n() + other.n() - 1);
 
     return t;
 }
@@ -116,7 +116,7 @@ Tree Tree::glue(int vInThis, const Tree& other, int vInOther) {
 // Tree generators go here
 
 Tree Tree::bamboo(int size) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     Tree t;
     for (int i = 0; i + 1 < size; ++i) {
@@ -127,7 +127,7 @@ Tree Tree::bamboo(int size) {
 }
 
 Tree Tree::random(int size) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     if (size == 1) {
         return Tree();
@@ -136,7 +136,7 @@ Tree Tree::random(int size) {
 }
 
 Tree Tree::randomPrim(int size, int elongation) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     Tree t;
     for (int v = 1; v < size; ++v) {
@@ -148,7 +148,7 @@ Tree Tree::randomPrim(int size, int elongation) {
 }
 
 Tree Tree::randomKruskal(int size) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     Tree t;
     t.extend(size);
@@ -162,7 +162,7 @@ Tree Tree::randomKruskal(int size) {
 }
 
 Tree Tree::star(int size) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     Tree t;
     for (int i = 1; i < size; ++i) {
@@ -173,10 +173,10 @@ Tree Tree::star(int size) {
 }
 
 Tree Tree::caterpillar(int size, int length) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
-    ensure(length > 0, "Length of the caterpillar must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(length > 0, "Length of the caterpillar must be positive");
     checkLargeParameter(size);
-    ensure(length <= size);
+    CHECK(length <= size);
     Tree t = Tree::bamboo(length);
     for (int i = length; i < size; ++i) {
         t.addEdge(rnd.next(length), i);
@@ -190,7 +190,7 @@ Tree Tree::binary(int size) {
 }
 
 Tree Tree::kary(int size, int k) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
 
     Tree t;
@@ -216,7 +216,7 @@ Tree Tree::fromPruferSequence(const Array& code) {
 
     Tree t;
     for (int v: code) {
-        ENSURE(!leaves.empty());
+        INTER_CHECK(!leaves.empty());
         int to = *leaves.begin();
         leaves.erase(leaves.begin());
         if (--degree[v] == 1) {
@@ -226,7 +226,7 @@ Tree Tree::fromPruferSequence(const Array& code) {
         t.addEdge(v, to);
     }
 
-    ENSURE(leaves.size() == 2u);
+    INTER_CHECK(leaves.size() == 2u);
     t.addEdge(*leaves.begin(), *leaves.rbegin());
     t.normalizeEdges();
     return t;
@@ -266,13 +266,13 @@ void Tree::doPrintParents(std::ostream& out, const OutputModifier& mod) const {
         mod.printN = false;
 
         if (mod.printWeights && edgeWeights_.hasNonEmpty()) {
-            ensure(false, "Printing parents and edge weights is not supported");
-            ensure(
+            CHECK(false, "Printing parents and edge weights is not supported");
+            CHECK(
                 mod.printParents == -1,
                 "Root must not be set to any exact value when printing a tree "
                 "with edge weights. To fix it, either set printParents() "
                 "or printWeights(false)");
-            ENSURE(root == 0);
+            INTER_CHECK(root == 0);
             // TODO: some code to be here
         } else {
             JNGEN_PRINT(parents);

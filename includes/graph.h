@@ -1,17 +1,14 @@
 #pragma once
 
-#include "array.h"
-#include "generic_graph.h"
-#include "graph_builder_proxy.h"
-#include "hash.h"
-#include "tree.h"
-
-#include "../drawer/graphviz.h"
-
-#include <memory>
 #include <set>
 #include <utility>
 #include <vector>
+
+#include "hash.h"
+#include "tree.h"
+#include "array.h"
+#include "generic_graph.h"
+#include "graph_builder_proxy.h"
 
 namespace jngen {
 
@@ -33,18 +30,12 @@ public:
     Graph(const GenericGraph& gg)
         : GenericGraph(gg) {}
 
-    // Graph(const GenericGraph& gg, std::string name)
-    //     : GenericGraph(gg, name) {}
-
     void setN(int n);
 
     Graph& shuffle();
     Graph shuffled() const;
     Graph& shuffleAllBut(const Array& except);
     Graph shuffledAllBut(const Array& except) const;
-
-    // TODO(landocld7): make this function works.
-    Graph& draw();
 
     static BuilderProxy random(int n, int m);
     static BuilderProxy complete(int n);
@@ -56,14 +47,8 @@ public:
     static BuilderProxy completeBipartite(int n1, int n2);
 };
 
-inline Graph& Graph::draw() {
-    // Graphviz gv(std::make_shared<GenericGraph>(this), this->name_);
-    // gv.draw_graph();
-    return *this;
-}
-
 inline void Graph::setN(int n) {
-    ensure(n >= this->n(), "Cannot lessen number of vertices in the graph");
+    CHECK(n >= this->n(), "Cannot lessen number of vertices in the graph");
     extend(n);
 }
 

@@ -34,11 +34,11 @@ std::map<std::string, Pattern> Pattern::cachedPatterns_;
 
 std::string Pattern::next(std::function<int(int)>&& rnd) const {
     if (isOrPattern) {
-        ENSURE(!children.empty());
+        INTER_CHECK(!children.empty());
         return children[rnd(children.size())].next(std::move(rnd));
     }
 
-    ENSURE( (!!chars.empty()) ^ (!!children.empty()) );
+    INTER_CHECK( (!!chars.empty()) ^ (!!children.empty()) );
 
     int count;
     if (min == max) {
@@ -88,7 +88,7 @@ int Parser::peekAndMove(size_t& newPos) const {
         return -1;
     }
     if (s[pos] == '\\') {
-        ensure(
+        CHECK(
             pos+1 < s.size(),
             "Backslash at the end of the pattern is illegal");
         newPos += 2;
@@ -102,7 +102,7 @@ int Parser::peekAndMove(size_t& newPos) const {
 
 // TODO: catch overflows
 int Parser::readInt() {
-    ENSURE(std::isdigit(peek()));
+    INTER_CHECK(std::isdigit(peek()));
 
     int res = 0;
     while (std::isdigit(peek())) {
@@ -112,7 +112,7 @@ int Parser::readInt() {
 }
 
 std::pair<int, int> Parser::parseRange() {
-    ENSURE(control(next()) == '{');
+    INTER_CHECK(control(next()) == '{');
 
     int from = readInt();
 
@@ -121,10 +121,10 @@ std::pair<int, int> Parser::parseRange() {
         return {from, from};
     } else if (nxt == ',' || nxt == '-') {
         int to = readInt();
-        ENSURE(control(next()) == '}');
+        INTER_CHECK(control(next()) == '}');
         return {from, to};
     } else {
-        ensure(false, "cannot parse character range");
+        CHECK(false, "cannot parse character range");
     }
 }
 
@@ -148,13 +148,13 @@ std::vector<char> Parser::parseBlock() {
     bool inRange = false;
     while (control(peek()) != ']') {
         char c = next(); // buggy on cases like [a-}]
-        ENSURE(c != -1);
+        INTER_CHECK(c != -1);
 
         if (c == '-') {
-            ensure(!inRange, "invalid pattern");
+            CHECK(!inRange, "invalid pattern");
             inRange = true;
         } else if (inRange) {
-            ensure(c >= last, "invalid pattern");
+            CHECK(c >= last, "invalid pattern");
             for (char i = last; i <= c; ++i) {
                 allowed.push_back(i);
             }
@@ -168,9 +168,9 @@ std::vector<char> Parser::parseBlock() {
         }
     }
 
-    ENSURE(control(next()) == ']');
+    INTER_CHECK(control(next()) == ']');
 
-    ENSURE(!inRange);
+    INTER_CHECK(!inRange);
     if (last != -1) {
         allowed.push_back(last);
     }
@@ -198,7 +198,7 @@ Pattern Parser::parsePattern() {
             if (control(nxt) == '[') {
                 chars = parseBlock();
             } else {
-                ENSURE(!control(nxt));
+                INTER_CHECK(!control(nxt));
                 chars = {static_cast<char>(nxt)};
             }
 

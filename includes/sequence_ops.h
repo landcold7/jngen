@@ -13,7 +13,7 @@ namespace jngen {
 
 template<typename Iterator>
 void shuffle(Iterator begin, Iterator end) {
-    ensure(end >= begin, "Cannot shuffle range of negative length");
+    CHECK(end >= begin, "Cannot shuffle range of negative length");
     size_t size = end - begin;
     for (size_t i = 1; i < size; ++i) {
         std::swap(*(begin + i), *(begin + rnd.next(i + 1)));
@@ -22,8 +22,7 @@ void shuffle(Iterator begin, Iterator end) {
 
 template<typename Iterator>
 auto choice(Iterator begin, Iterator end)
-        -> typename std::iterator_traits<Iterator>::value_type
-{
+        -> typename std::iterator_traits<Iterator>::value_type {
     return rnd.choice(begin, end);
 }
 

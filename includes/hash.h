@@ -2,11 +2,11 @@
 
 #include "common.h"
 
-#include <iterator>
-#include <unordered_set>
 #include <vector>
-#include <type_traits>
 #include <utility>
+#include <iterator>
+#include <type_traits>
+#include <unordered_set>
 
 namespace jngen {
 
@@ -40,10 +40,7 @@ void hashCombine(uint64_t& h, Iterator begin, Iterator end) {
 } // namespace impl
 
 template<typename T>
-struct Hash<
-        T,
-        enable_if_t<std::is_integral<T>::value>>
-{
+struct Hash<T, enable_if_t<std::is_integral<T>::value>> {
     uint64_t operator()(const T& t) const {
         uint64_t h = 0;
         impl::hashCombine(h, t);
@@ -51,25 +48,26 @@ struct Hash<
     }
 };
 
-#define JNGEN_DEFINE_STD_HASH(Type)\
-namespace std {\
-template<>\
-struct hash<Type> {\
-    size_t operator()(const Type& value) const {\
-        return jngen::Hash<Type>{}(value);\
-    }\
-};\
-}
+// ref: <stackoverflow> why-is-used-to-access-operator-in-stdhash
+#define JNGEN_DEFINE_STD_HASH(Type)                         \
+    namespace std {                                         \
+        template<>                                          \
+        struct hash<Type> {                                 \
+            size_t operator()(const Type& value) const {    \
+                return jngen::Hash<Type>{}(value);          \
+            }                                               \
+        };                                                  \
+    }
 
 #define JNGEN_DEFINE_STD_HASH_TEMPLATE(T, Type)\
-namespace std {\
-template<typename T>\
-struct hash<Type> {\
-    size_t operator()(const Type& value) const {\
-        return jngen::Hash<Type>{}(value);\
-    }\
-};\
-}
+    namespace std {                                         \
+        template<typename T>                                \
+        struct hash<Type> {                                 \
+            size_t operator()(const Type& value) const {    \
+                return jngen::Hash<Type>{}(value);          \
+            }                                               \
+        };                                                  \
+    }
 
 template<typename T>
 struct Hash<std::vector<T>> {

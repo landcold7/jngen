@@ -1,15 +1,15 @@
 #pragma once
 
-#include "config.h"
-
+#include <map>
+#include <vector>
+#include <string>
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
-#include <map>
 #include <stdexcept>
-#include <string>
 #include <type_traits>
-#include <vector>
+
+#include "config.h"
 
 #ifdef JNGEN_DECLARE_ONLY
 #define JNGEN_EXTERN extern
@@ -21,51 +21,54 @@ namespace jngen {
 
 class Exception : public std::runtime_error {
 public:
-    explicit Exception(const std::string& s) :
-        std::runtime_error("Assertion `" + s + "' failed.")
-    {  }
+    explicit Exception(const std::string& s)
+        : std::runtime_error("Assertion `" + s + "` failed.") {}
 
-    Exception(const std::string& assertMsg, const std::string& expl) :
-        std::runtime_error(expl + " (assertion `" + assertMsg + "' failed).")
-    {  }
+    Exception(const std::string& assertMsg, const std::string& expl)
+        : std::runtime_error(
+            expl + " (Assertion `" + assertMsg + "` failed).") {}
 };
 
 class InternalException : public Exception {
 public:
-    explicit InternalException(const std::string& s) : Exception(s) {}
+    explicit InternalException(const std::string& s)
+        : Exception(s) {}
 
-    InternalException(const std::string& assertMsg, const std::string& expl) :
-        Exception(assertMsg, expl)
-    {  }
+    InternalException(const std::string& assertMsg, const std::string& expl)
+        : Exception(assertMsg, expl) {}
 };
 
 } // namespace jngen
 
-#define JNGEN_ENSURE1(exType, cond)\
-do\
-    if (!(cond)) {\
-        throw exType(#cond);\
-    }\
-while (false)
+#define JNGEN_CHECK1(exType, cond)  \
+    do {                            \
+        if ( !(cond) ) {            \
+            throw exType(#cond);    \
+        }                           \
+    } while (false)
 
-#define JNGEN_ENSURE2(exType, cond, msg)\
-do\
-    if (!(cond)) {\
-        throw exType(#cond, msg);\
-    }\
-while (false)
+#define JNGEN_CHECK2(exType, cond, msg)  \
+    do {                                 \
+        if ( !(cond) ) {                 \
+            throw exType(#cond, msg);    \
+        }                                \
+    } while (false)
 
-#define JNGEN_GET_MACRO(_1, _2, NAME, ...) NAME
+#define JNGEN_SWITCH_CHECKER(_1, _2, checker, ...) checker
 
-#define ensure(...) JNGEN_GET_MACRO(__VA_ARGS__, JNGEN_ENSURE2, JNGEN_ENSURE1)\
+#define CHECK(...)                                                  \
+    JNGEN_SWITCH_CHECKER(__VA_ARGS__, JNGEN_CHECK2, JNGEN_CHECK1)   \
     (jngen::Exception, __VA_ARGS__)
-#define ENSURE(...) JNGEN_GET_MACRO(__VA_ARGS__, JNGEN_ENSURE2, JNGEN_ENSURE1)\
+
+#define INTER_CHECK(...)                                            \
+    JNGEN_SWITCH_CHECKER(__VA_ARGS__, JNGEN_CHECK2, JNGEN_CHECK1)   \
     (jngen::InternalException, __VA_ARGS__)
 
 namespace jngen {
 
 template<typename ... Args>
 std::string format(const std::string& fmt, Args... args) {
+    // Alaways existing memory after this function first be called.
     constexpr static char BUF_SIZE = 64;
     static char BUFFER[BUF_SIZE];
 
@@ -97,7 +100,8 @@ std::string format(const std::string& fmt, Args... args) {
 
 class ContextTimer {
 public:
-    ContextTimer(const std::string& name) : name_(name) {
+    ContextTimer(const std::string& name)
+            : name_(name) {
         start_ = std::chrono::steady_clock::now();
     }
 
@@ -122,6 +126,7 @@ private:
     std::chrono::steady_clock::time_point start_;
 };
 
+// TODO: why use && here???
 template<typename F>
 auto distribution(int n, F&& f) -> std::map<decltype(f()), int> {
     std::map<decltype(f()), int> dist;
@@ -134,10 +139,9 @@ auto distribution(int n, F&& f) -> std::map<decltype(f()), int> {
 inline void checkLargeParameter(int n) {
     if (!config.generateLargeObjects) {
         constexpr static int BOUND = 5e6;
-        ensure(
-            n <= BOUND,
-            "If you want to generate an object of size > 5'000'000, please set "
-            "'config.generateLargeObjects = true'.");
+        CHECK(n <= BOUND,
+              "If you want to generate an object of size > 5'000'000, "
+              "please set 'config.generateLargeObjects = true'.");
     }
 }
 
@@ -185,7 +189,7 @@ inline std::vector<std::string> split(std::string s, char delimiter) {
     s += delimiter;
     std::string cur;
 
-    for (char c: s) {
+    for (char c : s) {
         if (c == delimiter) {
             result.push_back(strip(cur));
             cur.clear();

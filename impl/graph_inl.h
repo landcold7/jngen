@@ -26,23 +26,21 @@ class GraphRandom {
 public:
     GraphRandom() {
         static bool created = false;
-        ensure(!created, "jngen::GraphRandom should be created only once");
+        CHECK(!created, "jngen::GraphRandom should be created only once");
         created = true;
     }
 
     static BuilderProxy random(int n, int m) {
-        ensure(
-            n >= 0 && m >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n >= 0 && m >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n);
         checkLargeParameter(m);
         return BuilderProxy(Traits(n, m), &doRandom);
     }
 
     static BuilderProxy complete(int n) {
-        ensure(
-            n >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n * n);
         return BuilderProxy(Traits(n), [](Traits t) {
             Graph g;
@@ -83,14 +81,12 @@ public:
     }
 
     static BuilderProxy empty(int n) {
-        ensure(
-            n >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n);
         return BuilderProxy(Traits(n), [](Traits t) {
-            ensure(
-                t.n <= 1 || !t.connected,
-                "Empty graph on >1 vertices cannot be connected");
+            CHECK(t.n <= 1 || !t.connected,
+                  "Empty graph on >1 vertices cannot be connected");
             Graph g;
             if (t.directed) {
                 g.directed_ = true;
@@ -101,18 +97,17 @@ public:
     }
 
     static BuilderProxy cycle(int n) {
-        ensure(
-            n >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n);
         return BuilderProxy(Traits(n), [](Traits t) {
             Graph g;
             if (t.directed) {
                 g.directed_ = true;
-                ensure(!t.acyclic, "Cannot generate acyclic cycle");
+                CHECK(!t.acyclic, "Cannot generate acyclic cycle");
             }
             for (int i = 0; i < t.n; ++i) {
-                g.addEdge(i, (i+1)%t.n);
+                g.addEdge(i, (i + 1) % t.n);
             }
             g.normalizeEdges();
             return g;
@@ -120,11 +115,9 @@ public:
     }
 
     static BuilderProxy randomStretched(
-            int n, int m, int elongation, int spread)
-    {
-        ensure(
-            n >= 0 && m >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+            int n, int m, int elongation, int spread) {
+        CHECK(n >= 0 && m >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n);
         checkLargeParameter(m);
         return BuilderProxy(Traits(n, m), [elongation, spread](Traits t) {
@@ -133,9 +126,8 @@ public:
     }
 
     static BuilderProxy randomBipartite(int n1, int n2, int m) {
-        ensure(
-            n1 >= 0 && n2 >= 0 && m >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n1 >= 0 && n2 >= 0 && m >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n1 + n2);
         checkLargeParameter(m);
         return BuilderProxy(Traits(0, m), [n1, n2](Traits t) {
@@ -145,12 +137,11 @@ public:
 
 
     static BuilderProxy completeBipartite(int n1, int n2) {
-        ensure(
-            n1 >= 0 && n2 >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n1 >= 0 && n2 >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n1 * n2);
         return BuilderProxy(Traits(0, 0), [n1, n2](Traits t) {
-            ensure(!t.directed, "Directed bipartite graphs are not supported");
+            CHECK(!t.directed, "Directed bipartite graphs are not supported");
 
             Arrayp edges;
             edges.reserve(n1 * n2);
@@ -172,13 +163,13 @@ private:
         int m = t.m;
 
         if (!t.allowMulti) {
-            ensure(m <= maxEdges(n, t), "Too many edges in the graph");
+            CHECK(m <= maxEdges(n, t), "Too many edges in the graph");
         }
 
         std::unordered_set<std::pair<int, int>> usedEdges;
 
         if (t.connected) {
-            ensure(m >= n - 1, "Not enough edges for a connected graph");
+            CHECK(m >= n - 1, "Not enough edges for a connected graph");
             auto treeEdges = Tree::random(n).edges();
             if (t.directed) {
                 for (auto& edge: treeEdges) {
@@ -188,7 +179,7 @@ private:
                 }
             }
             usedEdges.insert(treeEdges.begin(), treeEdges.end());
-            ENSURE(usedEdges.size() == static_cast<size_t>(n - 1));
+            INTER_CHECK(usedEdges.size() == static_cast<size_t>(n - 1));
         }
 
         auto edgeIsGood = [&usedEdges, t](std::pair<int, int> edge) {
@@ -196,8 +187,7 @@ private:
                 return false;
             }
             if (t.directed && !t.allowAntiparallel &&
-                    usedEdges.count({edge.second, edge.first}))
-            {
+                    usedEdges.count({edge.second, edge.first})) {
                 return false;
             }
             return true;
@@ -253,8 +243,7 @@ private:
                 return false;
             }
             if (t.directed && !t.allowAntiparallel &&
-                    usedEdges.count({edge.second, edge.first}))
-            {
+                    usedEdges.count({edge.second, edge.first})) {
                 return false;
             }
             return true;
@@ -265,7 +254,7 @@ private:
 
         while (static_cast<int>(edges.size()) != t.m) {
             if (--attemptsToFail == 0) {
-                ensure(false, format("Cannot generate random stretched graph "
+                CHECK(false, format("Cannot generate random stretched graph "
                     "with parameters %d, %d, %d, %d",
                     t.n, t.m, elongation, spread));
             }
@@ -276,7 +265,7 @@ private:
                 v = parents[v];
             }
 
-            ENSURE(v <= u);
+            INTER_CHECK(v <= u);
 
             if (!t.allowLoops && u == v) {
                 continue;
@@ -307,22 +296,22 @@ private:
         int m = t.m;
 
         if (!t.allowMulti) {
-            ensure(m <= static_cast<long long>(n1) * n2,
+            CHECK(m <= static_cast<long long>(n1) * n2,
                     "Too many edges in the graph");
         }
 
-        ensure(!t.directed, "Directed bipartite graphs are not supported");
+        CHECK(!t.directed, "Directed bipartite graphs are not supported");
 
         std::unordered_set<std::pair<int, int>> usedEdges;
 
         if (t.connected) {
-            ensure(m >= n1 + n2 - 1, "Not enough edges for a connected graph");
+            CHECK(m >= n1 + n2 - 1, "Not enough edges for a connected graph");
             auto pruferCode = Array::random(n2 - 1, 0, n1 - 1) +
                 Array::random(n1 - 1, n1, n1 + n2 - 1);
             pruferCode.shuffle();
             auto treeEdges = Tree::fromPruferSequence(pruferCode).edges();
             usedEdges.insert(treeEdges.begin(), treeEdges.end());
-            ENSURE(usedEdges.size() == static_cast<size_t>(n1 + n2 - 1));
+            INTER_CHECK(usedEdges.size() == static_cast<size_t>(n1 + n2 - 1));
         }
 
         auto edgeIsGood = [&usedEdges, t](std::pair<int, int> edge) {
@@ -361,8 +350,8 @@ private:
     }
 
     static long long maxEdges(int n, const Traits& t) {
-        ENSURE(!t.allowMulti);
-        long long res = static_cast<long long>(n) * (n-1);
+        INTER_CHECK(!t.allowMulti);
+        long long res = static_cast<long long>(n) * (n - 1);
         if (!(t.directed && t.allowAntiparallel)) {
             res /= 2;
         }

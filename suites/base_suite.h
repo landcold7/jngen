@@ -23,7 +23,7 @@ namespace suites {
             name = format("noname%d", (int)names_.size());\
         }\
         if (std::find(names_.begin(), names_.end(), name) != names_.end()) {\
-            ENSURE(false, format("Duplicated test name: '%s'", name.c_str()));\
+            INTER_CHECK(false, format("Duplicated test name: '%s'", name.c_str()));\
         }\
         names_.emplace_back(name);\
     }\
@@ -46,7 +46,7 @@ public:
     }
 
     T gen(size_t id, Args... args) const {
-        ensure(
+        CHECK(
             id < producers_.size(),
             format("Cannot generate test #%d in suite '%s', there are only "
                 "%d", (int)id, name_.c_str(), (int)producers_.size()));
@@ -56,7 +56,7 @@ public:
     T gen(const std::string& name, Args... args) const {
         size_t pos = std::find(names_.begin(), names_.end(), name)
             - names_.begin();
-        ensure(
+        CHECK(
             pos < names_.size(),
             format("There is no test '%s' in suite '%s'",
                 name.c_str(), name_.c_str()));
@@ -64,7 +64,7 @@ public:
     }
 
     TArray<T> genMany(size_t count, Args... args) const {
-        ensure(
+        CHECK(
             count <= producers_.size(),
             format("Cannot generate %d tests in suite '%s', there are only "
                 "%d", (int)count, name_.c_str(), (int)producers_.size()));

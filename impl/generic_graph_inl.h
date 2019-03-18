@@ -6,9 +6,8 @@
 namespace jngen {
 
 void GenericGraph::setVertexWeights(const WeightArray& weights) {
-    ensure(
-        static_cast<int>(weights.size()) == n(),
-        "The argument of setVertexWeights must have exactly n elements");
+    CHECK(static_cast<int>(weights.size()) == n(),
+          "The argument of setVertexWeights must have exactly n elements");
     vertexWeights_.resize(n());
     for (int i = 0; i < n(); ++i) {
         vertexWeights_[i] = weights[vertexByLabel(i)];
@@ -16,7 +15,7 @@ void GenericGraph::setVertexWeights(const WeightArray& weights) {
 }
 
 void GenericGraph::setVertexWeight(int v, const Weight& weight) {
-    ensure(v < n(), "setVertexWeight");
+    CHECK(v < n(), "setVertexWeight");
     v = vertexByLabel(v);
 
     vertexWeights_.extend(v + 1);
@@ -24,20 +23,19 @@ void GenericGraph::setVertexWeight(int v, const Weight& weight) {
 }
 
 void GenericGraph::setEdgeWeights(const WeightArray& weights) {
-    ensure(
-        static_cast<int>(weights.size()) == m(),
-        "The argument of setEdgeWeights must have exactly m elements");
+    CHECK(static_cast<int>(weights.size()) == m(),
+          "The argument of setEdgeWeights must have exactly m elements");
     edgeWeights_ = weights;
 }
 
 void GenericGraph::setEdgeWeight(size_t index, const Weight& weight) {
-    ensure(static_cast<int>(index) < m(), "setEdgeWeight");
+    CHECK(static_cast<int>(index) < m(), "setEdgeWeight");
     edgeWeights_.extend(index + 1);
     edgeWeights_[index] = weight;
 }
 
 Weight GenericGraph::vertexWeight(int v) const {
-    ensure(v < n(), "vertexWeight");
+    CHECK(v < n(), "vertexWeight");
     size_t index = vertexByLabel(v);
     if (index >= vertexWeights_.size()) {
         return Weight{};
@@ -46,7 +44,7 @@ Weight GenericGraph::vertexWeight(int v) const {
 }
 
 Weight GenericGraph::edgeWeight(size_t index) const {
-    ensure(static_cast<int>(index) < m(), "edgeWeight");
+    CHECK(static_cast<int>(index) < m(), "edgeWeight");
     if (index >= edgeWeights_.size()) {
         return Weight{};
     }
@@ -59,7 +57,7 @@ WeightArray GenericGraph::edgesWeight() const {
 
 Array GenericGraph::edges(int v) const {
 
-    ensure(v < n(), "Graph::edges(v)");
+    CHECK(v < n(), "Graph::edges(v)");
     v = vertexByLabel(v);
 
     Array result = internalEdges(v);
@@ -80,7 +78,7 @@ Arrayp GenericGraph::edges() const {
 }
 
 WeightArray GenericGraph::prepareWeightArray(WeightArray a, int requiredSize) {
-    ENSURE(a.hasNonEmpty(), "Attempt to print empty weight array");
+    INTER_CHECK(a.hasNonEmpty(), "Attempt to print empty weight array");
 
     a.extend(requiredSize);
     int type = a.anyType();
@@ -96,7 +94,7 @@ WeightArray GenericGraph::prepareWeightArray(WeightArray a, int requiredSize) {
 void GenericGraph::doShuffle() {
     // this if is to be removed after all checks pass
     if (vertexLabel_.size() < static_cast<size_t>(n())) {
-        ENSURE(false, "GenericGraph::doShuffle");
+        INTER_CHECK(false, "GenericGraph::doShuffle");
         vertexLabel_ = Array::id(n());
     }
 
@@ -163,7 +161,7 @@ void GenericGraph::addEdgeUnsafe(int u, int v) {
     int id = numEdges_++;
     edges_.emplace_back(u, v);
 
-    ENSURE(u < n() && v < n(), "GenericGraph::addEdgeUnsafe");
+    INTER_CHECK(u < n() && v < n(), "GenericGraph::addEdgeUnsafe");
 
     adjList_[u].push_back(id);
     if (!directed_ && u != v) {
@@ -172,18 +170,19 @@ void GenericGraph::addEdgeUnsafe(int u, int v) {
 }
 
 int GenericGraph::edgeOtherEnd(int v, int edgeId) const {
-    ENSURE(edgeId < numEdges_);
+    INTER_CHECK(edgeId < numEdges_);
     const auto& edge = edges_[edgeId];
     if (edge.first == v) {
         return edge.second;
     }
-    ENSURE(!directed_);
-    ENSURE(edge.second == v);
+    INTER_CHECK(!directed_);
+    INTER_CHECK(edge.second == v);
     return edge.first;
 }
 
 void GenericGraph::permuteEdges(const Array& order) {
-    ENSURE(static_cast<int>(order.size()) == m(), "GenericGraph::permuteEdges");
+    INTER_CHECK(static_cast<int>(order.size()) == m(),
+                "GenericGraph::permuteEdges");
 
     edges_ = edges_.subseq(order);
 
@@ -305,7 +304,7 @@ void GenericGraph::normalizeEdges() {
     if (!config.normalizeEdges) {
         return;
     }
-    ENSURE(
+    INTER_CHECK(
         vertexLabel_ == Array::id(n()),
         "Can call normalizeEdges() only on newly created graph");
 
@@ -340,7 +339,7 @@ int GenericGraph::compareTo(const GenericGraph& other) const {
 }
 
 void GenericGraph::initWithEdges(int n, const Arrayp& edges) {
-    ENSURE(this->n() == 0, "Can call initWithEdges only on empty graph");
+    INTER_CHECK(this->n() == 0, "Can call initWithEdges only on empty graph");
     extend(n);
 
     edges_ = edges;

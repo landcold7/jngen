@@ -20,51 +20,43 @@ class ArrayRandom {
 public:
     ArrayRandom() {
         static bool created = false;
-        ENSURE(!created, "jngen::ArrayRandom should be created only once");
+        INTER_CHECK(!created, "jngen::ArrayRandom should be created only once");
         created = true;
     }
 
     template<typename F, typename ...Args>
-    static auto randomf(
-            size_t size,
-            F func,
-            Args... args) -> GenericArray<decltype(func(args...))>
-    {
+    static auto randomf(size_t size, F func, Args... args)
+            -> GenericArray<decltype(func(args...))> {
         typedef decltype(func(args...)) T;
         return GenericArray<T>::randomf(size, func, args...);
     }
 
     template<typename F, typename ...Args>
-    static auto randomfUnique(
-            size_t size,
-            F func,
-            Args... args) -> GenericArray<decltype(func(args...))>
-    {
+    static auto randomfUnique(size_t size, F func, Args... args)
+            -> GenericArray<decltype(func(args...))> {
         typedef decltype(func(args...)) T;
         return GenericArray<T>::randomfUnique(size, func, args...);
     }
 
     template<typename F, typename ...Args>
-    static auto randomfAll(
-            F func,
-            Args... args) -> GenericArray<decltype(func(args...))>
-    {
+    static auto randomfAll(F func, Args... args)
+            -> GenericArray<decltype(func(args...))> {
         typedef decltype(func(args...)) T;
         return GenericArray<T>::randomfAll(func, args...);
     }
 
     static Array64 antiUnorderedSet(
-        int n,
-        double maxLoadFactor = 1.0,
-        bool reserve = false,
-        UnorderedSetCompiler compiler = UnorderedSetCompiler::Gcc4);
+            int n,
+            double maxLoadFactor = 1.0,
+            bool reserve = false,
+            UnorderedSetCompiler compiler = UnorderedSetCompiler::Gcc4);
 
 private:
     static Array64 numbersDividingPrime(int n, long long p);
 
     static long long nextPrime(
-        unsigned long long x,
-        UnorderedSetCompiler compiler);
+            unsigned long long x,
+            UnorderedSetCompiler compiler);
 };
 
 JNGEN_EXTERN ArrayRandom rnda;
@@ -75,15 +67,12 @@ Array64 ArrayRandom::antiUnorderedSet(
     int n,
     double maxLoadFactor,
     bool reserve,
-    UnorderedSetCompiler compiler)
-{
-    ensure(
-        compiler == UnorderedSetCompiler::Gcc4,
-        "unordered set antitest supported only for gcc-4.x yet");
+    UnorderedSetCompiler compiler) {
+    CHECK(compiler == UnorderedSetCompiler::Gcc4,
+          "unordered set antitest supported only for gcc-4.x yet");
 
-    ensure(
-        n <= 1000000,
-        "unordered set antitest supported only for n <= 1e7");
+    CHECK(n <= 1000000,
+          "unordered set antitest supported only for n <= 1e7");
 
     int buckets;
 
@@ -111,9 +100,8 @@ Array64 ArrayRandom::numbersDividingPrime(int n, long long p) {
 
 long long ArrayRandom::nextPrime(
     unsigned long long x,
-    UnorderedSetCompiler compiler)
-{
-    ENSURE(compiler == UnorderedSetCompiler::Gcc4);
+    UnorderedSetCompiler compiler) {
+    INTER_CHECK(compiler == UnorderedSetCompiler::Gcc4);
 
     const static size_t SIZE =
         sizeof(impl::primeList) / sizeof(impl::primeList[0]);

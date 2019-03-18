@@ -17,9 +17,8 @@ public:
 
     Tree(const GenericGraph& gg) : GenericGraph(gg) {
         extend(1);
-        ensure(
-                dsu_.numComponents() == n() - m(),
-                "Cannot create a tree from a graph with cycles");
+        CHECK(dsu_.numComponents() == n() - m(),
+              "Cannot create a tree from a graph with cycles");
     }
 
     void addEdge(int u, int v, const Weight& w = Weight{}) override;
@@ -51,7 +50,7 @@ public:
 };
 
 JNGEN_DECLARE_SIMPLE_PRINTER(Tree, 2) {
-    ensure(t.isConnected(), "Cannot print a tree: it is not connected");
+    CHECK(t.isConnected(), "Cannot print a tree: it is not connected");
 
     if (mod.printEdges) {
         t.doPrintEdges(out, mod);

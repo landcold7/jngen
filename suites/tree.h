@@ -42,7 +42,7 @@ public:
             t = t.glue(0, Tree::bamboo(k), 0);
             t = t.glue(0, Tree::bamboo(k), 0);
 
-            ENSURE(t.n() <= n);
+            INTER_CHECK(t.n() <= n);
 
             return t;
         };
@@ -53,7 +53,7 @@ public:
             while (t.n() + k - 1 <= n) {
                 t = t.glue(0, Tree::bamboo(k), 0);
             }
-            ENSURE(t.n() <= n);
+            INTER_CHECK(t.n() <= n);
             return t;
         };
 
@@ -62,7 +62,7 @@ public:
             for (int i = 2; t.n() + i <= n; ++i) {
                 t = t.link(0, Tree::bamboo(i), 0);
             }
-            ENSURE(t.n() < n);
+            INTER_CHECK(t.n() < n);
             return t;
         };
 

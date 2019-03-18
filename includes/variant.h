@@ -64,17 +64,16 @@ protected:
 };
 
 template<size_t Size, size_t Align, typename T, typename ... Args>
-class VariantImpl<Size, Align, T, Args...> : public VariantImpl<
+class VariantImpl<Size, Align, T, Args...>
+    : public VariantImpl<
         (sizeof(T) > Size ? sizeof(T) : Size),
         (alignof(T) > Align ? alignof(T) : Align),
-        Args...
-    >
-{
+        Args...> {
+
     using Base = VariantImpl<
         (sizeof(T) > Size ? sizeof(T) : Size),
         (alignof(T) > Align ? alignof(T) : Align),
-        Args...
-    >;
+        Args...>;
 
     constexpr static int MY_ID = sizeof...(Args);
 

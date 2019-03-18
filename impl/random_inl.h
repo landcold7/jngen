@@ -7,11 +7,11 @@ namespace jngen {
 
 void assertRandomEngineConsistency() {
     std::mt19937 engine(1234);
-    ENSURE(engine() == 822569775,
+    INTER_CHECK(engine() == 822569775,
         "std::mt19937 doesn't conform to the C++ standard");
-    ENSURE(engine() == 2137449171,
+    INTER_CHECK(engine() == 2137449171,
         "std::mt19937 doesn't conform to the C++ standard");
-    ENSURE(engine() == 2671936806,
+    INTER_CHECK(engine() == 2671936806,
         "std::mt19937 doesn't conform to the C++ standard");
 }
 
@@ -80,51 +80,50 @@ double Random::nextf() {
 }
 
 int Random::next(int n) {
-    ensure(n > 0);
+    CHECK(n > 0);
     return uniformRandom(n, *this, (uint32_t (Random::*)())&Random::next);
 }
 
 long long Random::next(long long n) {
-    ensure(n > 0);
+    CHECK(n > 0);
     return uniformRandom(n, *this, &Random::next64);
 }
 
 size_t Random::next(size_t n) {
-    ensure(n > 0);
+    CHECK(n > 0);
     return uniformRandom(n, *this, &Random::next64);
 }
 
 double Random::next(double n) {
-    ensure(n >= 0);
+    CHECK(n >= 0);
     return nextf() * n;
 }
 
 int Random::next(int l, int r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     uint32_t n = static_cast<uint32_t>(r) - l + 1;
-    return l + uniformRandom(
-        n, *this, (uint32_t (Random::*)())&Random::next);
+    return l + uniformRandom(n, *this, (uint32_t (Random::*)())&Random::next);
 }
 
 long long Random::next(long long l, long long r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     uint64_t n = static_cast<uint64_t>(r) - l + 1;
     return l + uniformRandom(n, *this, &Random::next64);
 }
 
 size_t Random::next(size_t l, size_t r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     uint64_t n = static_cast<uint64_t>(r) - l + 1;
     return l + uniformRandom(n, *this, &Random::next64);
 }
 
 double Random::next(double l, double r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     return l + next(r-l);
 }
 
 int Random::wnext(int n, int w) {
-    ensure(n > 0);
+    CHECK(n > 0);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<int>(w, n);
     } else {
@@ -134,7 +133,7 @@ int Random::wnext(int n, int w) {
 }
 
 long long Random::wnext(long long n, int w) {
-    ensure(n > 0);
+    CHECK(n > 0);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<long long>(w, n);
     } else {
@@ -143,7 +142,7 @@ long long Random::wnext(long long n, int w) {
 }
 
 size_t Random::wnext(size_t n, int w) {
-    ensure(n > 0);
+    CHECK(n > 0);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<size_t>(w, n);
     } else {
@@ -152,7 +151,7 @@ size_t Random::wnext(size_t n, int w) {
 }
 
 double Random::wnext(double n, int w) {
-    ensure(n >= 0);
+    CHECK(n >= 0);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<double>(w, n);
     } else {
@@ -161,7 +160,7 @@ double Random::wnext(double n, int w) {
 }
 
 int Random::wnext(int l, int r, int w) {
-    ensure(l <= r);
+    CHECK(l <= r);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<int>(w, l, r);
     } else {
@@ -171,7 +170,7 @@ int Random::wnext(int l, int r, int w) {
 }
 
 long long Random::wnext(long long l, long long r, int w) {
-    ensure(l <= r);
+    CHECK(l <= r);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<long long>(w, l, r);
     } else {
@@ -181,7 +180,7 @@ long long Random::wnext(long long l, long long r, int w) {
 }
 
 size_t Random::wnext(size_t l, size_t r, int w) {
-    ensure(l <= r);
+    CHECK(l <= r);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<size_t>(w, l, r);
     } else {
@@ -191,7 +190,7 @@ size_t Random::wnext(size_t l, size_t r, int w) {
 }
 
 double Random::wnext(double l, double r, int w) {
-    ensure(l <= r);
+    CHECK(l <= r);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<double>(w, l, r);
     } else {

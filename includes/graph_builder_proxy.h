@@ -27,12 +27,8 @@ struct Traits {
 
 class BuilderProxy {
 public:
-    BuilderProxy(
-            Traits traits,
-            std::function<Graph(Traits)> builder) :
-        traits_(traits),
-        builder_(builder)
-    {  }
+    BuilderProxy(Traits traits, std::function<Graph(Traits)> builder)
+        : traits_(traits), builder_(builder) {}
 
     Graph g() const;
 

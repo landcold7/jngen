@@ -3,28 +3,29 @@
 #include "common.h"
 #include "pattern.h"
 
-#include <algorithm>
 #include <cmath>
-#include <cstdlib>
-#include <iterator>
 #include <limits>
 #include <random>
 #include <string>
-#include <type_traits>
 #include <utility>
 #include <vector>
+#include <cstdlib>
+#include <iterator>
+#include <algorithm>
+#include <type_traits>
 
 namespace jngen {
 
-void assertRandomEngineConsistency();
 void assertIntegerSizes();
+void assertRandomEngineConsistency();
 void registerGen(int argc, char *argv[], int version = 1);
 
 class Random;
 
 class BaseTypedRandom {
 public:
-    BaseTypedRandom(Random& random) : random(random) {}
+    BaseTypedRandom(Random& random)
+        : random(random) {}
 
 protected:
     Random& random;
@@ -36,9 +37,14 @@ struct TypedRandom;
 uint64_t maskForBound(uint64_t bound);
 
 template<typename Result, typename Source>
-Result uniformRandom(Result bound, Random& random, Source (Random::*method)()) {
+Result uniformRandom(Result bound,
+                     Random& random,
+                     Source(Random::*method)()) {
+
     static_assert(sizeof(Result) <= sizeof(Source),
-        "uniformRandom: Source type must be at least as large as Result type");
+                  "uniformRandom: Source type must be "
+                  "at least as large as Result type");
+
 #ifdef JNGEN_FAST_RANDOM
     return (random.*method)() % bound;
 #else
@@ -64,7 +70,6 @@ public:
             seedSeq.push_back(rd());
         }
         seed(seedSeq);
-
     }
 
     void seed(uint32_t val);
@@ -113,10 +118,9 @@ public:
 
     template<typename Iterator>
     auto choice(Iterator begin, Iterator end)
-            -> typename std::iterator_traits<Iterator>::value_type
-    {
+            -> typename std::iterator_traits<Iterator>::value_type {
         auto length = std::distance(begin, end);
-        ensure(length > 0, "Cannot select from a range of negative length");
+        CHECK(length > 0, "Cannot select from a range of negative length");
         size_t index = tnext<size_t>(length);
         std::advance(begin, index);
         return *begin;
@@ -124,7 +128,7 @@ public:
 
     template<typename Container>
     typename Container::value_type choice(const Container& container) {
-        ensure(!container.empty(), "Cannot select from an empty container");
+        CHECK(!container.empty(), "Cannot select from an empty container");
         return choice(container.begin(), container.end());
     }
 
@@ -135,9 +139,10 @@ public:
 
     template<typename Numeric>
     size_t nextByDistribution(const std::vector<Numeric>& distribution) {
-        ensure(!distribution.empty(), "Cannot sample by empty distribution");
-        Numeric sum = std::accumulate(
-                distribution.begin(), distribution.end(), Numeric(0));
+        CHECK(!distribution.empty(), "Cannot sample by empty distribution");
+        Numeric sum = std::accumulate(distribution.begin(),
+                                      distribution.end(),
+                                      Numeric(0));
         auto x = next(sum);
         for (size_t i = 0; i < distribution.size(); ++i) {
             if (x < distribution[i]) {
@@ -157,7 +162,7 @@ public:
 private:
     template<typename T, typename ...Args>
     T smallWnext(int w, Args... args) {
-        ENSURE(std::abs(w) <= WNEXT_LIMIT);
+        INTER_CHECK(std::abs(w) <= WNEXT_LIMIT);
         T result = next(args...);
         while (w > 0) {
             result = std::max(result, next(args...));
@@ -232,7 +237,9 @@ template<typename T>
 struct TypedRandom : public BaseTypedRandom {
     using BaseTypedRandom::BaseTypedRandom;
     template<typename ... Args>
-    T next(Args... args) { return random.next(args...); }
+    T next(Args... args) {
+        return random.next(args...);
+    }
 };
 
 struct RandomPairTraits {
@@ -263,16 +270,19 @@ struct TypedRandom<std::pair<int, int>> : public BaseTypedRandom {
     std::pair<int, int> next(int n, RandomPairTraits traits) {
         int first = rnd.next(n);
         int second;
+
         do {
             second = rnd.next(n);
         } while (traits.distinct && first == second);
+
         if (traits.ordered && first > second) {
             std::swap(first, second);
         }
         return {first, second};
     }
+
     std::pair<int, int> next(int l, int r, RandomPairTraits traits) {
-        auto res = next(r-l+1, traits);
+        auto res = next(r - l + 1, traits);
         res.first += l;
         res.second += l;
         return res;

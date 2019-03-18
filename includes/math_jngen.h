@@ -128,10 +128,9 @@ inline bool isPrime(long long n) {
     // (guaranteed for all integers < 2^64)
 
     // first strong pseudoprime to i64 bases is 3825123056546413051 ~= 3.8e18
-    ensure(n > 0, "isPrime() is undefined for negative numbers");
-    ensure(
-        n <= static_cast<long long>(3.8e18),
-        "isPrime() supports only numbers not greater than 3.8 * 10^18");
+    CHECK(n > 0, "isPrime() is undefined for negative numbers");
+    CHECK(n <= static_cast<long long>(3.8e18),
+          "isPrime() supports only numbers not greater than 3.8 * 10^18");
 
     if (n < std::numeric_limits<int>::max()) {
         return detail::millerRabinTest<int>(n, INT_WITNESSES);
@@ -144,17 +143,17 @@ class MathRandom {
 public:
     MathRandom() {
         static bool created = false;
-        ensure(!created, "jngen::MathRandom should be created only once");
+        CHECK(!created, "jngen::MathRandom should be created only once");
         created = true;
     }
 
     static long long randomPrime(long long n) {
-        ensure(n > 2, format("There are no primes below %lld", n));
+        CHECK(n > 2, format("There are no primes below %lld", n));
         return randomPrime(2, n - 1);
     }
 
     static long long randomPrime(long long l, long long r) {
-        ensure(l <= r);
+        CHECK(l <= r);
         std::unordered_set<long long> used;
         while (static_cast<long long>(used.size()) < r - l + 1) {
             long long x = rnd.next(l, r);
@@ -166,12 +165,7 @@ public:
                 return x;
             }
         }
-        ensure(
-            false,
-            format(
-                "There are no primes between %lld and %lld",
-                l, r)
-        );
+        CHECK(false, format("There are no primes between %lld and %lld", l, r));
     }
 
     static long long nextPrime(long long n) {
@@ -182,7 +176,7 @@ public:
     }
 
     static long long previousPrime(long long n) {
-        ensure(n >= 2, format("There are no primes less or equal to %lld", n));
+        CHECK(n >= 2, format("There are no primes less or equal to %lld", n));
         while (!isPrime(n)) {
             --n;
         }
@@ -193,8 +187,7 @@ public:
             int n,
             int numParts,
             int minSize = 0,
-            int maxSize = -1)
-    {
+            int maxSize = -1) {
         auto res = partition(
             static_cast<long long>(n),
             numParts,
@@ -207,17 +200,16 @@ public:
             long long n,
             int numParts,
             long long minSize = 0,
-            long long maxSize = -1)
-    {
+            long long maxSize = -1) {
         if (maxSize == -1) {
             maxSize = n;
         }
 
-        ensure(n >= 0);
-        ensure(numParts >= 0);
-        ensure(numParts * minSize <= n, "minSize is too large");
-        ensure(numParts * maxSize >= n, "maxSize is too small");
-        ensure(minSize <= maxSize);
+        CHECK(n >= 0);
+        CHECK(numParts >= 0);
+        CHECK(numParts * minSize <= n, "minSize is too large");
+        CHECK(numParts * maxSize >= n, "maxSize is too small");
+        CHECK(minSize <= maxSize);
 
         n -= minSize * numParts;
 
@@ -259,7 +251,7 @@ public:
             }
         }
 
-        ensure(remaining == 0, "maxSize is too small");
+        CHECK(remaining == 0, "maxSize is too small");
 
         return partition;
     }
@@ -269,8 +261,7 @@ public:
             TArray<T> elements,
             int numParts,
             int minSize = 0,
-            int maxSize = -1)
-    {
+            int maxSize = -1) {
         return partition(
             std::move(elements),
             partition(
@@ -283,7 +274,7 @@ public:
     template<typename T>
     TArray<TArray<T>> partition(TArray<T> elements, const Array& sizes) {
         size_t total = std::accumulate(sizes.begin(), sizes.end(), size_t(0));
-        ensure(total == elements.size(), "sum(sizes) != elements.size()");
+        CHECK(total == elements.size(), "sum(sizes) != elements.size()");
         elements.shuffle();
         TArray<TArray<T>> res;
         auto it = elements.begin();

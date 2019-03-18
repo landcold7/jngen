@@ -23,8 +23,7 @@ LIBRARY_HEADERS = [
     "includes/repr.h",
     "includes/query_builder.h",
     "drawer/drawer.h",
-    "suites/suites.h",
-    "drawer/graphviz.h",
+    "suites/suites.h"
 ]
 
 def posix_path_to_native(posix_path):

@@ -52,7 +52,7 @@ void startTest(int testNo) {
     char filename[10];
     std::sprintf(filename, "%d", testNo);
     if (!std::freopen(filename, "w", stdout)) {
-        ensure(false, format("Cannot open the file `%s'", filename));
+        CHECK(false, format("Cannot open the file `%s'", filename));
     }
 }
 
@@ -73,15 +73,14 @@ Array64 randomTestSizes(
     int count,
     long long minSize,
     long long maxSize,
-    const Array64& predefined)
-{
+    const Array64& predefined) {
     for (auto x: predefined) {
         totalSize -= x;
     }
-    ensure(totalSize >= 0, "Sum of predefined test sizes exceeds total size");
-    ensure(count * minSize <= totalSize, "minSize is too large");
-    ensure(count * maxSize >= totalSize, "maxSize is too small");
-    ensure(minSize <= maxSize);
+    CHECK(totalSize >= 0, "Sum of predefined test sizes exceeds total size");
+    CHECK(count * minSize <= totalSize, "minSize is too large");
+    CHECK(count * maxSize >= totalSize, "maxSize is too small");
+    CHECK(minSize <= maxSize);
 
     return (rndm.partition(totalSize, count, minSize, maxSize) +
             predefined).shuffle();
@@ -92,8 +91,7 @@ Array randomTestSizes(
     int count,
     int minSize,
     int maxSize,
-    const Array& predefined)
-{
+    const Array& predefined) {
     return arrayCast<int>(randomTestSizes(
         static_cast<long long>(totalSize),
         count,

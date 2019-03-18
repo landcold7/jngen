@@ -18,7 +18,7 @@ int popcount(long long x) {
 
 int trailingZeroes(long long x) {
     int res = 0;
-    ENSURE(x != 0);
+    INTER_CHECK(x != 0);
     while (!(x&1)) {
         ++res;
         x >>= 1;
@@ -50,11 +50,11 @@ std::vector<std::string> extendAntiHash(
         HashBase base,
         int count)
 {
-    ENSURE(count == 2, "Count != 2 is not supported (yet)");
+    INTER_CHECK(count == 2, "Count != 2 is not supported (yet)");
 
     size_t baseLength = chars[0].size();
     for (const auto& s: chars) {
-        ensure(s.size() == baseLength);
+        CHECK(s.size() == baseLength);
     }
 
     long long mod = base.first;
@@ -87,7 +87,7 @@ std::vector<std::string> extendAntiHash(
     if (count == 2) {
         needForMatch = 5 * pow(double(mod), 0.5);
     } else {
-        ENSURE(false, "Only count = 2 is supported yet");
+        INTER_CHECK(false, "Only count = 2 is supported yet");
     }
 
     int length = 2;
@@ -135,11 +135,11 @@ StringPair minimalAntiHashTest(
         const std::string allowedChars)
 {
     for (auto base: bases) {
-        ensure(base.first >= 0, "0 < MOD must hold");
-        ensure(
+        CHECK(base.first >= 0, "0 < MOD must hold");
+        CHECK(
             base.first <= (long long)(2e9),
             "Modules larger than 2'000'000'000 are not supported yet");
-        ensure(
+        CHECK(
             0 < base.second && base.second < base.first,
             "0 <= P < MOD must hold");
     }
@@ -160,7 +160,7 @@ StringPair minimalAntiHashTest(
 
     for (size_t i = 0; i != bases.size(); ++i) {
         cur = extendAntiHash(cur, bases[i], counts[i]);
-        ensure(static_cast<int>(cur.size()) == counts[i],
+        CHECK(static_cast<int>(cur.size()) == counts[i],
             "Cannot generate long enough pair with same hash");
     }
 
@@ -182,7 +182,7 @@ std::string StringRandom::random(int len, const std::string& alphabet) {
 }
 
 std::string StringRandom::thueMorse(int len, char first, char second) {
-    ensure(len >= 0);
+    CHECK(len >= 0);
     checkLargeParameter(len);
     std::string res(len, ' ');
     for (int i = 0; i < len; ++i) {
@@ -192,7 +192,7 @@ std::string StringRandom::thueMorse(int len, char first, char second) {
 }
 
 std::string StringRandom::abacaba(int len, char first) {
-    ensure(len >= 0);
+    CHECK(len >= 0);
     checkLargeParameter(len);
     std::string res(len, ' ');
     for (int i = 0; i < len; ++i) {
@@ -214,7 +214,7 @@ StringPair StringRandom::antiHash(
         return result;
     }
 
-    ensure(
+    CHECK(
         static_cast<int>(result.first.length()) <= length,
         "Cannot generate enough long anti-hash test");
 

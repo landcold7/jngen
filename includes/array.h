@@ -1,21 +1,21 @@
 #pragma once
 
-#include "common.h"
 #include "hash.h"
-#include "printers.h"
 #include "random.h"
+#include "common.h"
+#include "printers.h"
 #include "sequence_ops.h"
 
-#include <algorithm>
-#include <initializer_list>
-#include <numeric>
 #include <set>
+#include <vector>
 #include <string>
+#include <utility>
+#include <numeric>
+#include <algorithm>
 #include <type_traits>
 #include <unordered_set>
 #include <unordered_map>
-#include <utility>
-#include <vector>
+#include <initializer_list>
 
 namespace jngen {
 
@@ -34,9 +34,7 @@ public:
 
     ~GenericArray() {}
 
-    /* implicit */ GenericArray(const Base& base) :
-            Base(base)
-    {  }
+    GenericArray(const Base& base) : Base(base) {}
 
     using Base::at;
     using Base::size;
@@ -46,6 +44,7 @@ public:
     using Base::insert;
     using Base::clear;
     using Base::erase;
+    // using Base::operator[];
 
     void extend(size_t requiredSize) {
         checkLargeParameter(requiredSize);
@@ -111,6 +110,21 @@ public:
 };
 
 template<typename T>
+struct ArrayDepth {
+    constexpr static int value = 0;
+};
+
+template<typename T, template <typename...> class C>
+struct ArrayDepth< C<T> > {
+    constexpr static int value =
+        std::is_base_of<
+            std::vector<T>,
+            C<T>
+        >::value ? ArrayDepth<T>::value + 1 : 0;
+};
+
+// TODO(landcold7): 2d array random support.
+template<typename T>
 template<typename ...Args>
 GenericArray<T> GenericArray<T>::random(size_t size, const Args& ... args) {
     checkLargeParameter(size);
@@ -124,10 +138,7 @@ GenericArray<T> GenericArray<T>::random(size_t size, const Args& ... args) {
 template<typename T>
 template<typename F, typename ...Args>
 GenericArray<T> GenericArray<T>::randomf(
-        size_t size,
-        F func,
-        const Args& ... args)
-{
+        size_t size, F func, const Args& ... args) {
     checkLargeParameter(size);
     GenericArray<T> result(size);
     for (T& x: result) {
@@ -144,8 +155,7 @@ struct DictContainer {
 };
 
 template<typename T>
-struct DictContainer<T, typename std::hash<T>::result_type>
-{
+struct DictContainer<T, typename std::hash<T>::result_type> {
     typedef std::unordered_set<T> type;
 };
 
@@ -154,10 +164,7 @@ struct DictContainer<T, typename std::hash<T>::result_type>
 template<typename T>
 template<typename F, typename ...Args>
 GenericArray<T> GenericArray<T>::randomfUnique(
-        size_t size,
-        F func,
-        const Args& ... args)
-{
+        size_t size, F func, const Args& ... args) {
     typename detail::DictContainer<T>::type set;
     checkLargeParameter(size);
     GenericArray<T> result;
@@ -171,33 +178,27 @@ GenericArray<T> GenericArray<T>::randomfUnique(
             set.insert(t);
             result.push_back(t);
         }
-
         if (--retries == 0) {
-            ensure(false, "There are not enough unique elements");
+            CHECK(false, "There are not enough unique elements");
         }
-
     }
-
     return result;
 }
 
 template<typename T>
 template<typename ...Args>
 GenericArray<T> GenericArray<T>::randomUnique(
-        size_t size, const Args& ... args)
-{
-    return GenericArray<T>::randomfUnique(
-        size,
-        [](Args... args) { return rnd.tnext<T>(args...); },
-        args...);
+        size_t size, const Args& ... args) {
+    auto func = [](Args... args) {
+        return rnd.tnext<T>(args...);
+    };
+    return GenericArray<T>::randomfUnique(size, func, args...);
 }
 
 template<typename T>
 template<typename F, typename ...Args>
 GenericArray<T> GenericArray<T>::randomfAll(
-        F func,
-        const Args& ... args)
-{
+        F func, const Args& ... args) {
     typename detail::DictContainer<T>::type set;
     GenericArray<T> result;
 
@@ -222,11 +223,11 @@ GenericArray<T> GenericArray<T>::randomfAll(
 
 template<typename T>
 template<typename ...Args>
-GenericArray<T> GenericArray<T>::randomAll(const Args& ... args)
-{
-    return GenericArray<T>::randomfAll(
-        [](Args... args) { return rnd.tnext<T>(args...); },
-        args...);
+GenericArray<T> GenericArray<T>::randomAll(const Args& ... args) {
+    auto func = [](Args... args) {
+        return rnd.tnext<T>(args...);
+    };
+    return GenericArray<T>::randomfAll(func, args...);
 }
 
 template<typename T>
@@ -316,22 +317,22 @@ GenericArray<T> GenericArray<T>::inverse() const {
     static_assert(
         std::is_integral<T>::value,
         "Can only take inverse permutation of integral array");
-    int n = size();
 
+    int n = size();
     if (n == 0) {
         return *this;
     }
 
     // sanity check
-    ensure(*max_element(begin(), end()) == n-1 &&
-        *min_element(begin(), end()) == 0,
-        "Trying to take inverse of the array which is not a permutation");
+    CHECK(*max_element(begin(), end()) == n - 1 &&
+          *min_element(begin(), end()) == 0,
+          "Trying to take inverse of the array which is not a permutation");
 
     const static T NONE = static_cast<T>(-1);
     GenericArray<T> result(n, NONE);
     for (int i = 0; i < n; ++i) {
-        ensure(result[at(i)] == NONE,
-            "Trying to take inverse of the array which is not a permutation");
+        CHECK(result[at(i)] == NONE,
+              "Trying to take inverse of the array which is not a permutation");
         result[at(i)] = i;
     }
 
@@ -341,8 +342,7 @@ GenericArray<T> GenericArray<T>::inverse() const {
 template<typename T>
 template<typename Integer>
 GenericArray<T> GenericArray<T>::subseq(
-        const std::vector<Integer>& indices) const
-{
+        const std::vector<Integer>& indices) const {
     GenericArray<T> result;
     result.reserve(indices.size());
     for (Integer idx: indices) {
@@ -355,8 +355,7 @@ GenericArray<T> GenericArray<T>::subseq(
 template<typename T>
 template<typename Integer>
 GenericArray<T> GenericArray<T>::subseq(
-        const std::initializer_list<Integer>& indices) const
-{
+        const std::initializer_list<Integer>& indices) const {
     return subseq(std::vector<T>(indices));
 }
 
@@ -367,17 +366,17 @@ T GenericArray<T>::choice() const {
 
 template<typename T>
 GenericArray<T> GenericArray<T>::choice(size_t count) const {
-    ensure(
-        count <= size(),
-        "Use Array::choiceWithRepetition to select more than size() elements");
+    CHECK(count <= size(),
+          "Use Array::choiceWithRepetition to "
+          "select more than size() elements");
 
     size_t n = size();
 
     std::unordered_map<size_t, size_t> used;
     std::vector<size_t> res;
     for (size_t i = 0; i < count; ++i) {
-        size_t oldValue = used.count(n-i-1) ? used[n-i-1] : n-i-1;
-        size_t index = rnd.tnext<size_t>(n-i);
+        size_t oldValue = used.count(n - i - 1) ? used[n - i - 1] : n - i - 1;
+        size_t index = rnd.tnext<size_t>(n - i);
         res.push_back(used.count(index) ? used[index] : index);
         used[index] = oldValue;
     }
@@ -432,8 +431,8 @@ GenericArray<T> GenericArray<T>::operator*(int k) const {
 
 template<typename T>
 GenericArray<T>::operator std::string() const {
-    static_assert(std::is_same<T, char>::value, "Must not cast"
-        " TArray<T> to std::string with 'T' != 'char'");
+    static_assert(std::is_same<T, char>::value,
+                  "Must not cast TArray<T> to std::string with 'T' != 'char'");
     return std::string(begin(), end());
 }
 
@@ -460,9 +459,8 @@ jngen::GenericArray<T> makeArray(const std::initializer_list<T>& values) {
 
 template<typename T, typename U>
 TArray<std::pair<T, U>> zip(const TArray<T>& lhs, const TArray<U>& rhs) {
-    ensure(
-        lhs.size() == rhs.size(),
-        "In zip(a, b), a and b must have the same size");
+    CHECK(lhs.size() == rhs.size(),
+          "In zip(a, b), a and b must have the same size");
     TArray<std::pair<T, U>> result;
     for (size_t i = 0; i < lhs.size(); ++i) {
         result.emplace_back(lhs[i], rhs[i]);

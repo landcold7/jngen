@@ -762,59 +762,129 @@ using jngen::drawing::Drawer;
 using jngen::drawing::Color;
 
 #define JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, name) \
-int _ ## name = 0; \
-Class& name(int val = 1) { _ ## name = val; return *this; }
+        int _ ## name = 0;                              \
+        Class& name(int val = 1) {                      \
+            _ ## name = val;                            \
+            return *this;                               \
+        }
 
 #define JNGEN_CHAINING_TRAITS_INNER_0(Class)
-#define JNGEN_CHAINING_TRAITS_INNER_1(Class, arg)       JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)
-#define JNGEN_CHAINING_TRAITS_INNER_2(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_1(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_3(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_2(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_4(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_3(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_5(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_4(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_6(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_5(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_7(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_6(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_8(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_7(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_9(Class, arg, ...)  JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_8(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_10(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_9(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_11(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_10(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_12(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_11(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_13(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_12(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_14(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_13(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_15(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_14(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_16(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_15(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_17(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_16(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_18(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_17(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_19(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_18(Class, __VA_ARGS__)
-#define JNGEN_CHAINING_TRAITS_INNER_20(Class, arg, ...) JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) JNGEN_CHAINING_TRAITS_INNER_19(Class, __VA_ARGS__)
 
-#define JNGEN_GET_CHAINING_TRAITS_INNER_IMPL(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, x, ...) x
+#define JNGEN_CHAINING_TRAITS_INNER_1(Class, arg) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)
 
-#define JNGEN_GET_CHAINING_TRAITS_INNER(...) JNGEN_GET_CHAINING_TRAITS_INNER_IMPL(\
-        __VA_ARGS__,\
-        JNGEN_CHAINING_TRAITS_INNER_20,\
-        JNGEN_CHAINING_TRAITS_INNER_19,\
-        JNGEN_CHAINING_TRAITS_INNER_18,\
-        JNGEN_CHAINING_TRAITS_INNER_17,\
-        JNGEN_CHAINING_TRAITS_INNER_16,\
-        JNGEN_CHAINING_TRAITS_INNER_15,\
-        JNGEN_CHAINING_TRAITS_INNER_14,\
-        JNGEN_CHAINING_TRAITS_INNER_13,\
-        JNGEN_CHAINING_TRAITS_INNER_12,\
-        JNGEN_CHAINING_TRAITS_INNER_11,\
-        JNGEN_CHAINING_TRAITS_INNER_10,\
-        JNGEN_CHAINING_TRAITS_INNER_9,\
-        JNGEN_CHAINING_TRAITS_INNER_8,\
-        JNGEN_CHAINING_TRAITS_INNER_7,\
-        JNGEN_CHAINING_TRAITS_INNER_6,\
-        JNGEN_CHAINING_TRAITS_INNER_5,\
-        JNGEN_CHAINING_TRAITS_INNER_4,\
-        JNGEN_CHAINING_TRAITS_INNER_3,\
-        JNGEN_CHAINING_TRAITS_INNER_2,\
-        JNGEN_CHAINING_TRAITS_INNER_1,\
-        JNGEN_CHAINING_TRAITS_INNER_0)
+#define JNGEN_CHAINING_TRAITS_INNER_2(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) \
+        JNGEN_CHAINING_TRAITS_INNER_1(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_3(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg) \
+        JNGEN_CHAINING_TRAITS_INNER_2(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_4(Class, arg, ...)  \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_3(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_5(Class, arg, ...)  \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_4(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_6(Class, arg, ...)  \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_5(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_7(Class, arg, ...)  \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_6(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_8(Class, arg, ...)  \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_7(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_9(Class, arg, ...)  \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_8(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_10(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_9(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_11(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_10(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_12(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_11(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_13(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_12(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_14(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_13(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_15(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_14(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_16(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_15(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_17(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_16(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_18(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_17(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_19(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_18(Class, __VA_ARGS__)
+
+#define JNGEN_CHAINING_TRAITS_INNER_20(Class, arg, ...) \
+        JNGEN_DEFINE_CHAINING_TRAITS_FIELD(Class, arg)  \
+        JNGEN_CHAINING_TRAITS_INNER_19(Class, __VA_ARGS__)
+
+#define JNGEN_GET_CHAINING_TRAITS_INNER_IMPL(                   \
+        p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, \
+        p14, p15, p16, p17, p18, p19, p20, x, ...)              \
+        x
+
+// Depends the the number of args, it will chose corresponding marcos.
+#define JNGEN_GET_CHAINING_TRAITS_INNER(...)      \
+        JNGEN_GET_CHAINING_TRAITS_INNER_IMPL(     \
+            __VA_ARGS__,                          \
+            JNGEN_CHAINING_TRAITS_INNER_20,       \
+            JNGEN_CHAINING_TRAITS_INNER_19,       \
+            JNGEN_CHAINING_TRAITS_INNER_18,       \
+            JNGEN_CHAINING_TRAITS_INNER_17,       \
+            JNGEN_CHAINING_TRAITS_INNER_16,       \
+            JNGEN_CHAINING_TRAITS_INNER_15,       \
+            JNGEN_CHAINING_TRAITS_INNER_14,       \
+            JNGEN_CHAINING_TRAITS_INNER_13,       \
+            JNGEN_CHAINING_TRAITS_INNER_12,       \
+            JNGEN_CHAINING_TRAITS_INNER_11,       \
+            JNGEN_CHAINING_TRAITS_INNER_10,       \
+            JNGEN_CHAINING_TRAITS_INNER_9,        \
+            JNGEN_CHAINING_TRAITS_INNER_8,        \
+            JNGEN_CHAINING_TRAITS_INNER_7,        \
+            JNGEN_CHAINING_TRAITS_INNER_6,        \
+            JNGEN_CHAINING_TRAITS_INNER_5,        \
+            JNGEN_CHAINING_TRAITS_INNER_4,        \
+            JNGEN_CHAINING_TRAITS_INNER_3,        \
+            JNGEN_CHAINING_TRAITS_INNER_2,        \
+            JNGEN_CHAINING_TRAITS_INNER_1,        \
+            JNGEN_CHAINING_TRAITS_INNER_0)
 
 #define JNGEN_CHAINING_TRAITS(Class, ...) \
-    struct Class { JNGEN_GET_CHAINING_TRAITS_INNER(__VA_ARGS__)(Class, __VA_ARGS__) };
+    struct Class { \
+        JNGEN_GET_CHAINING_TRAITS_INNER(__VA_ARGS__) (Class, __VA_ARGS__) \
+    };
+
 
 namespace jngen {
 
@@ -833,15 +903,15 @@ Config config;
 
 using jngen::config;
 
-
+#include <map>
+#include <vector>
+#include <string>
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
-#include <map>
 #include <stdexcept>
-#include <string>
 #include <type_traits>
-#include <vector>
+
 
 #ifdef JNGEN_DECLARE_ONLY
 #define JNGEN_EXTERN extern
@@ -853,51 +923,54 @@ namespace jngen {
 
 class Exception : public std::runtime_error {
 public:
-    explicit Exception(const std::string& s) :
-        std::runtime_error("Assertion `" + s + "' failed.")
-    {  }
+    explicit Exception(const std::string& s)
+        : std::runtime_error("Assertion `" + s + "` failed.") {}
 
-    Exception(const std::string& assertMsg, const std::string& expl) :
-        std::runtime_error(expl + " (assertion `" + assertMsg + "' failed).")
-    {  }
+    Exception(const std::string& assertMsg, const std::string& expl)
+        : std::runtime_error(
+            expl + " (Assertion `" + assertMsg + "` failed).") {}
 };
 
 class InternalException : public Exception {
 public:
-    explicit InternalException(const std::string& s) : Exception(s) {}
+    explicit InternalException(const std::string& s)
+        : Exception(s) {}
 
-    InternalException(const std::string& assertMsg, const std::string& expl) :
-        Exception(assertMsg, expl)
-    {  }
+    InternalException(const std::string& assertMsg, const std::string& expl)
+        : Exception(assertMsg, expl) {}
 };
 
 } // namespace jngen
 
-#define JNGEN_ENSURE1(exType, cond)\
-do\
-    if (!(cond)) {\
-        throw exType(#cond);\
-    }\
-while (false)
+#define JNGEN_CHECK1(exType, cond)  \
+    do {                            \
+        if ( !(cond) ) {            \
+            throw exType(#cond);    \
+        }                           \
+    } while (false)
 
-#define JNGEN_ENSURE2(exType, cond, msg)\
-do\
-    if (!(cond)) {\
-        throw exType(#cond, msg);\
-    }\
-while (false)
+#define JNGEN_CHECK2(exType, cond, msg)  \
+    do {                                 \
+        if ( !(cond) ) {                 \
+            throw exType(#cond, msg);    \
+        }                                \
+    } while (false)
 
-#define JNGEN_GET_MACRO(_1, _2, NAME, ...) NAME
+#define JNGEN_SWITCH_CHECKER(_1, _2, checker, ...) checker
 
-#define ensure(...) JNGEN_GET_MACRO(__VA_ARGS__, JNGEN_ENSURE2, JNGEN_ENSURE1)\
+#define CHECK(...)                                                  \
+    JNGEN_SWITCH_CHECKER(__VA_ARGS__, JNGEN_CHECK2, JNGEN_CHECK1)   \
     (jngen::Exception, __VA_ARGS__)
-#define ENSURE(...) JNGEN_GET_MACRO(__VA_ARGS__, JNGEN_ENSURE2, JNGEN_ENSURE1)\
+
+#define INTER_CHECK(...)                                            \
+    JNGEN_SWITCH_CHECKER(__VA_ARGS__, JNGEN_CHECK2, JNGEN_CHECK1)   \
     (jngen::InternalException, __VA_ARGS__)
 
 namespace jngen {
 
 template<typename ... Args>
 std::string format(const std::string& fmt, Args... args) {
+    // Alaways existing memory after this function first be called.
     constexpr static char BUF_SIZE = 64;
     static char BUFFER[BUF_SIZE];
 
@@ -929,7 +1002,8 @@ std::string format(const std::string& fmt, Args... args) {
 
 class ContextTimer {
 public:
-    ContextTimer(const std::string& name) : name_(name) {
+    ContextTimer(const std::string& name)
+            : name_(name) {
         start_ = std::chrono::steady_clock::now();
     }
 
@@ -954,6 +1028,7 @@ private:
     std::chrono::steady_clock::time_point start_;
 };
 
+// TODO: why use && here???
 template<typename F>
 auto distribution(int n, F&& f) -> std::map<decltype(f()), int> {
     std::map<decltype(f()), int> dist;
@@ -966,10 +1041,9 @@ auto distribution(int n, F&& f) -> std::map<decltype(f()), int> {
 inline void checkLargeParameter(int n) {
     if (!config.generateLargeObjects) {
         constexpr static int BOUND = 5e6;
-        ensure(
-            n <= BOUND,
-            "If you want to generate an object of size > 5'000'000, please set "
-            "'config.generateLargeObjects = true'.");
+        CHECK(n <= BOUND,
+              "If you want to generate an object of size > 5'000'000, "
+              "please set 'config.generateLargeObjects = true'.");
     }
 }
 
@@ -1017,7 +1091,7 @@ inline std::vector<std::string> split(std::string s, char delimiter) {
     s += delimiter;
     std::string cur;
 
-    for (char c: s) {
+    for (char c : s) {
         if (c == delimiter) {
             result.push_back(strip(cur));
             cur.clear();
@@ -1164,12 +1238,8 @@ struct Traits {
 
 class BuilderProxy {
 public:
-    BuilderProxy(
-            Traits traits,
-            std::function<Graph(Traits)> builder) :
-        traits_(traits),
-        builder_(builder)
-    {  }
+    BuilderProxy(Traits traits, std::function<Graph(Traits)> builder)
+        : traits_(traits), builder_(builder) {}
 
     Graph g() const;
 
@@ -1215,11 +1285,11 @@ private:
 } // namespace jngen
 
 
-#include <iterator>
-#include <unordered_set>
 #include <vector>
-#include <type_traits>
 #include <utility>
+#include <iterator>
+#include <type_traits>
+#include <unordered_set>
 
 namespace jngen {
 
@@ -1253,10 +1323,7 @@ void hashCombine(uint64_t& h, Iterator begin, Iterator end) {
 } // namespace impl
 
 template<typename T>
-struct Hash<
-        T,
-        enable_if_t<std::is_integral<T>::value>>
-{
+struct Hash<T, enable_if_t<std::is_integral<T>::value>> {
     uint64_t operator()(const T& t) const {
         uint64_t h = 0;
         impl::hashCombine(h, t);
@@ -1264,25 +1331,26 @@ struct Hash<
     }
 };
 
-#define JNGEN_DEFINE_STD_HASH(Type)\
-namespace std {\
-template<>\
-struct hash<Type> {\
-    size_t operator()(const Type& value) const {\
-        return jngen::Hash<Type>{}(value);\
-    }\
-};\
-}
+// ref: <stackoverflow> why-is-used-to-access-operator-in-stdhash
+#define JNGEN_DEFINE_STD_HASH(Type)                         \
+    namespace std {                                         \
+        template<>                                          \
+        struct hash<Type> {                                 \
+            size_t operator()(const Type& value) const {    \
+                return jngen::Hash<Type>{}(value);          \
+            }                                               \
+        };                                                  \
+    }
 
 #define JNGEN_DEFINE_STD_HASH_TEMPLATE(T, Type)\
-namespace std {\
-template<typename T>\
-struct hash<Type> {\
-    size_t operator()(const Type& value) const {\
-        return jngen::Hash<Type>{}(value);\
-    }\
-};\
-}
+    namespace std {                                         \
+        template<typename T>                                \
+        struct hash<Type> {                                 \
+            size_t operator()(const Type& value) const {    \
+                return jngen::Hash<Type>{}(value);          \
+            }                                               \
+        };                                                  \
+    }
 
 template<typename T>
 struct Hash<std::vector<T>> {
@@ -1425,11 +1493,11 @@ std::map<std::string, Pattern> Pattern::cachedPatterns_;
 
 std::string Pattern::next(std::function<int(int)>&& rnd) const {
     if (isOrPattern) {
-        ENSURE(!children.empty());
+        INTER_CHECK(!children.empty());
         return children[rnd(children.size())].next(std::move(rnd));
     }
 
-    ENSURE( (!!chars.empty()) ^ (!!children.empty()) );
+    INTER_CHECK( (!!chars.empty()) ^ (!!children.empty()) );
 
     int count;
     if (min == max) {
@@ -1479,7 +1547,7 @@ int Parser::peekAndMove(size_t& newPos) const {
         return -1;
     }
     if (s[pos] == '\\') {
-        ensure(
+        CHECK(
             pos+1 < s.size(),
             "Backslash at the end of the pattern is illegal");
         newPos += 2;
@@ -1493,7 +1561,7 @@ int Parser::peekAndMove(size_t& newPos) const {
 
 // TODO: catch overflows
 int Parser::readInt() {
-    ENSURE(std::isdigit(peek()));
+    INTER_CHECK(std::isdigit(peek()));
 
     int res = 0;
     while (std::isdigit(peek())) {
@@ -1503,7 +1571,7 @@ int Parser::readInt() {
 }
 
 std::pair<int, int> Parser::parseRange() {
-    ENSURE(control(next()) == '{');
+    INTER_CHECK(control(next()) == '{');
 
     int from = readInt();
 
@@ -1512,10 +1580,10 @@ std::pair<int, int> Parser::parseRange() {
         return {from, from};
     } else if (nxt == ',' || nxt == '-') {
         int to = readInt();
-        ENSURE(control(next()) == '}');
+        INTER_CHECK(control(next()) == '}');
         return {from, to};
     } else {
-        ensure(false, "cannot parse character range");
+        CHECK(false, "cannot parse character range");
     }
 }
 
@@ -1539,13 +1607,13 @@ std::vector<char> Parser::parseBlock() {
     bool inRange = false;
     while (control(peek()) != ']') {
         char c = next(); // buggy on cases like [a-}]
-        ENSURE(c != -1);
+        INTER_CHECK(c != -1);
 
         if (c == '-') {
-            ensure(!inRange, "invalid pattern");
+            CHECK(!inRange, "invalid pattern");
             inRange = true;
         } else if (inRange) {
-            ensure(c >= last, "invalid pattern");
+            CHECK(c >= last, "invalid pattern");
             for (char i = last; i <= c; ++i) {
                 allowed.push_back(i);
             }
@@ -1559,9 +1627,9 @@ std::vector<char> Parser::parseBlock() {
         }
     }
 
-    ENSURE(control(next()) == ']');
+    INTER_CHECK(control(next()) == ']');
 
-    ENSURE(!inRange);
+    INTER_CHECK(!inRange);
     if (last != -1) {
         allowed.push_back(last);
     }
@@ -1589,7 +1657,7 @@ Pattern Parser::parsePattern() {
             if (control(nxt) == '[') {
                 chars = parseBlock();
             } else {
-                ENSURE(!control(nxt));
+                INTER_CHECK(!control(nxt));
                 chars = {static_cast<char>(nxt)};
             }
 
@@ -1617,28 +1685,29 @@ Pattern Parser::parsePattern() {
 using jngen::Pattern;
 
 
-#include <algorithm>
 #include <cmath>
-#include <cstdlib>
-#include <iterator>
 #include <limits>
 #include <random>
 #include <string>
-#include <type_traits>
 #include <utility>
 #include <vector>
+#include <cstdlib>
+#include <iterator>
+#include <algorithm>
+#include <type_traits>
 
 namespace jngen {
 
-void assertRandomEngineConsistency();
 void assertIntegerSizes();
+void assertRandomEngineConsistency();
 void registerGen(int argc, char *argv[], int version = 1);
 
 class Random;
 
 class BaseTypedRandom {
 public:
-    BaseTypedRandom(Random& random) : random(random) {}
+    BaseTypedRandom(Random& random)
+        : random(random) {}
 
 protected:
     Random& random;
@@ -1650,9 +1719,14 @@ struct TypedRandom;
 uint64_t maskForBound(uint64_t bound);
 
 template<typename Result, typename Source>
-Result uniformRandom(Result bound, Random& random, Source (Random::*method)()) {
+Result uniformRandom(Result bound,
+                     Random& random,
+                     Source(Random::*method)()) {
+
     static_assert(sizeof(Result) <= sizeof(Source),
-        "uniformRandom: Source type must be at least as large as Result type");
+                  "uniformRandom: Source type must be "
+                  "at least as large as Result type");
+
 #ifdef JNGEN_FAST_RANDOM
     return (random.*method)() % bound;
 #else
@@ -1678,7 +1752,6 @@ public:
             seedSeq.push_back(rd());
         }
         seed(seedSeq);
-
     }
 
     void seed(uint32_t val);
@@ -1727,10 +1800,9 @@ public:
 
     template<typename Iterator>
     auto choice(Iterator begin, Iterator end)
-            -> typename std::iterator_traits<Iterator>::value_type
-    {
+            -> typename std::iterator_traits<Iterator>::value_type {
         auto length = std::distance(begin, end);
-        ensure(length > 0, "Cannot select from a range of negative length");
+        CHECK(length > 0, "Cannot select from a range of negative length");
         size_t index = tnext<size_t>(length);
         std::advance(begin, index);
         return *begin;
@@ -1738,7 +1810,7 @@ public:
 
     template<typename Container>
     typename Container::value_type choice(const Container& container) {
-        ensure(!container.empty(), "Cannot select from an empty container");
+        CHECK(!container.empty(), "Cannot select from an empty container");
         return choice(container.begin(), container.end());
     }
 
@@ -1749,9 +1821,10 @@ public:
 
     template<typename Numeric>
     size_t nextByDistribution(const std::vector<Numeric>& distribution) {
-        ensure(!distribution.empty(), "Cannot sample by empty distribution");
-        Numeric sum = std::accumulate(
-                distribution.begin(), distribution.end(), Numeric(0));
+        CHECK(!distribution.empty(), "Cannot sample by empty distribution");
+        Numeric sum = std::accumulate(distribution.begin(),
+                                      distribution.end(),
+                                      Numeric(0));
         auto x = next(sum);
         for (size_t i = 0; i < distribution.size(); ++i) {
             if (x < distribution[i]) {
@@ -1771,7 +1844,7 @@ public:
 private:
     template<typename T, typename ...Args>
     T smallWnext(int w, Args... args) {
-        ENSURE(std::abs(w) <= WNEXT_LIMIT);
+        INTER_CHECK(std::abs(w) <= WNEXT_LIMIT);
         T result = next(args...);
         while (w > 0) {
             result = std::max(result, next(args...));
@@ -1877,16 +1950,19 @@ struct TypedRandom<std::pair<int, int>> : public BaseTypedRandom {
     std::pair<int, int> next(int n, RandomPairTraits traits) {
         int first = rnd.next(n);
         int second;
+
         do {
             second = rnd.next(n);
         } while (traits.distinct && first == second);
+
         if (traits.ordered && first > second) {
             std::swap(first, second);
         }
         return {first, second};
     }
+
     std::pair<int, int> next(int l, int r, RandomPairTraits traits) {
-        auto res = next(r-l+1, traits);
+        auto res = next(r - l + 1, traits);
         res.first += l;
         res.second += l;
         return res;
@@ -1923,11 +1999,11 @@ namespace jngen {
 
 void assertRandomEngineConsistency() {
     std::mt19937 engine(1234);
-    ENSURE(engine() == 822569775,
+    INTER_CHECK(engine() == 822569775,
         "std::mt19937 doesn't conform to the C++ standard");
-    ENSURE(engine() == 2137449171,
+    INTER_CHECK(engine() == 2137449171,
         "std::mt19937 doesn't conform to the C++ standard");
-    ENSURE(engine() == 2671936806,
+    INTER_CHECK(engine() == 2671936806,
         "std::mt19937 doesn't conform to the C++ standard");
 }
 
@@ -1996,51 +2072,50 @@ double Random::nextf() {
 }
 
 int Random::next(int n) {
-    ensure(n > 0);
+    CHECK(n > 0);
     return uniformRandom(n, *this, (uint32_t (Random::*)())&Random::next);
 }
 
 long long Random::next(long long n) {
-    ensure(n > 0);
+    CHECK(n > 0);
     return uniformRandom(n, *this, &Random::next64);
 }
 
 size_t Random::next(size_t n) {
-    ensure(n > 0);
+    CHECK(n > 0);
     return uniformRandom(n, *this, &Random::next64);
 }
 
 double Random::next(double n) {
-    ensure(n >= 0);
+    CHECK(n >= 0);
     return nextf() * n;
 }
 
 int Random::next(int l, int r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     uint32_t n = static_cast<uint32_t>(r) - l + 1;
-    return l + uniformRandom(
-        n, *this, (uint32_t (Random::*)())&Random::next);
+    return l + uniformRandom(n, *this, (uint32_t (Random::*)())&Random::next);
 }
 
 long long Random::next(long long l, long long r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     uint64_t n = static_cast<uint64_t>(r) - l + 1;
     return l + uniformRandom(n, *this, &Random::next64);
 }
 
 size_t Random::next(size_t l, size_t r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     uint64_t n = static_cast<uint64_t>(r) - l + 1;
     return l + uniformRandom(n, *this, &Random::next64);
 }
 
 double Random::next(double l, double r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     return l + next(r-l);
 }
 
 int Random::wnext(int n, int w) {
-    ensure(n > 0);
+    CHECK(n > 0);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<int>(w, n);
     } else {
@@ -2050,7 +2125,7 @@ int Random::wnext(int n, int w) {
 }
 
 long long Random::wnext(long long n, int w) {
-    ensure(n > 0);
+    CHECK(n > 0);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<long long>(w, n);
     } else {
@@ -2059,7 +2134,7 @@ long long Random::wnext(long long n, int w) {
 }
 
 size_t Random::wnext(size_t n, int w) {
-    ensure(n > 0);
+    CHECK(n > 0);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<size_t>(w, n);
     } else {
@@ -2068,7 +2143,7 @@ size_t Random::wnext(size_t n, int w) {
 }
 
 double Random::wnext(double n, int w) {
-    ensure(n >= 0);
+    CHECK(n >= 0);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<double>(w, n);
     } else {
@@ -2077,7 +2152,7 @@ double Random::wnext(double n, int w) {
 }
 
 int Random::wnext(int l, int r, int w) {
-    ensure(l <= r);
+    CHECK(l <= r);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<int>(w, l, r);
     } else {
@@ -2087,7 +2162,7 @@ int Random::wnext(int l, int r, int w) {
 }
 
 long long Random::wnext(long long l, long long r, int w) {
-    ensure(l <= r);
+    CHECK(l <= r);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<long long>(w, l, r);
     } else {
@@ -2097,7 +2172,7 @@ long long Random::wnext(long long l, long long r, int w) {
 }
 
 size_t Random::wnext(size_t l, size_t r, int w) {
-    ensure(l <= r);
+    CHECK(l <= r);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<size_t>(w, l, r);
     } else {
@@ -2107,7 +2182,7 @@ size_t Random::wnext(size_t l, size_t r, int w) {
 }
 
 double Random::wnext(double l, double r, int w) {
-    ensure(l <= r);
+    CHECK(l <= r);
     if (std::abs(w) <= WNEXT_LIMIT) {
         return smallWnext<double>(w, l, r);
     } else {
@@ -2141,8 +2216,8 @@ struct Range {
         last(last),
         step(step)
     {
-        ensure(first <= last);
-        ensure(step > 0);
+        CHECK(first <= last);
+        CHECK(step > 0);
     }
 
     class iterator {
@@ -2160,7 +2235,7 @@ struct Range {
         {  }
 
         iterator& operator++() {
-            ensure(value_ <= last_, "Cannot increment past-the-end iterator");
+            CHECK(value_ <= last_, "Cannot increment past-the-end iterator");
             value_ += step_;
             return *this;
         }
@@ -2172,7 +2247,7 @@ struct Range {
         }
 
         int operator*() const {
-            ensure(value_ <= last_, "Cannot dereference past-the-end iterator");
+            CHECK(value_ <= last_, "Cannot dereference past-the-end iterator");
             return value_;
         }
 
@@ -2203,7 +2278,7 @@ struct Range {
 
     static Range fromString(std::string s) {
         for (char& c: s) {
-            ensure(c != ' ', "No spaces allowed in range description");
+            CHECK(c != ' ', "No spaces allowed in range description");
             if (c == ':') {
                 c = ' ';
             }
@@ -2214,7 +2289,7 @@ struct Range {
         int last = std::numeric_limits<int>::max() - 1;
         int step = 1;
         if (!(ss >> first)) {
-            ensure(false, "Failed to parse range");
+            CHECK(false, "Failed to parse range");
         }
         if (!(ss >> last)) {
             return Range(first, last, step);
@@ -2260,7 +2335,7 @@ struct Index {
 
     Index(size_t index) : index(index) {
         if (!config.largeOptionIndices) {
-            ensure(
+            CHECK(
                 index < 32,
                 "Looks like you called getOpt('c'). Consider using "
                 "getOpt(\"c\") or set 'config.largeOptionIndices = true' "
@@ -2269,7 +2344,7 @@ struct Index {
     }
 
     Index(const std::string& name) : name(name) {
-        ensure(!name.empty(), "Variable name cannot be empty");
+        CHECK(!name.empty(), "Variable name cannot be empty");
     }
 
     bool isNamed() const {
@@ -2324,10 +2399,10 @@ struct VariableMap {
             return;
         }
         if (index.isNamed()) {
-            ensure(false, format(
+            CHECK(false, format(
                     "There is no variable with name '%s'", index.name.c_str()));
         } else {
-            ensure(false, format(
+            CHECK(false, format(
                     "There is no variable with index %d", index.index));
         }
     }
@@ -2372,7 +2447,7 @@ public:
         if (ss >> t) {
             return t;
         } else {
-            ensure(
+            CHECK(
                 false,
                 format(
                     "Cannot parse option. Raw value: '%s'",
@@ -2411,7 +2486,7 @@ public:
         if (ss >> t) {
             return t;
         } else {
-            ensure(
+            CHECK(
                 false,
                 format(
                     "Cannot parse option. Raw value: '%s'",
@@ -2431,7 +2506,7 @@ inline VariableMap parseArguments(const std::vector<std::string>& args) {
             const std::string& name,
             const std::string& value)
     {
-        ensure(
+        CHECK(
             !result.count(value),
             "Named arguments must have distinct names");
         result.named[name] = value;
@@ -2498,7 +2573,7 @@ JNGEN_EXTERN VariableMap vmap;
 namespace detail {
 
 inline PendingVariable<void> getOpt(const Index& index) {
-    ensure(
+    CHECK(
         vmap.initialized,
         "parseArgs(args, argv) must be called before getOpt(...)");
     vmap.assertExistence(index);
@@ -2507,7 +2582,7 @@ inline PendingVariable<void> getOpt(const Index& index) {
 
 template<typename T, typename U = detail::StringIfCharPtrElseT<T>>
 PendingVariable<U> getOpt(const Index& index, const T& defaultValue) {
-    ensure(
+    CHECK(
         vmap.initialized,
         "parseArgs(args, argv) must be called before getOpt(...)");
     if (vmap.count(index)) {
@@ -2567,13 +2642,13 @@ int getPositionalImpl(size_t index, T& var, Args&... args) {
 
 template<typename ... Args>
 int doGetNamed(const std::string& names, Args&... args) {
-    ensure(
+    CHECK(
         vmap.initialized,
         "parseArgs(args, argv) must be called before getNamed(...)");
 
     auto namesSplit = util::split(names, ',');
 
-    ENSURE(
+    INTER_CHECK(
         namesSplit.size() == sizeof...(args),
         "Number of names is not equal to number of variables");
 
@@ -2582,7 +2657,7 @@ int doGetNamed(const std::string& names, Args&... args) {
 
 template<typename ... Args>
 int getPositional(Args&... args) {
-    ensure(
+    CHECK(
         vmap.initialized,
         "parseArgs(args, argv) must be called before getPositional(...)");
 
@@ -2636,9 +2711,6 @@ using jngen::getPositional;
 #define getNamed(...) ::jngen::doGetNamed(#__VA_ARGS__, __VA_ARGS__)
 
 
-#include <iostream>
-#include <type_traits>
-
 namespace jngen {
 
 template<int N> struct PTag : PTag<N-1> {};
@@ -2655,7 +2727,6 @@ struct OutputModifier {
     bool printWeights = true;
 
     char sep = ' ';
-
 };
 
 JNGEN_EXTERN OutputModifier defaultMod;
@@ -2681,10 +2752,8 @@ protected:
     Repr<T>& operator=(Repr<T>&&) = default;
 
 public:
-    Repr(const T& object) :
-        object_(object),
-        mod_(defaultMod)
-    {  }
+    Repr(const T& object)
+        : object_(object), mod_(defaultMod) {}
 
     Repr<T>& add1(bool value = true) {
         mod_.addition = value;
@@ -2805,9 +2874,7 @@ class DefaultModSetter : public Repr<int> {
     friend DefaultModSetter setMod();
 
 private:
-    DefaultModSetter(int val) :
-        Repr<int>(val)
-    {  }
+    DefaultModSetter(int val) : Repr<int>(val) {}
 
 public:
     ~DefaultModSetter() {
@@ -2831,13 +2898,6 @@ using jngen::repr;
 using jngen::setMod;
 
 
-#include <iostream>
-#include <tuple>
-#include <type_traits>
-#include <typeinfo>
-#include <utility>
-#include <vector>
-
 namespace jngen {
 
 namespace detail {
@@ -2845,18 +2905,17 @@ namespace detail {
 // TODO: maybe make it more clear SFINAE, like boost::has_left_shift<X,Y>?
 // TODO: make these defines namespace independent
 
-#define JNGEN_DEFINE_FUNCTION_CHECKER(name, expr)\
-template<typename T, typename Enable = void>\
-class Has ## name ## Helper: public std::false_type {};\
-\
-template<typename T>\
-class Has ## name ## Helper<T,\
-    decltype(void(\
-        expr\
-    ))\
-> : public std::true_type {};\
+#define JNGEN_DEFINE_FUNCTION_CHECKER(name, expr)               \
+    template<typename T, typename Enable = void>                \
+    class Has ## name ## Helper : public std::false_type {};    \
+                                                                \
+    template<typename T>                                        \
+    class Has ## name ## Helper<T,                              \
+        decltype(void(                                          \
+            expr                                                \
+        ))> : public std::true_type {};                         \
 
-#define JNGEN_HAS_FUNCTION(name)\
+#define JNGEN_HAS_FUNCTION(name) \
     ::jngen::detail::Has ## name ## Helper<T>::value
 
 JNGEN_DEFINE_FUNCTION_CHECKER(
@@ -2879,9 +2938,9 @@ JNGEN_DEFINE_FUNCTION_CHECKER(
     std::distance(std::declval<T>().begin(), std::declval<T>().end())
 )
 
-#define JNGEN_HAS_OSTREAM()\
-    (JNGEN_HAS_FUNCTION(OstreamMethod) ||\
-        JNGEN_HAS_FUNCTION(OstreamFreeFunction))
+#define JNGEN_HAS_OSTREAM()                      \
+    (JNGEN_HAS_FUNCTION(OstreamMethod) ||        \
+     JNGEN_HAS_FUNCTION(OstreamFreeFunction))
 
 template<typename T>
 struct VectorDepth {
@@ -2899,30 +2958,32 @@ struct VectorDepth<C<T>> {
 
 } // namespace detail
 
-#define JNGEN_DECLARE_PRINTER(constraint, priority)\
-template<typename T>\
-auto printValue(\
-    std::ostream& out, const T& t, const OutputModifier& mod, PTag<priority>)\
-    -> enable_if_t<constraint, void>
+#define JNGEN_DECLARE_PRINTER(constraint, priority)         \
+    template<typename T>                                    \
+    auto printValue(std::ostream& out,                      \
+                    const T& t,                             \
+                    const OutputModifier& mod,              \
+                    PTag<priority>) ->                      \
+                    enable_if_t<constraint, void>
 
-#define JNGEN_DECLARE_SIMPLE_PRINTER(type, priority)\
-inline void printValue(std::ostream& out, const type& t,\
-    const OutputModifier& mod, PTag<priority>)
+#define JNGEN_DECLARE_SIMPLE_PRINTER(type, priority)        \
+    inline void printValue(std::ostream& out,               \
+                           const type& t,                   \
+                           const OutputModifier& mod,       \
+                           PTag<priority>)
 
-#define JNGEN_PRINT(value)\
-printValue(out, value, mod, PTagMax{})
+#define JNGEN_PRINT(value) \
+    printValue(out, value, mod, PTagMax{})
 
-#define JNGEN_PRINT_NO_MOD(value)\
-printValue(out, value, OutputModifier{}, PTagMax{})
+#define JNGEN_PRINT_NO_MOD(value) \
+    printValue(out, value, OutputModifier{}, PTagMax{})
 
-JNGEN_DECLARE_PRINTER(!JNGEN_HAS_OSTREAM(), 0)
-{
+JNGEN_DECLARE_PRINTER(!JNGEN_HAS_OSTREAM(), 0) {
     static bool locked = false;
 
-    ensure(
-            !locked,
-            std::string{} + "You are trying to print a type for which "
-            "operator<< is not defined: " + typeid(T).name());
+    CHECK(!locked,
+          std::string{} + "You are trying to print a type for which "
+          "operator<< is not defined: " + typeid(T).name());
 
     locked = true;
     (void)mod;
@@ -2930,15 +2991,12 @@ JNGEN_DECLARE_PRINTER(!JNGEN_HAS_OSTREAM(), 0)
     locked = false;
 }
 
-JNGEN_DECLARE_PRINTER(JNGEN_HAS_OSTREAM(), 10)
-{
+JNGEN_DECLARE_PRINTER(JNGEN_HAS_OSTREAM(), 10) {
     (void)mod;
     out << t;
 }
 
-JNGEN_DECLARE_PRINTER(
-    JNGEN_HAS_OSTREAM() && JNGEN_HAS_FUNCTION(Plus), 11)
-{
+JNGEN_DECLARE_PRINTER(JNGEN_HAS_OSTREAM() && JNGEN_HAS_FUNCTION(Plus), 11) {
     if (std::is_integral<T>::value) {
         out << T(t + mod.addition);
     } else {
@@ -2946,8 +3004,7 @@ JNGEN_DECLARE_PRINTER(
     }
 }
 
-JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 1, 3)
-{
+JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 1, 3) {
     if (mod.printN) {
         out << t.size() << "\n";
     }
@@ -2963,8 +3020,7 @@ JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 1, 3)
 }
 
 JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 1 &&
-    std::tuple_size<typename T::value_type>::value == 2, 4)
-{
+    std::tuple_size<typename T::value_type>::value == 2, 4) {
     if (mod.printN) {
         out << t.size() << "\n";
     }
@@ -2980,8 +3036,7 @@ JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 1 &&
     }
 }
 
-JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 2, 4)
-{
+JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 2, 4) {
     if (mod.printN) {
         out << t.size() << (mod.printM ? " " : "");
     }
@@ -2992,8 +3047,9 @@ JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 2, 4)
             auto size = t[0].size();
             out << size;
             for (const auto& vec: t) {
-                ensure(size == vec.size(), "Size of all matrix elements must "
-                        "be equal if printM is specified");
+                CHECK(size == vec.size(),
+                      "Size of all matrix elements must be "
+                      "equal if printM is specified");
             }
         }
     }
@@ -3018,8 +3074,7 @@ JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 2, 4)
     }
 }
 
-JNGEN_DECLARE_PRINTER(JNGEN_HAS_FUNCTION(Container), 2)
-{
+JNGEN_DECLARE_PRINTER(JNGEN_HAS_FUNCTION(Container), 2) {
     if (mod.printN) {
         out << t.size() << "\n";
     }
@@ -3035,8 +3090,7 @@ JNGEN_DECLARE_PRINTER(JNGEN_HAS_FUNCTION(Container), 2)
 }
 
 JNGEN_DECLARE_PRINTER(JNGEN_HAS_FUNCTION(Container)
-    && std::tuple_size<typename T::value_type>::value == 2, 3)
-{
+    && std::tuple_size<typename T::value_type>::value == 2, 3) {
     if (mod.printN) {
         out << t.size() << "\n";
     }
@@ -3055,8 +3109,7 @@ JNGEN_DECLARE_PRINTER(JNGEN_HAS_FUNCTION(Container)
 #define JNGEN_COMMA ,
 
 template<typename Lhs, typename Rhs>
-JNGEN_DECLARE_SIMPLE_PRINTER(std::pair<Lhs JNGEN_COMMA Rhs>, 3)
-{
+JNGEN_DECLARE_SIMPLE_PRINTER(std::pair<Lhs JNGEN_COMMA Rhs>, 3) {
     JNGEN_PRINT(t.first);
     out << " ";
     JNGEN_PRINT(t.second);
@@ -3074,11 +3127,10 @@ namespace namespace_for_fake_operator_ltlt {
 
 template<typename T>
 auto operator<<(std::ostream& out, const T& t)
-    -> enable_if_t<
-            !JNGEN_HAS_OSTREAM() && !std::is_base_of<BaseReprProxy, T>::value,
-            std::ostream&
-        >
-{
+        -> enable_if_t<
+            !JNGEN_HAS_OSTREAM() &&
+            !std::is_base_of<BaseReprProxy, T>::value,
+            std::ostream& > {
     // not jngen::printValue, because relying on ADL here for printers declared
     // later (see, e.g., http://stackoverflow.com/questions/42833134)
     printValue(out, t, jngen::defaultMod, jngen::PTagMax{});
@@ -3105,7 +3157,7 @@ namespace jngen {
 
 template<typename Iterator>
 void shuffle(Iterator begin, Iterator end) {
-    ensure(end >= begin, "Cannot shuffle range of negative length");
+    CHECK(end >= begin, "Cannot shuffle range of negative length");
     size_t size = end - begin;
     for (size_t i = 1; i < size; ++i) {
         std::swap(*(begin + i), *(begin + rnd.next(i + 1)));
@@ -3114,8 +3166,7 @@ void shuffle(Iterator begin, Iterator end) {
 
 template<typename Iterator>
 auto choice(Iterator begin, Iterator end)
-        -> typename std::iterator_traits<Iterator>::value_type
-{
+        -> typename std::iterator_traits<Iterator>::value_type {
     return rnd.choice(begin, end);
 }
 
@@ -3170,16 +3221,16 @@ using jngen::choice;
 using jngen::interleave;
 
 
-#include <algorithm>
-#include <initializer_list>
-#include <numeric>
 #include <set>
+#include <vector>
 #include <string>
+#include <utility>
+#include <numeric>
+#include <algorithm>
 #include <type_traits>
 #include <unordered_set>
 #include <unordered_map>
-#include <utility>
-#include <vector>
+#include <initializer_list>
 
 namespace jngen {
 
@@ -3198,9 +3249,7 @@ public:
 
     ~GenericArray() {}
 
-    /* implicit */ GenericArray(const Base& base) :
-            Base(base)
-    {  }
+    GenericArray(const Base& base) : Base(base) {}
 
     using Base::at;
     using Base::size;
@@ -3288,10 +3337,7 @@ GenericArray<T> GenericArray<T>::random(size_t size, const Args& ... args) {
 template<typename T>
 template<typename F, typename ...Args>
 GenericArray<T> GenericArray<T>::randomf(
-        size_t size,
-        F func,
-        const Args& ... args)
-{
+        size_t size, F func, const Args& ... args) {
     checkLargeParameter(size);
     GenericArray<T> result(size);
     for (T& x: result) {
@@ -3308,8 +3354,7 @@ struct DictContainer {
 };
 
 template<typename T>
-struct DictContainer<T, typename std::hash<T>::result_type>
-{
+struct DictContainer<T, typename std::hash<T>::result_type> {
     typedef std::unordered_set<T> type;
 };
 
@@ -3318,10 +3363,7 @@ struct DictContainer<T, typename std::hash<T>::result_type>
 template<typename T>
 template<typename F, typename ...Args>
 GenericArray<T> GenericArray<T>::randomfUnique(
-        size_t size,
-        F func,
-        const Args& ... args)
-{
+        size_t size, F func, const Args& ... args) {
     typename detail::DictContainer<T>::type set;
     checkLargeParameter(size);
     GenericArray<T> result;
@@ -3335,33 +3377,27 @@ GenericArray<T> GenericArray<T>::randomfUnique(
             set.insert(t);
             result.push_back(t);
         }
-
         if (--retries == 0) {
-            ensure(false, "There are not enough unique elements");
+            CHECK(false, "There are not enough unique elements");
         }
-
     }
-
     return result;
 }
 
 template<typename T>
 template<typename ...Args>
 GenericArray<T> GenericArray<T>::randomUnique(
-        size_t size, const Args& ... args)
-{
-    return GenericArray<T>::randomfUnique(
-        size,
-        [](Args... args) { return rnd.tnext<T>(args...); },
-        args...);
+        size_t size, const Args& ... args) {
+    auto func = [](Args... args) {
+        return rnd.tnext<T>(args...);
+    };
+    return GenericArray<T>::randomfUnique(size, func, args...);
 }
 
 template<typename T>
 template<typename F, typename ...Args>
 GenericArray<T> GenericArray<T>::randomfAll(
-        F func,
-        const Args& ... args)
-{
+        F func, const Args& ... args) {
     typename detail::DictContainer<T>::type set;
     GenericArray<T> result;
 
@@ -3386,11 +3422,11 @@ GenericArray<T> GenericArray<T>::randomfAll(
 
 template<typename T>
 template<typename ...Args>
-GenericArray<T> GenericArray<T>::randomAll(const Args& ... args)
-{
-    return GenericArray<T>::randomfAll(
-        [](Args... args) { return rnd.tnext<T>(args...); },
-        args...);
+GenericArray<T> GenericArray<T>::randomAll(const Args& ... args) {
+    auto func = [](Args... args) {
+        return rnd.tnext<T>(args...);
+    };
+    return GenericArray<T>::randomfAll(func, args...);
 }
 
 template<typename T>
@@ -3480,22 +3516,22 @@ GenericArray<T> GenericArray<T>::inverse() const {
     static_assert(
         std::is_integral<T>::value,
         "Can only take inverse permutation of integral array");
-    int n = size();
 
+    int n = size();
     if (n == 0) {
         return *this;
     }
 
     // sanity check
-    ensure(*max_element(begin(), end()) == n-1 &&
-        *min_element(begin(), end()) == 0,
-        "Trying to take inverse of the array which is not a permutation");
+    CHECK(*max_element(begin(), end()) == n - 1 &&
+          *min_element(begin(), end()) == 0,
+          "Trying to take inverse of the array which is not a permutation");
 
     const static T NONE = static_cast<T>(-1);
     GenericArray<T> result(n, NONE);
     for (int i = 0; i < n; ++i) {
-        ensure(result[at(i)] == NONE,
-            "Trying to take inverse of the array which is not a permutation");
+        CHECK(result[at(i)] == NONE,
+              "Trying to take inverse of the array which is not a permutation");
         result[at(i)] = i;
     }
 
@@ -3505,8 +3541,7 @@ GenericArray<T> GenericArray<T>::inverse() const {
 template<typename T>
 template<typename Integer>
 GenericArray<T> GenericArray<T>::subseq(
-        const std::vector<Integer>& indices) const
-{
+        const std::vector<Integer>& indices) const {
     GenericArray<T> result;
     result.reserve(indices.size());
     for (Integer idx: indices) {
@@ -3519,8 +3554,7 @@ GenericArray<T> GenericArray<T>::subseq(
 template<typename T>
 template<typename Integer>
 GenericArray<T> GenericArray<T>::subseq(
-        const std::initializer_list<Integer>& indices) const
-{
+        const std::initializer_list<Integer>& indices) const {
     return subseq(std::vector<T>(indices));
 }
 
@@ -3531,17 +3565,17 @@ T GenericArray<T>::choice() const {
 
 template<typename T>
 GenericArray<T> GenericArray<T>::choice(size_t count) const {
-    ensure(
-        count <= size(),
-        "Use Array::choiceWithRepetition to select more than size() elements");
+    CHECK(count <= size(),
+          "Use Array::choiceWithRepetition to "
+          "select more than size() elements");
 
     size_t n = size();
 
     std::unordered_map<size_t, size_t> used;
     std::vector<size_t> res;
     for (size_t i = 0; i < count; ++i) {
-        size_t oldValue = used.count(n-i-1) ? used[n-i-1] : n-i-1;
-        size_t index = rnd.tnext<size_t>(n-i);
+        size_t oldValue = used.count(n - i - 1) ? used[n - i - 1] : n - i - 1;
+        size_t index = rnd.tnext<size_t>(n - i);
         res.push_back(used.count(index) ? used[index] : index);
         used[index] = oldValue;
     }
@@ -3596,8 +3630,8 @@ GenericArray<T> GenericArray<T>::operator*(int k) const {
 
 template<typename T>
 GenericArray<T>::operator std::string() const {
-    static_assert(std::is_same<T, char>::value, "Must not cast"
-        " TArray<T> to std::string with 'T' != 'char'");
+    static_assert(std::is_same<T, char>::value,
+                  "Must not cast TArray<T> to std::string with 'T' != 'char'");
     return std::string(begin(), end());
 }
 
@@ -3624,9 +3658,8 @@ jngen::GenericArray<T> makeArray(const std::initializer_list<T>& values) {
 
 template<typename T, typename U>
 TArray<std::pair<T, U>> zip(const TArray<T>& lhs, const TArray<U>& rhs) {
-    ensure(
-        lhs.size() == rhs.size(),
-        "In zip(a, b), a and b must have the same size");
+    CHECK(lhs.size() == rhs.size(),
+          "In zip(a, b), a and b must have the same size");
     TArray<std::pair<T, U>> result;
     for (size_t i = 0; i < lhs.size(); ++i) {
         result.emplace_back(lhs[i], rhs[i]);
@@ -3787,10 +3820,9 @@ inline bool isPrime(long long n) {
     // (guaranteed for all integers < 2^64)
 
     // first strong pseudoprime to i64 bases is 3825123056546413051 ~= 3.8e18
-    ensure(n > 0, "isPrime() is undefined for negative numbers");
-    ensure(
-        n <= static_cast<long long>(3.8e18),
-        "isPrime() supports only numbers not greater than 3.8 * 10^18");
+    CHECK(n > 0, "isPrime() is undefined for negative numbers");
+    CHECK(n <= static_cast<long long>(3.8e18),
+          "isPrime() supports only numbers not greater than 3.8 * 10^18");
 
     if (n < std::numeric_limits<int>::max()) {
         return detail::millerRabinTest<int>(n, INT_WITNESSES);
@@ -3803,17 +3835,17 @@ class MathRandom {
 public:
     MathRandom() {
         static bool created = false;
-        ensure(!created, "jngen::MathRandom should be created only once");
+        CHECK(!created, "jngen::MathRandom should be created only once");
         created = true;
     }
 
     static long long randomPrime(long long n) {
-        ensure(n > 2, format("There are no primes below %lld", n));
+        CHECK(n > 2, format("There are no primes below %lld", n));
         return randomPrime(2, n - 1);
     }
 
     static long long randomPrime(long long l, long long r) {
-        ensure(l <= r);
+        CHECK(l <= r);
         std::unordered_set<long long> used;
         while (static_cast<long long>(used.size()) < r - l + 1) {
             long long x = rnd.next(l, r);
@@ -3825,12 +3857,7 @@ public:
                 return x;
             }
         }
-        ensure(
-            false,
-            format(
-                "There are no primes between %lld and %lld",
-                l, r)
-        );
+        CHECK(false, format("There are no primes between %lld and %lld", l, r));
     }
 
     static long long nextPrime(long long n) {
@@ -3841,7 +3868,7 @@ public:
     }
 
     static long long previousPrime(long long n) {
-        ensure(n >= 2, format("There are no primes less or equal to %lld", n));
+        CHECK(n >= 2, format("There are no primes less or equal to %lld", n));
         while (!isPrime(n)) {
             --n;
         }
@@ -3852,8 +3879,7 @@ public:
             int n,
             int numParts,
             int minSize = 0,
-            int maxSize = -1)
-    {
+            int maxSize = -1) {
         auto res = partition(
             static_cast<long long>(n),
             numParts,
@@ -3866,17 +3892,16 @@ public:
             long long n,
             int numParts,
             long long minSize = 0,
-            long long maxSize = -1)
-    {
+            long long maxSize = -1) {
         if (maxSize == -1) {
             maxSize = n;
         }
 
-        ensure(n >= 0);
-        ensure(numParts >= 0);
-        ensure(numParts * minSize <= n, "minSize is too large");
-        ensure(numParts * maxSize >= n, "maxSize is too small");
-        ensure(minSize <= maxSize);
+        CHECK(n >= 0);
+        CHECK(numParts >= 0);
+        CHECK(numParts * minSize <= n, "minSize is too large");
+        CHECK(numParts * maxSize >= n, "maxSize is too small");
+        CHECK(minSize <= maxSize);
 
         n -= minSize * numParts;
 
@@ -3918,7 +3943,7 @@ public:
             }
         }
 
-        ensure(remaining == 0, "maxSize is too small");
+        CHECK(remaining == 0, "maxSize is too small");
 
         return partition;
     }
@@ -3928,8 +3953,7 @@ public:
             TArray<T> elements,
             int numParts,
             int minSize = 0,
-            int maxSize = -1)
-    {
+            int maxSize = -1) {
         return partition(
             std::move(elements),
             partition(
@@ -3942,7 +3966,7 @@ public:
     template<typename T>
     TArray<TArray<T>> partition(TArray<T> elements, const Array& sizes) {
         size_t total = std::accumulate(sizes.begin(), sizes.end(), size_t(0));
-        ensure(total == elements.size(), "sum(sizes) != elements.size()");
+        CHECK(total == elements.size(), "sum(sizes) != elements.size()");
         elements.shuffle();
         TArray<TArray<T>> res;
         auto it = elements.begin();
@@ -3980,51 +4004,43 @@ class ArrayRandom {
 public:
     ArrayRandom() {
         static bool created = false;
-        ENSURE(!created, "jngen::ArrayRandom should be created only once");
+        INTER_CHECK(!created, "jngen::ArrayRandom should be created only once");
         created = true;
     }
 
     template<typename F, typename ...Args>
-    static auto randomf(
-            size_t size,
-            F func,
-            Args... args) -> GenericArray<decltype(func(args...))>
-    {
+    static auto randomf(size_t size, F func, Args... args)
+            -> GenericArray<decltype(func(args...))> {
         typedef decltype(func(args...)) T;
         return GenericArray<T>::randomf(size, func, args...);
     }
 
     template<typename F, typename ...Args>
-    static auto randomfUnique(
-            size_t size,
-            F func,
-            Args... args) -> GenericArray<decltype(func(args...))>
-    {
+    static auto randomfUnique(size_t size, F func, Args... args)
+            -> GenericArray<decltype(func(args...))> {
         typedef decltype(func(args...)) T;
         return GenericArray<T>::randomfUnique(size, func, args...);
     }
 
     template<typename F, typename ...Args>
-    static auto randomfAll(
-            F func,
-            Args... args) -> GenericArray<decltype(func(args...))>
-    {
+    static auto randomfAll(F func, Args... args)
+            -> GenericArray<decltype(func(args...))> {
         typedef decltype(func(args...)) T;
         return GenericArray<T>::randomfAll(func, args...);
     }
 
     static Array64 antiUnorderedSet(
-        int n,
-        double maxLoadFactor = 1.0,
-        bool reserve = false,
-        UnorderedSetCompiler compiler = UnorderedSetCompiler::Gcc4);
+            int n,
+            double maxLoadFactor = 1.0,
+            bool reserve = false,
+            UnorderedSetCompiler compiler = UnorderedSetCompiler::Gcc4);
 
 private:
     static Array64 numbersDividingPrime(int n, long long p);
 
     static long long nextPrime(
-        unsigned long long x,
-        UnorderedSetCompiler compiler);
+            unsigned long long x,
+            UnorderedSetCompiler compiler);
 };
 
 JNGEN_EXTERN ArrayRandom rnda;
@@ -4035,15 +4051,12 @@ Array64 ArrayRandom::antiUnorderedSet(
     int n,
     double maxLoadFactor,
     bool reserve,
-    UnorderedSetCompiler compiler)
-{
-    ensure(
-        compiler == UnorderedSetCompiler::Gcc4,
-        "unordered set antitest supported only for gcc-4.x yet");
+    UnorderedSetCompiler compiler) {
+    CHECK(compiler == UnorderedSetCompiler::Gcc4,
+          "unordered set antitest supported only for gcc-4.x yet");
 
-    ensure(
-        n <= 1000000,
-        "unordered set antitest supported only for n <= 1e7");
+    CHECK(n <= 1000000,
+          "unordered set antitest supported only for n <= 1e7");
 
     int buckets;
 
@@ -4071,9 +4084,8 @@ Array64 ArrayRandom::numbersDividingPrime(int n, long long p) {
 
 long long ArrayRandom::nextPrime(
     unsigned long long x,
-    UnorderedSetCompiler compiler)
-{
-    ENSURE(compiler == UnorderedSetCompiler::Gcc4);
+    UnorderedSetCompiler compiler) {
+    INTER_CHECK(compiler == UnorderedSetCompiler::Gcc4);
 
     const static size_t SIZE =
         sizeof(impl::primeList) / sizeof(impl::primeList[0]);
@@ -4350,7 +4362,7 @@ class GeometryRandom {
 public:
     GeometryRandom() {
         static bool created = false;
-        ensure(!created, "jngen::GeometryRandom should be created only once");
+        CHECK(!created, "jngen::GeometryRandom should be created only once");
         created = true;
     }
 
@@ -4490,7 +4502,7 @@ Polygon GeometryRandom::convexPolygon(
     // todo: off-by-one error?
     auto dx = X2 - X1;
     auto dy = Y2 - Y1;
-    ensure(n >= 0);
+    CHECK(n >= 0);
     Polygon res = detail::convexPolygonByEllipse<long long>(
         n * 10, // BUBEN!
         Point(dx / 2, dy / 2),
@@ -4499,13 +4511,13 @@ Polygon GeometryRandom::convexPolygon(
     );
     res.shift(Point(X1, Y1));
     for (auto& x: res) {
-        ENSURE(x.x >= X1);
-        ENSURE(x.x <= X2);
-        ENSURE(x.y >= Y1);
-        ENSURE(x.y <= Y2);
+        INTER_CHECK(x.x >= X1);
+        INTER_CHECK(x.x <= X2);
+        INTER_CHECK(x.y >= Y1);
+        INTER_CHECK(x.y <= Y2);
     }
 
-    ensure(
+    CHECK(
         static_cast<int>(res.size()) >= n,
         "Cannot generate a convex polygon with so many vertices");
 
@@ -4536,7 +4548,7 @@ TArray<Point> GeometryRandom::pointsInGeneralPosition(
             B = p2.x - p1.x;
             C = -(p1.x * A + p1.y * B);
 
-            ENSURE(A != 0 || B != 0);
+            INTER_CHECK(A != 0 || B != 0);
 
             long long g = util::gcd(A, util::gcd(B, C));
             A /= g;
@@ -4555,7 +4567,7 @@ TArray<Point> GeometryRandom::pointsInGeneralPosition(
     };
 
     const long long LIMIT = 2e9;
-    ensure(
+    CHECK(
         std::abs(X2 - X1) <= LIMIT && X1 <= LIMIT && X2 <= LIMIT &&
             std::abs(Y2 - Y1) <= LIMIT && Y1 <= LIMIT && Y2 <= LIMIT,
         "rndg.pointsInGeneralPosition must not be called with coordinates "
@@ -4641,7 +4653,7 @@ QueryBuilder::QueryBuilder(int l, int r) :
     lenRange_(1, r - l + 1),
     ordered_(true)
 {
-    ensure(l <= r);
+    CHECK(l <= r);
 }
 
 QueryBuilder& QueryBuilder::minLen(int value) {
@@ -4655,12 +4667,12 @@ QueryBuilder& QueryBuilder::maxLen(int value) {
 }
 
 QueryBuilder& QueryBuilder::range(int n) {
-    ensure(n > 0);
+    CHECK(n > 0);
     return this->range(0, n - 1);
 }
 
 QueryBuilder& QueryBuilder::range(int l, int r) {
-    ensure(l <= r);
+    CHECK(l <= r);
     range_ = {l, r+1};
     lenRange_.second = std::min(lenRange_.second, r - l + 1);
     lenRange_.first = std::min(lenRange_.first, lenRange_.second);
@@ -4697,14 +4709,14 @@ std::pair<int, int> QueryBuilder::next() {
         }
     }
     case QueryType::Large: {
-        ENSURE(false, "not implemented");
+        INTER_CHECK(false, "not implemented");
         break;
     }
     case QueryType::Small: {
-        ENSURE(false, "not implemented");
+        INTER_CHECK(false, "not implemented");
         break;
     }
-    default: ENSURE(false, "Nonexistent option");
+    default: INTER_CHECK(false, "Nonexistent option");
     }
 }
 
@@ -4741,7 +4753,7 @@ class StringRandom {
 public:
     StringRandom() {
         static bool created = false;
-        ENSURE(!created, "jngen::StringRandom should be created only once");
+        INTER_CHECK(!created, "jngen::StringRandom should be created only once");
         created = true;
     }
 
@@ -4789,7 +4801,7 @@ int popcount(long long x) {
 
 int trailingZeroes(long long x) {
     int res = 0;
-    ENSURE(x != 0);
+    INTER_CHECK(x != 0);
     while (!(x&1)) {
         ++res;
         x >>= 1;
@@ -4821,11 +4833,11 @@ std::vector<std::string> extendAntiHash(
         HashBase base,
         int count)
 {
-    ENSURE(count == 2, "Count != 2 is not supported (yet)");
+    INTER_CHECK(count == 2, "Count != 2 is not supported (yet)");
 
     size_t baseLength = chars[0].size();
     for (const auto& s: chars) {
-        ensure(s.size() == baseLength);
+        CHECK(s.size() == baseLength);
     }
 
     long long mod = base.first;
@@ -4858,7 +4870,7 @@ std::vector<std::string> extendAntiHash(
     if (count == 2) {
         needForMatch = 5 * pow(double(mod), 0.5);
     } else {
-        ENSURE(false, "Only count = 2 is supported yet");
+        INTER_CHECK(false, "Only count = 2 is supported yet");
     }
 
     int length = 2;
@@ -4906,11 +4918,11 @@ StringPair minimalAntiHashTest(
         const std::string allowedChars)
 {
     for (auto base: bases) {
-        ensure(base.first >= 0, "0 < MOD must hold");
-        ensure(
+        CHECK(base.first >= 0, "0 < MOD must hold");
+        CHECK(
             base.first <= (long long)(2e9),
             "Modules larger than 2'000'000'000 are not supported yet");
-        ensure(
+        CHECK(
             0 < base.second && base.second < base.first,
             "0 <= P < MOD must hold");
     }
@@ -4931,7 +4943,7 @@ StringPair minimalAntiHashTest(
 
     for (size_t i = 0; i != bases.size(); ++i) {
         cur = extendAntiHash(cur, bases[i], counts[i]);
-        ensure(static_cast<int>(cur.size()) == counts[i],
+        CHECK(static_cast<int>(cur.size()) == counts[i],
             "Cannot generate long enough pair with same hash");
     }
 
@@ -4953,7 +4965,7 @@ std::string StringRandom::random(int len, const std::string& alphabet) {
 }
 
 std::string StringRandom::thueMorse(int len, char first, char second) {
-    ensure(len >= 0);
+    CHECK(len >= 0);
     checkLargeParameter(len);
     std::string res(len, ' ');
     for (int i = 0; i < len; ++i) {
@@ -4963,7 +4975,7 @@ std::string StringRandom::thueMorse(int len, char first, char second) {
 }
 
 std::string StringRandom::abacaba(int len, char first) {
-    ensure(len >= 0);
+    CHECK(len >= 0);
     checkLargeParameter(len);
     std::string res(len, ' ');
     for (int i = 0; i < len; ++i) {
@@ -4985,7 +4997,7 @@ StringPair StringRandom::antiHash(
         return result;
     }
 
-    ensure(
+    CHECK(
         static_cast<int>(result.first.length()) <= length,
         "Cannot generate enough long anti-hash test");
 
@@ -5055,7 +5067,7 @@ void startTest(int testNo) {
     char filename[10];
     std::sprintf(filename, "%d", testNo);
     if (!std::freopen(filename, "w", stdout)) {
-        ensure(false, format("Cannot open the file `%s'", filename));
+        CHECK(false, format("Cannot open the file `%s'", filename));
     }
 }
 
@@ -5076,15 +5088,14 @@ Array64 randomTestSizes(
     int count,
     long long minSize,
     long long maxSize,
-    const Array64& predefined)
-{
+    const Array64& predefined) {
     for (auto x: predefined) {
         totalSize -= x;
     }
-    ensure(totalSize >= 0, "Sum of predefined test sizes exceeds total size");
-    ensure(count * minSize <= totalSize, "minSize is too large");
-    ensure(count * maxSize >= totalSize, "maxSize is too small");
-    ensure(minSize <= maxSize);
+    CHECK(totalSize >= 0, "Sum of predefined test sizes exceeds total size");
+    CHECK(count * minSize <= totalSize, "minSize is too large");
+    CHECK(count * maxSize >= totalSize, "maxSize is too small");
+    CHECK(minSize <= maxSize);
 
     return (rndm.partition(totalSize, count, minSize, maxSize) +
             predefined).shuffle();
@@ -5095,8 +5106,7 @@ Array randomTestSizes(
     int count,
     int minSize,
     int maxSize,
-    const Array& predefined)
-{
+    const Array& predefined) {
     return arrayCast<int>(randomTestSizes(
         static_cast<long long>(totalSize),
         count,
@@ -5177,17 +5187,16 @@ protected:
 };
 
 template<size_t Size, size_t Align, typename T, typename ... Args>
-class VariantImpl<Size, Align, T, Args...> : public VariantImpl<
+class VariantImpl<Size, Align, T, Args...>
+    : public VariantImpl<
         (sizeof(T) > Size ? sizeof(T) : Size),
         (alignof(T) > Align ? alignof(T) : Align),
-        Args...
-    >
-{
+        Args...> {
+
     using Base = VariantImpl<
         (sizeof(T) > Size ? sizeof(T) : Size),
         (alignof(T) > Align ? alignof(T) : Align),
-        Args...
-    >;
+        Args...>;
 
     constexpr static int MY_ID = sizeof...(Args);
 
@@ -5552,14 +5561,14 @@ using WeightArray = VariantArray<JNGEN_WEIGHT_TYPES>;
 using jngen::Weight;
 using jngen::WeightArray;
 
-
-#include <algorithm>
-#include <iostream>
-#include <iterator>
 #include <set>
+#include <vector>
 #include <string>
 #include <utility>
-#include <vector>
+#include <iostream>
+#include <iterator>
+#include <algorithm>
+
 
 namespace jngen {
 
@@ -5685,9 +5694,8 @@ JNGEN_DEFINE_STD_HASH(jngen::GenericGraph);
 namespace jngen {
 
 void GenericGraph::setVertexWeights(const WeightArray& weights) {
-    ensure(
-        static_cast<int>(weights.size()) == n(),
-        "The argument of setVertexWeights must have exactly n elements");
+    CHECK(static_cast<int>(weights.size()) == n(),
+          "The argument of setVertexWeights must have exactly n elements");
     vertexWeights_.resize(n());
     for (int i = 0; i < n(); ++i) {
         vertexWeights_[i] = weights[vertexByLabel(i)];
@@ -5695,7 +5703,7 @@ void GenericGraph::setVertexWeights(const WeightArray& weights) {
 }
 
 void GenericGraph::setVertexWeight(int v, const Weight& weight) {
-    ensure(v < n(), "setVertexWeight");
+    CHECK(v < n(), "setVertexWeight");
     v = vertexByLabel(v);
 
     vertexWeights_.extend(v + 1);
@@ -5703,20 +5711,19 @@ void GenericGraph::setVertexWeight(int v, const Weight& weight) {
 }
 
 void GenericGraph::setEdgeWeights(const WeightArray& weights) {
-    ensure(
-        static_cast<int>(weights.size()) == m(),
-        "The argument of setEdgeWeights must have exactly m elements");
+    CHECK(static_cast<int>(weights.size()) == m(),
+          "The argument of setEdgeWeights must have exactly m elements");
     edgeWeights_ = weights;
 }
 
 void GenericGraph::setEdgeWeight(size_t index, const Weight& weight) {
-    ensure(static_cast<int>(index) < m(), "setEdgeWeight");
+    CHECK(static_cast<int>(index) < m(), "setEdgeWeight");
     edgeWeights_.extend(index + 1);
     edgeWeights_[index] = weight;
 }
 
 Weight GenericGraph::vertexWeight(int v) const {
-    ensure(v < n(), "vertexWeight");
+    CHECK(v < n(), "vertexWeight");
     size_t index = vertexByLabel(v);
     if (index >= vertexWeights_.size()) {
         return Weight{};
@@ -5725,7 +5732,7 @@ Weight GenericGraph::vertexWeight(int v) const {
 }
 
 Weight GenericGraph::edgeWeight(size_t index) const {
-    ensure(static_cast<int>(index) < m(), "edgeWeight");
+    CHECK(static_cast<int>(index) < m(), "edgeWeight");
     if (index >= edgeWeights_.size()) {
         return Weight{};
     }
@@ -5738,7 +5745,7 @@ WeightArray GenericGraph::edgesWeight() const {
 
 Array GenericGraph::edges(int v) const {
 
-    ensure(v < n(), "Graph::edges(v)");
+    CHECK(v < n(), "Graph::edges(v)");
     v = vertexByLabel(v);
 
     Array result = internalEdges(v);
@@ -5759,7 +5766,7 @@ Arrayp GenericGraph::edges() const {
 }
 
 WeightArray GenericGraph::prepareWeightArray(WeightArray a, int requiredSize) {
-    ENSURE(a.hasNonEmpty(), "Attempt to print empty weight array");
+    INTER_CHECK(a.hasNonEmpty(), "Attempt to print empty weight array");
 
     a.extend(requiredSize);
     int type = a.anyType();
@@ -5775,7 +5782,7 @@ WeightArray GenericGraph::prepareWeightArray(WeightArray a, int requiredSize) {
 void GenericGraph::doShuffle() {
     // this if is to be removed after all checks pass
     if (vertexLabel_.size() < static_cast<size_t>(n())) {
-        ENSURE(false, "GenericGraph::doShuffle");
+        INTER_CHECK(false, "GenericGraph::doShuffle");
         vertexLabel_ = Array::id(n());
     }
 
@@ -5842,7 +5849,7 @@ void GenericGraph::addEdgeUnsafe(int u, int v) {
     int id = numEdges_++;
     edges_.emplace_back(u, v);
 
-    ENSURE(u < n() && v < n(), "GenericGraph::addEdgeUnsafe");
+    INTER_CHECK(u < n() && v < n(), "GenericGraph::addEdgeUnsafe");
 
     adjList_[u].push_back(id);
     if (!directed_ && u != v) {
@@ -5851,18 +5858,19 @@ void GenericGraph::addEdgeUnsafe(int u, int v) {
 }
 
 int GenericGraph::edgeOtherEnd(int v, int edgeId) const {
-    ENSURE(edgeId < numEdges_);
+    INTER_CHECK(edgeId < numEdges_);
     const auto& edge = edges_[edgeId];
     if (edge.first == v) {
         return edge.second;
     }
-    ENSURE(!directed_);
-    ENSURE(edge.second == v);
+    INTER_CHECK(!directed_);
+    INTER_CHECK(edge.second == v);
     return edge.first;
 }
 
 void GenericGraph::permuteEdges(const Array& order) {
-    ENSURE(static_cast<int>(order.size()) == m(), "GenericGraph::permuteEdges");
+    INTER_CHECK(static_cast<int>(order.size()) == m(),
+                "GenericGraph::permuteEdges");
 
     edges_ = edges_.subseq(order);
 
@@ -5984,7 +5992,7 @@ void GenericGraph::normalizeEdges() {
     if (!config.normalizeEdges) {
         return;
     }
-    ENSURE(
+    INTER_CHECK(
         vertexLabel_ == Array::id(n()),
         "Can call normalizeEdges() only on newly created graph");
 
@@ -6019,7 +6027,7 @@ int GenericGraph::compareTo(const GenericGraph& other) const {
 }
 
 void GenericGraph::initWithEdges(int n, const Arrayp& edges) {
-    ENSURE(this->n() == 0, "Can call initWithEdges only on empty graph");
+    INTER_CHECK(this->n() == 0, "Can call initWithEdges only on empty graph");
     extend(n);
 
     edges_ = edges;
@@ -6052,105 +6060,6 @@ void GenericGraph::initWithEdges(int n, const Arrayp& edges) {
 } // namespace jngen
 #undef JNGEN_INCLUDE_GENERIC_GRAPH_INL_H
 #endif // JNGEN_DECLARE_ONLY
-#include <vector>
-#include <string>
-#include <graphviz/gvc.h>
-#include <graphviz/cgraph.h>
-
-
-namespace jngen {
-// A general class for drawing a graph.
-class Graphviz {
-public:
-    Graphviz() {}
-    explicit Graphviz(std::shared_ptr<GenericGraph>g, std::string name)
-        : g_(g), name_(name) {}
-
-    // Set up a graphviz context.
-    void create_context();
-
-    // Create a graphviz graph.
-    void create_graph();
-
-    // Draw a graph.
-    void draw_graph();
-
-private:
-   GVC_t *gvc_;
-   std::shared_ptr<GenericGraph> g_;
-   Agraph_t *gv_;
-   std::vector<Agnode_t*> gvc_nodes_;
-   std::vector<Agedge_t*> gvc_edges_;
-   // Layout engine: default `dot`
-   // int layout_engine_{0};
-   // // Save type for output: default `pdf`
-   // int save_type_{0};
-   // string save name
-   std::string name_;
-};
-
-#ifndef JNGEN_DECLARE_ONLY
-
-void Graphviz::draw_graph() {
-    this->create_context();
-
-    this->create_graph();
-
-    // TODO(landcold7): make this cnfigable.
-    gvLayout (gvc_, gv_, "sfdp");
-    name_ += ".pdf";
-    gvRenderFilename (gvc_, gv_, "pdf", name_.c_str());
-
-    gvFreeLayout(gvc_, gv_);
-    agclose (gv_);
-    gvFreeContext(gvc_);
-}
-
-void Graphviz::create_graph() {
-
-    gv_ = agopen(const_cast<char*>("g"), Agundirected, 0);
-
-    // TODO(landcold7): speed up for drawing a large graph.
-    // agsafeset(gv_, const_cast<char*>("overlap"),
-    //           const_cast<char*>("true"),
-    //           const_cast<char*>(""));
-
-    for (int i = 0; i < g_->n(); ++i) {
-        // Node's name starting from zero.
-        // TODO (landcold7): make it configable.
-        Agnode_t *n = agnode(gv_, (char*)std::to_string(i).c_str(), 1);
-        gvc_nodes_.push_back(n);
-    }
-
-    Arrayp edges = g_->edges();
-    auto edges_weight = g_->edgesWeight();
-    for (int i = 0; i < g_->m(); ++i) {
-        int u = edges[i].first;
-        int v = edges[i].second;
-        Agedge_t *e = agedge(gv_, gvc_nodes_[u], gvc_nodes_[v], 0, 1);
-        gvc_edges_.push_back(e);
-        // If this edge has a weight on it.
-        if (edges_weight.size()) {
-            int w = edges_weight[i];
-            agsafeset(e, const_cast<char*>("label"),
-                      (char*)std::to_string(w).c_str(),
-                      const_cast<char*>(""));
-        }
-    }
-
-
-}
-
-void Graphviz::create_context() {
-    gvc_ = gvContext();
-}
-
-#endif
-
-} // namespace jngen
-
-using jngen::Graphviz;
-
 
 
 #include <algorithm>
@@ -6166,9 +6075,8 @@ public:
 
     Tree(const GenericGraph& gg) : GenericGraph(gg) {
         extend(1);
-        ensure(
-                dsu_.numComponents() == n() - m(),
-                "Cannot create a tree from a graph with cycles");
+        CHECK(dsu_.numComponents() == n() - m(),
+              "Cannot create a tree from a graph with cycles");
     }
 
     void addEdge(int u, int v, const Weight& w = Weight{}) override;
@@ -6200,7 +6108,7 @@ public:
 };
 
 JNGEN_DECLARE_SIMPLE_PRINTER(Tree, 2) {
-    ensure(t.isConnected(), "Cannot print a tree: it is not connected");
+    CHECK(t.isConnected(), "Cannot print a tree: it is not connected");
 
     if (mod.printEdges) {
         t.doPrintEdges(out, mod);
@@ -6235,7 +6143,7 @@ void Tree::addEdge(int u, int v, const Weight& w) {
     v = vertexByLabel(v);
 
     int ret = dsu_.unite(u, v);
-    ensure(ret, "A cycle appeared in the tree");
+    CHECK(ret, "A cycle appeared in the tree");
 
     addEdgeUnsafe(u, v);
 
@@ -6251,7 +6159,7 @@ bool Tree::canAddEdge(int u, int v) {
 }
 
 Array Tree::parents(int root) const {
-    ensure(isConnected(), "Tree::parents(int): Tree is not connected");
+    CHECK(isConnected(), "Tree::parents(int): Tree is not connected");
     root = vertexByLabel(root);
 
     Array parents(n());
@@ -6299,8 +6207,8 @@ Tree Tree::shuffledAllBut(const Array& except) const {
 }
 
 Tree Tree::link(int vInThis, const Tree& other, int vInOther) {
-    ensure(vInThis < n(), "Cannot link a nonexistent vertex");
-    ensure(vInOther < other.n(), "Cannot link to a nonexistent vertex");
+    CHECK(vInThis < n(), "Cannot link a nonexistent vertex");
+    CHECK(vInOther < other.n(), "Cannot link to a nonexistent vertex");
 
     Tree t(*this);
 
@@ -6314,8 +6222,8 @@ Tree Tree::link(int vInThis, const Tree& other, int vInOther) {
 }
 
 Tree Tree::glue(int vInThis, const Tree& other, int vInOther) {
-    ensure(vInThis < n(), "Cannot glue a nonexistent vertex");
-    ensure(vInOther < other.n(), "Cannot glue to a nonexistent vertex");
+    CHECK(vInThis < n(), "Cannot glue a nonexistent vertex");
+    CHECK(vInOther < other.n(), "Cannot glue to a nonexistent vertex");
 
     auto newLabel = [vInThis, vInOther, &other, this] (int v) {
         if (v < vInOther) {
@@ -6333,7 +6241,7 @@ Tree Tree::glue(int vInThis, const Tree& other, int vInOther) {
         t.addEdge(newLabel(e.first), newLabel(e.second));
     }
 
-    ensure(t.n() == n() + other.n() - 1);
+    CHECK(t.n() == n() + other.n() - 1);
 
     return t;
 }
@@ -6341,7 +6249,7 @@ Tree Tree::glue(int vInThis, const Tree& other, int vInOther) {
 // Tree generators go here
 
 Tree Tree::bamboo(int size) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     Tree t;
     for (int i = 0; i + 1 < size; ++i) {
@@ -6352,7 +6260,7 @@ Tree Tree::bamboo(int size) {
 }
 
 Tree Tree::random(int size) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     if (size == 1) {
         return Tree();
@@ -6361,7 +6269,7 @@ Tree Tree::random(int size) {
 }
 
 Tree Tree::randomPrim(int size, int elongation) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     Tree t;
     for (int v = 1; v < size; ++v) {
@@ -6373,7 +6281,7 @@ Tree Tree::randomPrim(int size, int elongation) {
 }
 
 Tree Tree::randomKruskal(int size) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     Tree t;
     t.extend(size);
@@ -6387,7 +6295,7 @@ Tree Tree::randomKruskal(int size) {
 }
 
 Tree Tree::star(int size) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
     Tree t;
     for (int i = 1; i < size; ++i) {
@@ -6398,10 +6306,10 @@ Tree Tree::star(int size) {
 }
 
 Tree Tree::caterpillar(int size, int length) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
-    ensure(length > 0, "Length of the caterpillar must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(length > 0, "Length of the caterpillar must be positive");
     checkLargeParameter(size);
-    ensure(length <= size);
+    CHECK(length <= size);
     Tree t = Tree::bamboo(length);
     for (int i = length; i < size; ++i) {
         t.addEdge(rnd.next(length), i);
@@ -6415,7 +6323,7 @@ Tree Tree::binary(int size) {
 }
 
 Tree Tree::kary(int size, int k) {
-    ensure(size > 0, "Number of vertices in the tree must be positive");
+    CHECK(size > 0, "Number of vertices in the tree must be positive");
     checkLargeParameter(size);
 
     Tree t;
@@ -6441,7 +6349,7 @@ Tree Tree::fromPruferSequence(const Array& code) {
 
     Tree t;
     for (int v: code) {
-        ENSURE(!leaves.empty());
+        INTER_CHECK(!leaves.empty());
         int to = *leaves.begin();
         leaves.erase(leaves.begin());
         if (--degree[v] == 1) {
@@ -6451,7 +6359,7 @@ Tree Tree::fromPruferSequence(const Array& code) {
         t.addEdge(v, to);
     }
 
-    ENSURE(leaves.size() == 2u);
+    INTER_CHECK(leaves.size() == 2u);
     t.addEdge(*leaves.begin(), *leaves.rbegin());
     t.normalizeEdges();
     return t;
@@ -6491,13 +6399,13 @@ void Tree::doPrintParents(std::ostream& out, const OutputModifier& mod) const {
         mod.printN = false;
 
         if (mod.printWeights && edgeWeights_.hasNonEmpty()) {
-            ensure(false, "Printing parents and edge weights is not supported");
-            ensure(
+            CHECK(false, "Printing parents and edge weights is not supported");
+            CHECK(
                 mod.printParents == -1,
                 "Root must not be set to any exact value when printing a tree "
                 "with edge weights. To fix it, either set printParents() "
                 "or printWeights(false)");
-            ENSURE(root == 0);
+            INTER_CHECK(root == 0);
             // TODO: some code to be here
         } else {
             JNGEN_PRINT(parents);
@@ -6508,12 +6416,10 @@ void Tree::doPrintParents(std::ostream& out, const OutputModifier& mod) const {
 #undef JNGEN_INCLUDE_TREE_INL_H
 #endif // JNGEN_DECLARE_ONLY
 
-
-
-#include <memory>
 #include <set>
 #include <utility>
 #include <vector>
+
 
 namespace jngen {
 
@@ -6535,18 +6441,12 @@ public:
     Graph(const GenericGraph& gg)
         : GenericGraph(gg) {}
 
-    // Graph(const GenericGraph& gg, std::string name)
-    //     : GenericGraph(gg, name) {}
-
     void setN(int n);
 
     Graph& shuffle();
     Graph shuffled() const;
     Graph& shuffleAllBut(const Array& except);
     Graph shuffledAllBut(const Array& except) const;
-
-    // TODO(landocld7): make this function works.
-    Graph& draw();
 
     static BuilderProxy random(int n, int m);
     static BuilderProxy complete(int n);
@@ -6558,14 +6458,8 @@ public:
     static BuilderProxy completeBipartite(int n1, int n2);
 };
 
-inline Graph& Graph::draw() {
-    // Graphviz gv(std::make_shared<GenericGraph>(this), this->name_);
-    // gv.draw_graph();
-    return *this;
-}
-
 inline void Graph::setN(int n) {
-    ensure(n >= this->n(), "Cannot lessen number of vertices in the graph");
+    CHECK(n >= this->n(), "Cannot lessen number of vertices in the graph");
     extend(n);
 }
 
@@ -6636,23 +6530,21 @@ class GraphRandom {
 public:
     GraphRandom() {
         static bool created = false;
-        ensure(!created, "jngen::GraphRandom should be created only once");
+        CHECK(!created, "jngen::GraphRandom should be created only once");
         created = true;
     }
 
     static BuilderProxy random(int n, int m) {
-        ensure(
-            n >= 0 && m >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n >= 0 && m >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n);
         checkLargeParameter(m);
         return BuilderProxy(Traits(n, m), &doRandom);
     }
 
     static BuilderProxy complete(int n) {
-        ensure(
-            n >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n * n);
         return BuilderProxy(Traits(n), [](Traits t) {
             Graph g;
@@ -6693,14 +6585,12 @@ public:
     }
 
     static BuilderProxy empty(int n) {
-        ensure(
-            n >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n);
         return BuilderProxy(Traits(n), [](Traits t) {
-            ensure(
-                t.n <= 1 || !t.connected,
-                "Empty graph on >1 vertices cannot be connected");
+            CHECK(t.n <= 1 || !t.connected,
+                  "Empty graph on >1 vertices cannot be connected");
             Graph g;
             if (t.directed) {
                 g.directed_ = true;
@@ -6711,18 +6601,17 @@ public:
     }
 
     static BuilderProxy cycle(int n) {
-        ensure(
-            n >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n);
         return BuilderProxy(Traits(n), [](Traits t) {
             Graph g;
             if (t.directed) {
                 g.directed_ = true;
-                ensure(!t.acyclic, "Cannot generate acyclic cycle");
+                CHECK(!t.acyclic, "Cannot generate acyclic cycle");
             }
             for (int i = 0; i < t.n; ++i) {
-                g.addEdge(i, (i+1)%t.n);
+                g.addEdge(i, (i + 1) % t.n);
             }
             g.normalizeEdges();
             return g;
@@ -6730,11 +6619,9 @@ public:
     }
 
     static BuilderProxy randomStretched(
-            int n, int m, int elongation, int spread)
-    {
-        ensure(
-            n >= 0 && m >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+            int n, int m, int elongation, int spread) {
+        CHECK(n >= 0 && m >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n);
         checkLargeParameter(m);
         return BuilderProxy(Traits(n, m), [elongation, spread](Traits t) {
@@ -6743,9 +6630,8 @@ public:
     }
 
     static BuilderProxy randomBipartite(int n1, int n2, int m) {
-        ensure(
-            n1 >= 0 && n2 >= 0 && m >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n1 >= 0 && n2 >= 0 && m >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n1 + n2);
         checkLargeParameter(m);
         return BuilderProxy(Traits(0, m), [n1, n2](Traits t) {
@@ -6755,12 +6641,11 @@ public:
 
 
     static BuilderProxy completeBipartite(int n1, int n2) {
-        ensure(
-            n1 >= 0 && n2 >= 0,
-            "Number of vertices and edges in the graph must be nonnegative");
+        CHECK(n1 >= 0 && n2 >= 0,
+              "Number of vertices and edges in the graph must be nonnegative");
         checkLargeParameter(n1 * n2);
         return BuilderProxy(Traits(0, 0), [n1, n2](Traits t) {
-            ensure(!t.directed, "Directed bipartite graphs are not supported");
+            CHECK(!t.directed, "Directed bipartite graphs are not supported");
 
             Arrayp edges;
             edges.reserve(n1 * n2);
@@ -6782,13 +6667,13 @@ private:
         int m = t.m;
 
         if (!t.allowMulti) {
-            ensure(m <= maxEdges(n, t), "Too many edges in the graph");
+            CHECK(m <= maxEdges(n, t), "Too many edges in the graph");
         }
 
         std::unordered_set<std::pair<int, int>> usedEdges;
 
         if (t.connected) {
-            ensure(m >= n - 1, "Not enough edges for a connected graph");
+            CHECK(m >= n - 1, "Not enough edges for a connected graph");
             auto treeEdges = Tree::random(n).edges();
             if (t.directed) {
                 for (auto& edge: treeEdges) {
@@ -6798,7 +6683,7 @@ private:
                 }
             }
             usedEdges.insert(treeEdges.begin(), treeEdges.end());
-            ENSURE(usedEdges.size() == static_cast<size_t>(n - 1));
+            INTER_CHECK(usedEdges.size() == static_cast<size_t>(n - 1));
         }
 
         auto edgeIsGood = [&usedEdges, t](std::pair<int, int> edge) {
@@ -6806,8 +6691,7 @@ private:
                 return false;
             }
             if (t.directed && !t.allowAntiparallel &&
-                    usedEdges.count({edge.second, edge.first}))
-            {
+                    usedEdges.count({edge.second, edge.first})) {
                 return false;
             }
             return true;
@@ -6863,8 +6747,7 @@ private:
                 return false;
             }
             if (t.directed && !t.allowAntiparallel &&
-                    usedEdges.count({edge.second, edge.first}))
-            {
+                    usedEdges.count({edge.second, edge.first})) {
                 return false;
             }
             return true;
@@ -6875,7 +6758,7 @@ private:
 
         while (static_cast<int>(edges.size()) != t.m) {
             if (--attemptsToFail == 0) {
-                ensure(false, format("Cannot generate random stretched graph "
+                CHECK(false, format("Cannot generate random stretched graph "
                     "with parameters %d, %d, %d, %d",
                     t.n, t.m, elongation, spread));
             }
@@ -6886,7 +6769,7 @@ private:
                 v = parents[v];
             }
 
-            ENSURE(v <= u);
+            INTER_CHECK(v <= u);
 
             if (!t.allowLoops && u == v) {
                 continue;
@@ -6917,22 +6800,22 @@ private:
         int m = t.m;
 
         if (!t.allowMulti) {
-            ensure(m <= static_cast<long long>(n1) * n2,
+            CHECK(m <= static_cast<long long>(n1) * n2,
                     "Too many edges in the graph");
         }
 
-        ensure(!t.directed, "Directed bipartite graphs are not supported");
+        CHECK(!t.directed, "Directed bipartite graphs are not supported");
 
         std::unordered_set<std::pair<int, int>> usedEdges;
 
         if (t.connected) {
-            ensure(m >= n1 + n2 - 1, "Not enough edges for a connected graph");
+            CHECK(m >= n1 + n2 - 1, "Not enough edges for a connected graph");
             auto pruferCode = Array::random(n2 - 1, 0, n1 - 1) +
                 Array::random(n1 - 1, n1, n1 + n2 - 1);
             pruferCode.shuffle();
             auto treeEdges = Tree::fromPruferSequence(pruferCode).edges();
             usedEdges.insert(treeEdges.begin(), treeEdges.end());
-            ENSURE(usedEdges.size() == static_cast<size_t>(n1 + n2 - 1));
+            INTER_CHECK(usedEdges.size() == static_cast<size_t>(n1 + n2 - 1));
         }
 
         auto edgeIsGood = [&usedEdges, t](std::pair<int, int> edge) {
@@ -6971,8 +6854,8 @@ private:
     }
 
     static long long maxEdges(int n, const Traits& t) {
-        ENSURE(!t.allowMulti);
-        long long res = static_cast<long long>(n) * (n-1);
+        INTER_CHECK(!t.allowMulti);
+        long long res = static_cast<long long>(n) * (n - 1);
         if (!(t.directed && t.allowAntiparallel)) {
             res /= 2;
         }
@@ -7046,7 +6929,7 @@ namespace suites {
             name = format("noname%d", (int)names_.size());\
         }\
         if (std::find(names_.begin(), names_.end(), name) != names_.end()) {\
-            ENSURE(false, format("Duplicated test name: '%s'", name.c_str()));\
+            INTER_CHECK(false, format("Duplicated test name: '%s'", name.c_str()));\
         }\
         names_.emplace_back(name);\
     }\
@@ -7069,7 +6952,7 @@ public:
     }
 
     T gen(size_t id, Args... args) const {
-        ensure(
+        CHECK(
             id < producers_.size(),
             format("Cannot generate test #%d in suite '%s', there are only "
                 "%d", (int)id, name_.c_str(), (int)producers_.size()));
@@ -7079,7 +6962,7 @@ public:
     T gen(const std::string& name, Args... args) const {
         size_t pos = std::find(names_.begin(), names_.end(), name)
             - names_.begin();
-        ensure(
+        CHECK(
             pos < names_.size(),
             format("There is no test '%s' in suite '%s'",
                 name.c_str(), name_.c_str()));
@@ -7087,7 +6970,7 @@ public:
     }
 
     TArray<T> genMany(size_t count, Args... args) const {
-        ensure(
+        CHECK(
             count <= producers_.size(),
             format("Cannot generate %d tests in suite '%s', there are only "
                 "%d", (int)count, name_.c_str(), (int)producers_.size()));
@@ -7288,7 +7171,7 @@ public:
             t = t.glue(0, Tree::bamboo(k), 0);
             t = t.glue(0, Tree::bamboo(k), 0);
 
-            ENSURE(t.n() <= n);
+            INTER_CHECK(t.n() <= n);
 
             return t;
         };
@@ -7299,7 +7182,7 @@ public:
             while (t.n() + k - 1 <= n) {
                 t = t.glue(0, Tree::bamboo(k), 0);
             }
-            ENSURE(t.n() <= n);
+            INTER_CHECK(t.n() <= n);
             return t;
         };
 
@@ -7308,7 +7191,7 @@ public:
             for (int i = 2; t.n() + i <= n; ++i) {
                 t = t.link(0, Tree::bamboo(i), 0);
             }
-            ENSURE(t.n() < n);
+            INTER_CHECK(t.n() < n);
             return t;
         };
 

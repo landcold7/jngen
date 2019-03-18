@@ -1,20 +1,21 @@
 #pragma once
 
-#include "array.h"
-#include "dsu.h"
-#include "printers.h"
-#include "weight.h"
-
-#include <algorithm>
-#include <iostream>
-#include <iterator>
 #include <set>
+#include <vector>
 #include <string>
 #include <utility>
-#include <vector>
+#include <iostream>
+#include <iterator>
+#include <algorithm>
+
+#include "dsu.h"
+#include "array.h"
+#include "weight.h"
+#include "printers.h"
 
 namespace jngen {
 
+// TODO(landcold7): Add subscription operator
 class GenericGraph {
 public:
     virtual ~GenericGraph() {}

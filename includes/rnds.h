@@ -22,7 +22,7 @@ class StringRandom {
 public:
     StringRandom() {
         static bool created = false;
-        ENSURE(!created, "jngen::StringRandom should be created only once");
+        INTER_CHECK(!created, "jngen::StringRandom should be created only once");
         created = true;
     }
 
