@@ -19,6 +19,8 @@ struct OutputModifier {
 
     char sep = ' ';
     bool newline = false;
+    // We dont want a line to be too long to print.
+    int newlineLength = 600;
 };
 
 JNGEN_EXTERN OutputModifier defaultMod;
@@ -91,6 +93,11 @@ public:
         return *this;
     }
 
+    Repr<T>& newlineLength(int value) {
+        mod_.newline = value;
+        return *this;
+    }
+
 private:
     void print(std::ostream& out) const {
         printValue(out, object_, mod_, PTagMax{});
@@ -159,6 +166,13 @@ public:
         repr.println(value);
         return repr;
     }
+
+    Repr<T> newline(int value) {
+        Repr<T> repr(static_cast<const T&>(*this));
+        repr.println(value);
+        return repr;
+    }
+
 protected:
     ReprProxy() {
         static_assert(

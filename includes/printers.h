@@ -114,13 +114,19 @@ JNGEN_DECLARE_PRINTER(detail::VectorDepth<T>::value == 1, 3) {
         out << t.size() << "\n";
     }
     bool first = true;
-    for (const auto& x: t) {
+    int count = 0;
+    for (const auto & x : t) {
+        ++count;
         if (first) {
             first = false;
         } else {
             out << mod.sep;
         }
         JNGEN_PRINT(x);
+        if (count >= mod.newlineLength) {
+            count = 0;
+            out << "\n";
+        }
     }
     if (mod.newline) {
         out << "\n\n";

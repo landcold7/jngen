@@ -274,6 +274,9 @@ void GenericGraph::doPrintEdges(
             JNGEN_PRINT(edges);
         }
     }
+    if (mod.newline) {
+        out << "\n\n";
+    }
 }
 
 bool GenericGraph::operator==(const GenericGraph& other) const {
